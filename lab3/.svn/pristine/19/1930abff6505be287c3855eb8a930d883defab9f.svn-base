@@ -1,0 +1,164 @@
+#include <lcom/lcf.h>
+#include <keyboard.h>
+#include <i8042.h>
+#include <utils.h>
+
+#include <stdint.h>
+
+int KBC_HOOK_ID = KBC_IRQ;
+uint8_t SCANCODE[2]={0,0};
+bool SCANCODE_2B = false; // true if it is a 2 byte scancode 
+uint8_t KBC_IH; // 0 if interrupt handler executed without problems and non-zero otherwise
+
+#ifdef LAB3
+extern uint32_t SYS_INB_COUNTER;
+#endif
+
+int (kbc_subscribe_int)(uint8_t *bit_no) {
+  *bit_no = KBC_HOOK_ID;
+
+  //subscribe a notification on every interrupt in the IRQ1 (interrupt request line) of the KBC
+
+  if(sys_irqsetpolicy(KBC_IRQ, IRQ_REENABLE|IRQ_EXCLUSIVE, &KBC_HOOK_ID) != OK){
+    return 1;
+  }
+  return 0;
+}
+
+int (kbc_unsubscribe_int()) {
+  //unsubscribe a previous subscription of a specific interrupt notification (the one associated with the HOOK_ID)
+  if(sys_irqrmpolicy(&KBC_HOOK_ID) != OK){
+    return 1;
+  }
+  return 0;
+}
+
+void (kbc_ih)(){
+  uint8_t state;
+  uint8_t scancode_byte;
+  KBC_IH = 0;
+
+  //using a while loop to loop while 8042 output buffer is empty
+  while(1){
+    //Read status from status register
+  //Check if any error occured in the serial communication line
+    if(kbc_read_state_error(&state) != 0){
+      KBC_IH = 1;
+      break; /* if one of these errors occured: getting the state from the status register; timeout error; parity error; break from loop and send error code from the handdler via variable KBC_IH*/
+    }
+
+    if(kbc_read_state_field(state,ksf_obf) == 1){ // full OUT_BUF
+      //Read the scancode byte from the output buffer - one byte at a time
+      #ifdef LAB3
+      SYS_INB_COUNTER++;
+      #endif
+
+      if(util_sys_inb(OUT_BUF,&scancode_byte) != 0){
+        KBC_IH = 1;//If there was some error, the byte read from the OUT_BUF should be discarded.
+        break; // error code set and end function - break from loop
+      }
+      if(SCANCODE_2B == false){
+        if(scancode_byte == SCANCODE_2B_FB){
+          //if it is a two byte scancode
+          SCANCODE_2B = true;
+          SCANCODE[0] = scancode_byte;
+        }
+        else
+          SCANCODE[0] = scancode_byte;
+      }
+      else{
+        SCANCODE[1] = scancode_byte;
+        SCANCODE_2B = false;
+      }
+      KBC_IH = 0;
+      break;
+    }
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+}
+
+uint8_t kbc_read_state_field(const uint8_t state, enum kbc_state_field field) {
+  uint8_t result;
+
+  switch(field){
+    case(ksf_all):
+      result = state;
+      break;
+    case(ksf_parity):
+      result = ((state & KB_SR_PARITY)>>7);
+      break;
+    case(ksf_timeout):
+      result =((state & KB_SR_TIMEOUT)>>6);
+      break;
+    case(ksf_aux):
+      result = ((state & KB_SR_AUX)>>5);
+      break;
+    case(ksf_inh):
+      result = ((state & KB_SR_INH)>>4);
+      break;
+    case(ksf_a2):
+      result = ((state & KB_SR_A2)>>3);
+    case(ksf_sys):
+      result = ((state & KB_SR_SYS)>>2);
+      break;
+    case(ksf_ibf):
+      result = ((state & KB_SR_IBF)>>1);
+      break;
+    case(ksf_obf):
+      result = (state & KB_SR_OBF);
+      break;
+    default:
+      return 1;
+  }
+
+  return result;
+}
+
+int kbc_read_state_error(uint8_t *state){
+  
+  //get state from status register
+  if (util_sys_inb(STAT_REG, state) != 0)
+    return 1;
+  #ifdef LAB3
+  SYS_INB_COUNTER++;
+  #endif
+
+  //if one or both fields are set to 1 there is an error - return 1
+  if(kbc_read_state_field(*state,ksf_parity) == 1 || kbc_read_state_field(*state,ksf_timeout) == 1 || kbc_read_state_field(*state,ksf_aux) == 1)
+    return 1;
+  return 0;
+}
+
+//read the out_buf (in lab3 read return value from a kbc command)
+int kbc_read_command_return(uint8_t *cmd){
+  #ifdef LAB3
+  SYS_INB_COUNTER++;
+  #endif
+  if(util_sys_inb(OUT_BUF,cmd) != 0)
+    return 1;
+  return 0;
+}
+
+int kbc_write_command(uint8_t cmd){
+  if(sys_outb(KBC_WRITE_CB,cmd) != 0)
+    return 1;
+  return 0;
+}
+
+//issue a command after checking if input buffer is empty - writing is ok
+int kbc_issue_command(uint8_t *state, uint8_t cmd){
+  while (1) {
+    #ifdef LAB3
+    SYS_INB_COUNTER++;
+    #endif
+    if(util_sys_inb(STAT_REG, state) !=0 ){
+      return 1;
+    }
+    
+    if(kbc_read_state_field(*state,ksf_ibf) == 0){
+      sys_outb(KBC_CMD_REG, cmd);
+      return 0;
+    }
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+}

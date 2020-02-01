@@ -1,0 +1,674 @@
+\hypertarget{game_8c}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/game.c File Reference}
+\label{game_8c}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/game.c@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/game.c}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}highscores.\+h\char`\"{}}\newline
+Include dependency graph for game.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{game_8c_aaaff4e132cd3b41673859b2b4ea1159f}{game\+Start}} ()
+\begin{DoxyCompactList}\small\item\em Load letters,sentences and xpm\textquotesingle{}s, set graphics mode and start game. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{game_8c_a8df558a332b33b1b0be4f15a02438531}{game\+State\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Load letters,sentences and xpm\textquotesingle{}s, set graphics mode and start game. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a1ccca907138b5e9af2569d8c0732b74b}{counter\+Start}} ()
+\begin{DoxyCompactList}\small\item\em Displays a 3 2 1 counter before the start of the game mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a384fd7bc5dd16b6f904889a9b44d0ca6}{menu\+\_\+mode}} (bool $\ast$timed\+Results, bool $\ast$sec3counter, bool $\ast$timerreset)
+\begin{DoxyCompactList}\small\item\em Draw menu components, buttons and mouse and go to game modes if buttons are pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a06326bc3ce2fdfe90cb6eb3172159fd0}{draw\+Main\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Draw Menu\textquotesingle{}s components on screen depending on the position/pressed buttons of the mouse. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a6d636c5d37c022c2b68db53b8a4a6b87}{classic\+\_\+mode}} (\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$sentence, \mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$input, unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} $\ast$index, bool $\ast$sec3counter, bool $\ast$timerreset)
+\begin{DoxyCompactList}\small\item\em Draw classic mode sentence,input and handle classic game mode state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a1584348a343494bd3b81c20776dde34b}{classic\+Mode\+Start}} (\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$sentence, \mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$input)
+\begin{DoxyCompactList}\small\item\em Draw the initial game components for the Classic Mode on the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_ae2c313c74afd4c1d014957c8a8ad3f19}{classic\+Mode\+Draw}} (\mbox{\hyperlink{structletter}{letter}} $\ast$sentence, \mbox{\hyperlink{structletter}{letter}} $\ast$input, unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} index)
+\begin{DoxyCompactList}\small\item\em Draw game components for Classic Mode on screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a98389bdfd88eb39ac7e97b7746a86887}{timed\+\_\+mode}} (\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$sentence, \mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$input, unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} $\ast$index, bool $\ast$sec3counter, bool $\ast$timerreset, bool $\ast$timed\+Results)
+\begin{DoxyCompactList}\small\item\em Draw timed mode sentence,input and handle timed game mode state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a4923d4462686f737bb06f5b0b7a2e596}{timed\+Mode\+Start}} (\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$sentence, \mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$input)
+\begin{DoxyCompactList}\small\item\em Draw the initial game components for the Timed Mode on the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a530d0e0b6bcbf9dafa1bf9e3afd37259}{timed\+Mode\+Draw}} (\mbox{\hyperlink{structletter}{letter}} $\ast$sentence, \mbox{\hyperlink{structletter}{letter}} $\ast$input, unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} index)
+\begin{DoxyCompactList}\small\item\em Draw game components for Timed Mode on screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a85a521ea3fd3bf532fbaca38a716ed0f}{kbc\+\_\+handle}} (\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$sentence, \mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$input, unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} $\ast$index)
+\begin{DoxyCompactList}\small\item\em Perform game actions according to the game State. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_aca85c5fc48080fe3e5fc63cbfd15e3dd}{mouse\+\_\+handler}} (struct packet $\ast$p)
+\begin{DoxyCompactList}\small\item\em Handle mouse movements. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_adedf4c6f1ed84aa26f340279deba04fe}{draw\+Time\+Elapsed}} ()
+\begin{DoxyCompactList}\small\item\em Draw the time elapsed since the start of the timed mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{game_8h_aea2d68ec8709202aa448480147eda8e7}{key\+Pressed}} \mbox{\hyperlink{game_8c_aa814c1223e4515e27932c51a7f912f46}{check\+Scan\+Code}} (uint8\+\_\+t $\ast$scancode)
+\begin{DoxyCompactList}\small\item\em Check the scancode read from the keyboard to determine next action to take. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_aa2a9eecf722be30effc443be4e32b075}{generate\+Random\+Sentence}} (\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$sentence)
+\begin{DoxyCompactList}\small\item\em Generate a random sentence from a array of sentences. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a428244ddf0eb2af89871387d2b7b8abd}{sentence\+Completed}} ()
+\begin{DoxyCompactList}\small\item\em Calculates statistics to send to \mbox{\hyperlink{game_8h_a6b53c7bdd4b90b905dd483f3e7dab7b7}{result\+Screen()}} to display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_af509280765b24e1f64cf2b348fdb4395}{sentence\+Completed\+Timed}} ()
+\begin{DoxyCompactList}\small\item\em Calculates statistics to send to result\+Screen\+Timed() to display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a6b53c7bdd4b90b905dd483f3e7dab7b7}{result\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Draws the results layout. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{game_8h_a46751090147a38e9f21f9801e7922f88}{input\+Validation}} \mbox{\hyperlink{game_8c_a3aa72275b77c585d13d35329ea363b5f}{validate\+Letter}} (\mbox{\hyperlink{structletter}{letter}} $\ast$let, uint8\+\_\+t $\ast$scancode, \mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$input, unsigned index)
+\begin{DoxyCompactList}\small\item\em Checks if the input of a letter by the user corresponds to the one at index i in the sentence. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a92264a80f56133f509aabd1b25fd9b7d}{draw\+\_\+date}} ()
+\begin{DoxyCompactList}\small\item\em Draw the date. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a7a6196f9ae7dc4d6ac8cc52a16719141}{high\+Scores\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em Show a screen with the highest scores (top 5) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a26b9c84c114e6513e181679f76a97854}{save\+\_\+score\+\_\+screen}} ()
+\begin{DoxyCompactList}\small\item\em Shows a screen with a \char`\"{}buffer\char`\"{} where the user should enter a username to save the score. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a68ec565e0ad3115e9e89f967b0d85aae}{player\+Name}} (uint8\+\_\+t $\ast$scancode)
+\begin{DoxyCompactList}\small\item\em Handles keyboard interruptions and validates scancodes to write the player\textquotesingle{}s username. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_ae7ed124302f000fe36828382c93950aa}{back\+\_\+to\+\_\+menu}} ()
+\begin{DoxyCompactList}\small\item\em Go to main menu if button is pressed and save score if in Save Score mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{game_8c_a206f86a751bda60cf0e3fbcfe53d6d68}{free\+\_\+sprites}} ()
+\begin{DoxyCompactList}\small\item\em Free space allocated for the sprites. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{game_8c_ab7b1e71aacce175bf1c893054fa07781}{S\+C\+A\+N\+C\+O\+DE}} \mbox{[}2\mbox{]}
+\item 
+bool \mbox{\hyperlink{game_8c_a172035857ff29c458da347f647932126}{S\+C\+A\+N\+C\+O\+D\+E\+\_\+2B}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{game_8c_abf7826fb638d279ecaf7f7a84611b89f}{T\+I\+M\+E\+R\+\_\+\+C\+O\+U\+N\+T\+ER}}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{game_8c_a8024bb17e2463e3ccf943106e2a2bfa0}{M\+O\+U\+S\+E\+\_\+\+H\+O\+O\+K\+\_\+\+ID}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{game_8c_a1afc4e0f161fbfda3ba08a7bdc4eb372}{P\+A\+C\+K\+ET}}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{game_8c_ae67372145a3663fd82b8e96e146eade4}{P\+A\+C\+K\+E\+T\+\_\+\+B\+Y\+T\+E\+\_\+\+C\+O\+U\+N\+T\+ER}}
+\item 
+\mbox{\hyperlink{structletter}{letter}} $\ast$ \mbox{\hyperlink{game_8c_a2aa1ba7fcac0cb812be381928effe134}{abc}}
+\begin{DoxyCompactList}\small\item\em The game\textquotesingle{}s alphabet. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structletter}{letter}} $\ast$ \mbox{\hyperlink{game_8c_a63350bc24db6ea4c877e6e8a50169767}{error\+Message}}
+\item 
+\mbox{\hyperlink{structnumber}{number}} $\ast$ \mbox{\hyperlink{game_8c_ac2122a5504125f11c374898036f53680}{numbers}}
+\begin{DoxyCompactList}\small\item\em The game\textquotesingle{}s numeric alphabet. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$ \mbox{\hyperlink{game_8c_ad9383479c1fc9cf22dfe67c1c7226f7a}{sentences}}
+\begin{DoxyCompactList}\small\item\em Array of xpm\textquotesingle{}s representing an error message that may be showed due to too many errors. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{game_8c_a0c5553f4dbeead8d2e30b91569cf6d32}{green\+Char}}
+\begin{DoxyCompactList}\small\item\em to store green color bytes in rgb565 \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{game_8c_a93a62da31cc206f1234906b28892f11d}{red\+Char}}
+\item 
+char $\ast$ \mbox{\hyperlink{game_8c_a91b7eb3a6d11836107267c4bd6daf72d}{black\+Char}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{game_8c_ae7ed124302f000fe36828382c93950aa}\label{game_8c_ae7ed124302f000fe36828382c93950aa}} 
+\index{game.c@{game.c}!back\_to\_menu@{back\_to\_menu}}
+\index{back\_to\_menu@{back\_to\_menu}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{back\_to\_menu()}{back\_to\_menu()}}
+{\footnotesize\ttfamily void back\+\_\+to\+\_\+menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Go to main menu if button is pressed and save score if in Save Score mode. 
+
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{game_8c_aa814c1223e4515e27932c51a7f912f46}\label{game_8c_aa814c1223e4515e27932c51a7f912f46}} 
+\index{game.c@{game.c}!checkScanCode@{checkScanCode}}
+\index{checkScanCode@{checkScanCode}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{checkScanCode()}{checkScanCode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{game_8h_aea2d68ec8709202aa448480147eda8e7}{key\+Pressed}} check\+Scan\+Code (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{scancode }\end{DoxyParamCaption})}
+
+
+
+Check the scancode read from the keyboard to determine next action to take. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & The scancode read from the keyboard\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a variable that indicates te type of key pressed 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{game_8c_a6d636c5d37c022c2b68db53b8a4a6b87}\label{game_8c_a6d636c5d37c022c2b68db53b8a4a6b87}} 
+\index{game.c@{game.c}!classic\_mode@{classic\_mode}}
+\index{classic\_mode@{classic\_mode}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{classic\_mode()}{classic\_mode()}}
+{\footnotesize\ttfamily void classic\+\_\+mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{sentence,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{input,  }\item[{unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} $\ast$}]{index,  }\item[{bool $\ast$}]{sec3counter,  }\item[{bool $\ast$}]{timerreset }\end{DoxyParamCaption})}
+
+
+
+Draw classic mode sentence,input and handle classic game mode state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & The sentence that the user must write \\
+\hline
+{\em input} & The letters typed by the user \\
+\hline
+{\em index} & The index of the last valid letter typed \\
+\hline
+{\em sec3counter} & ~\newline
+ \\
+\hline
+{\em timerreset} & \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{game_8c_ae2c313c74afd4c1d014957c8a8ad3f19}\label{game_8c_ae2c313c74afd4c1d014957c8a8ad3f19}} 
+\index{game.c@{game.c}!classicModeDraw@{classicModeDraw}}
+\index{classicModeDraw@{classicModeDraw}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{classicModeDraw()}{classicModeDraw()}}
+{\footnotesize\ttfamily void classic\+Mode\+Draw (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{sentence,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{input,  }\item[{unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{i }\end{DoxyParamCaption})}
+
+
+
+Draw game components for Classic Mode on screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & The sentence that the user must write \\
+\hline
+{\em input} & The letters typed by the user \\
+\hline
+{\em index} & The index of the last valid letter typed \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{game_8c_a1584348a343494bd3b81c20776dde34b}\label{game_8c_a1584348a343494bd3b81c20776dde34b}} 
+\index{game.c@{game.c}!classicModeStart@{classicModeStart}}
+\index{classicModeStart@{classicModeStart}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{classicModeStart()}{classicModeStart()}}
+{\footnotesize\ttfamily void classic\+Mode\+Start (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{sentence,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{input }\end{DoxyParamCaption})}
+
+
+
+Draw the initial game components for the Classic Mode on the screen. 
+
+Generate a random sentence and allocate space for input. Define how much the car moves on each correct input based on the size of the generated sentence.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & The sentence that the user must write \\
+\hline
+{\em input} & The letters typed by the user \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{game_8c_a1ccca907138b5e9af2569d8c0732b74b}\label{game_8c_a1ccca907138b5e9af2569d8c0732b74b}} 
+\index{game.c@{game.c}!counterStart@{counterStart}}
+\index{counterStart@{counterStart}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{counterStart()}{counterStart()}}
+{\footnotesize\ttfamily void counter\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays a 3 2 1 counter before the start of the game mode. 
+
+Here is the call graph for this function\+:
+% FIG 10
+Here is the caller graph for this function\+:
+% FIG 11
+\mbox{\Hypertarget{game_8c_a92264a80f56133f509aabd1b25fd9b7d}\label{game_8c_a92264a80f56133f509aabd1b25fd9b7d}} 
+\index{game.c@{game.c}!draw\_date@{draw\_date}}
+\index{draw\_date@{draw\_date}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{draw\_date()}{draw\_date()}}
+{\footnotesize\ttfamily void draw\+\_\+date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draw the date. 
+
+Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\mbox{\Hypertarget{game_8c_a06326bc3ce2fdfe90cb6eb3172159fd0}\label{game_8c_a06326bc3ce2fdfe90cb6eb3172159fd0}} 
+\index{game.c@{game.c}!drawMainMenu@{drawMainMenu}}
+\index{drawMainMenu@{drawMainMenu}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{drawMainMenu()}{drawMainMenu()}}
+{\footnotesize\ttfamily void draw\+Main\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draw Menu\textquotesingle{}s components on screen depending on the position/pressed buttons of the mouse. 
+
+Here is the call graph for this function\+:
+% FIG 14
+Here is the caller graph for this function\+:
+% FIG 15
+\mbox{\Hypertarget{game_8c_adedf4c6f1ed84aa26f340279deba04fe}\label{game_8c_adedf4c6f1ed84aa26f340279deba04fe}} 
+\index{game.c@{game.c}!drawTimeElapsed@{drawTimeElapsed}}
+\index{drawTimeElapsed@{drawTimeElapsed}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{drawTimeElapsed()}{drawTimeElapsed()}}
+{\footnotesize\ttfamily void draw\+Time\+Elapsed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draw the time elapsed since the start of the timed mode. 
+
+Here is the call graph for this function\+:
+% FIG 16
+Here is the caller graph for this function\+:
+% FIG 17
+\mbox{\Hypertarget{game_8c_a206f86a751bda60cf0e3fbcfe53d6d68}\label{game_8c_a206f86a751bda60cf0e3fbcfe53d6d68}} 
+\index{game.c@{game.c}!free\_sprites@{free\_sprites}}
+\index{free\_sprites@{free\_sprites}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{free\_sprites()}{free\_sprites()}}
+{\footnotesize\ttfamily void free\+\_\+sprites (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Free space allocated for the sprites. 
+
+Here is the caller graph for this function\+:
+% FIG 18
+\mbox{\Hypertarget{game_8c_aaaff4e132cd3b41673859b2b4ea1159f}\label{game_8c_aaaff4e132cd3b41673859b2b4ea1159f}} 
+\index{game.c@{game.c}!gameStart@{gameStart}}
+\index{gameStart@{gameStart}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{gameStart()}{gameStart()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} game\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Load letters,sentences and xpm\textquotesingle{}s, set graphics mode and start game. 
+
+\begin{DoxyReturn}{Returns}
+0 on success and 1 otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 19
+Here is the caller graph for this function\+:
+% FIG 20
+\mbox{\Hypertarget{game_8c_a8df558a332b33b1b0be4f15a02438531}\label{game_8c_a8df558a332b33b1b0be4f15a02438531}} 
+\index{game.c@{game.c}!gameStateHandler@{gameStateHandler}}
+\index{gameStateHandler@{gameStateHandler}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{gameStateHandler()}{gameStateHandler()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} game\+State\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Load letters,sentences and xpm\textquotesingle{}s, set graphics mode and start game. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 21
+Here is the caller graph for this function\+:
+% FIG 22
+\mbox{\Hypertarget{game_8c_aa2a9eecf722be30effc443be4e32b075}\label{game_8c_aa2a9eecf722be30effc443be4e32b075}} 
+\index{game.c@{game.c}!generateRandomSentence@{generateRandomSentence}}
+\index{generateRandomSentence@{generateRandomSentence}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{generateRandomSentence()}{generateRandomSentence()}}
+{\footnotesize\ttfamily void generate\+Random\+Sentence (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{sentence }\end{DoxyParamCaption})}
+
+
+
+Generate a random sentence from a array of sentences. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & the sentence generated and updated inside the function \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 23
+\mbox{\Hypertarget{game_8c_a7a6196f9ae7dc4d6ac8cc52a16719141}\label{game_8c_a7a6196f9ae7dc4d6ac8cc52a16719141}} 
+\index{game.c@{game.c}!highScoresScreen@{highScoresScreen}}
+\index{highScoresScreen@{highScoresScreen}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{highScoresScreen()}{highScoresScreen()}}
+{\footnotesize\ttfamily void high\+Scores\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Show a screen with the highest scores (top 5) 
+
+Here is the call graph for this function\+:
+% FIG 24
+Here is the caller graph for this function\+:
+% FIG 25
+\mbox{\Hypertarget{game_8c_a85a521ea3fd3bf532fbaca38a716ed0f}\label{game_8c_a85a521ea3fd3bf532fbaca38a716ed0f}} 
+\index{game.c@{game.c}!kbc\_handle@{kbc\_handle}}
+\index{kbc\_handle@{kbc\_handle}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{kbc\_handle()}{kbc\_handle()}}
+{\footnotesize\ttfamily void kbc\+\_\+handle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{sentence,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{input,  }\item[{unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} $\ast$}]{i }\end{DoxyParamCaption})}
+
+
+
+Perform game actions according to the game State. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & The sentence that the user must write \\
+\hline
+{\em input} & The letters typed by the user \\
+\hline
+{\em i} & The index of the last valid letter typed \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 26
+Here is the caller graph for this function\+:
+% FIG 27
+\mbox{\Hypertarget{game_8c_a384fd7bc5dd16b6f904889a9b44d0ca6}\label{game_8c_a384fd7bc5dd16b6f904889a9b44d0ca6}} 
+\index{game.c@{game.c}!menu\_mode@{menu\_mode}}
+\index{menu\_mode@{menu\_mode}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{menu\_mode()}{menu\_mode()}}
+{\footnotesize\ttfamily void menu\+\_\+mode (\begin{DoxyParamCaption}\item[{bool $\ast$}]{timed\+Results,  }\item[{bool $\ast$}]{sec3counter,  }\item[{bool $\ast$}]{timerreset }\end{DoxyParamCaption})}
+
+
+
+Draw menu components, buttons and mouse and go to game modes if buttons are pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em timed\+Results} & \\
+\hline
+{\em sec3counter} & ~\newline
+ \\
+\hline
+{\em timerreset} & \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 28
+Here is the caller graph for this function\+:
+% FIG 29
+\mbox{\Hypertarget{game_8c_aca85c5fc48080fe3e5fc63cbfd15e3dd}\label{game_8c_aca85c5fc48080fe3e5fc63cbfd15e3dd}} 
+\index{game.c@{game.c}!mouse\_handler@{mouse\_handler}}
+\index{mouse\_handler@{mouse\_handler}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{mouse\_handler()}{mouse\_handler()}}
+{\footnotesize\ttfamily void mouse\+\_\+handler (\begin{DoxyParamCaption}\item[{struct packet $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Handle mouse movements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & mouse packet \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 30
+Here is the caller graph for this function\+:
+% FIG 31
+\mbox{\Hypertarget{game_8c_a68ec565e0ad3115e9e89f967b0d85aae}\label{game_8c_a68ec565e0ad3115e9e89f967b0d85aae}} 
+\index{game.c@{game.c}!playerName@{playerName}}
+\index{playerName@{playerName}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{playerName()}{playerName()}}
+{\footnotesize\ttfamily void player\+Name (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{scancode }\end{DoxyParamCaption})}
+
+
+
+Handles keyboard interruptions and validates scancodes to write the player\textquotesingle{}s username. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & The scancode read from the keyboard \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 32
+Here is the caller graph for this function\+:
+% FIG 33
+\mbox{\Hypertarget{game_8c_a6b53c7bdd4b90b905dd483f3e7dab7b7}\label{game_8c_a6b53c7bdd4b90b905dd483f3e7dab7b7}} 
+\index{game.c@{game.c}!resultScreen@{resultScreen}}
+\index{resultScreen@{resultScreen}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{resultScreen()}{resultScreen()}}
+{\footnotesize\ttfamily void result\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Draws the results layout. 
+
+Here is the call graph for this function\+:
+% FIG 34
+Here is the caller graph for this function\+:
+% FIG 35
+\mbox{\Hypertarget{game_8c_a26b9c84c114e6513e181679f76a97854}\label{game_8c_a26b9c84c114e6513e181679f76a97854}} 
+\index{game.c@{game.c}!save\_score\_screen@{save\_score\_screen}}
+\index{save\_score\_screen@{save\_score\_screen}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{save\_score\_screen()}{save\_score\_screen()}}
+{\footnotesize\ttfamily void save\+\_\+score\+\_\+screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Shows a screen with a \char`\"{}buffer\char`\"{} where the user should enter a username to save the score. 
+
+Here is the call graph for this function\+:
+% FIG 36
+Here is the caller graph for this function\+:
+% FIG 37
+\mbox{\Hypertarget{game_8c_a428244ddf0eb2af89871387d2b7b8abd}\label{game_8c_a428244ddf0eb2af89871387d2b7b8abd}} 
+\index{game.c@{game.c}!sentenceCompleted@{sentenceCompleted}}
+\index{sentenceCompleted@{sentenceCompleted}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{sentenceCompleted()}{sentenceCompleted()}}
+{\footnotesize\ttfamily void sentence\+Completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates statistics to send to \mbox{\hyperlink{game_8h_a6b53c7bdd4b90b905dd483f3e7dab7b7}{result\+Screen()}} to display. 
+
+Here is the call graph for this function\+:
+% FIG 38
+Here is the caller graph for this function\+:
+% FIG 39
+\mbox{\Hypertarget{game_8c_af509280765b24e1f64cf2b348fdb4395}\label{game_8c_af509280765b24e1f64cf2b348fdb4395}} 
+\index{game.c@{game.c}!sentenceCompletedTimed@{sentenceCompletedTimed}}
+\index{sentenceCompletedTimed@{sentenceCompletedTimed}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{sentenceCompletedTimed()}{sentenceCompletedTimed()}}
+{\footnotesize\ttfamily void sentence\+Completed\+Timed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates statistics to send to result\+Screen\+Timed() to display. 
+
+Here is the call graph for this function\+:
+% FIG 40
+Here is the caller graph for this function\+:
+% FIG 41
+\mbox{\Hypertarget{game_8c_a98389bdfd88eb39ac7e97b7746a86887}\label{game_8c_a98389bdfd88eb39ac7e97b7746a86887}} 
+\index{game.c@{game.c}!timed\_mode@{timed\_mode}}
+\index{timed\_mode@{timed\_mode}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{timed\_mode()}{timed\_mode()}}
+{\footnotesize\ttfamily void timed\+\_\+mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{sentence,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{input,  }\item[{unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} $\ast$}]{index,  }\item[{bool $\ast$}]{sec3counter,  }\item[{bool $\ast$}]{timerreset,  }\item[{bool $\ast$}]{timed\+Results }\end{DoxyParamCaption})}
+
+
+
+Draw timed mode sentence,input and handle timed game mode state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & The sentence that the user must write \\
+\hline
+{\em input} & The letters typed by the user \\
+\hline
+{\em index} & The index of the last valid letter typed \\
+\hline
+{\em sec3counter} & ~\newline
+ \\
+\hline
+{\em timerreset} & \\
+\hline
+{\em timed\+Results} & \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 42
+Here is the caller graph for this function\+:
+% FIG 43
+\mbox{\Hypertarget{game_8c_a530d0e0b6bcbf9dafa1bf9e3afd37259}\label{game_8c_a530d0e0b6bcbf9dafa1bf9e3afd37259}} 
+\index{game.c@{game.c}!timedModeDraw@{timedModeDraw}}
+\index{timedModeDraw@{timedModeDraw}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{timedModeDraw()}{timedModeDraw()}}
+{\footnotesize\ttfamily void timed\+Mode\+Draw (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{sentence,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{input,  }\item[{unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{i }\end{DoxyParamCaption})}
+
+
+
+Draw game components for Timed Mode on screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & The sentence that the user must write \\
+\hline
+{\em input} & The letters typed by the user \\
+\hline
+{\em index} & The index of the last valid letter typed \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 44
+Here is the caller graph for this function\+:
+% FIG 45
+\mbox{\Hypertarget{game_8c_a4923d4462686f737bb06f5b0b7a2e596}\label{game_8c_a4923d4462686f737bb06f5b0b7a2e596}} 
+\index{game.c@{game.c}!timedModeStart@{timedModeStart}}
+\index{timedModeStart@{timedModeStart}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{timedModeStart()}{timedModeStart()}}
+{\footnotesize\ttfamily void timed\+Mode\+Start (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{sentence,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{input }\end{DoxyParamCaption})}
+
+
+
+Draw the initial game components for the Timed Mode on the screen. 
+
+Generate a random sentence and allocate space for input. Define how much the car moves on each correct input based on the size of the generated sentence.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & The sentence that the user must write \\
+\hline
+{\em input} & The letters typed by the user \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 46
+Here is the caller graph for this function\+:
+% FIG 47
+\mbox{\Hypertarget{game_8c_a3aa72275b77c585d13d35329ea363b5f}\label{game_8c_a3aa72275b77c585d13d35329ea363b5f}} 
+\index{game.c@{game.c}!validateLetter@{validateLetter}}
+\index{validateLetter@{validateLetter}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{validateLetter()}{validateLetter()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{game_8h_a46751090147a38e9f21f9801e7922f88}{input\+Validation}} validate\+Letter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{let,  }\item[{uint8\+\_\+t $\ast$}]{scancode,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{input,  }\item[{unsigned}]{i }\end{DoxyParamCaption})}
+
+
+
+Checks if the input of a letter by the user corresponds to the one at index i in the sentence. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em let} & the input sentence to validate \\
+\hline
+{\em scancode} & the scancode read from de keyboard \\
+\hline
+{\em i} & the index of the letter to validate\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a variable that indicates if the input is correct, wrong, a backspace or other ~\newline
+ 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 48
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{game_8c_a2aa1ba7fcac0cb812be381928effe134}\label{game_8c_a2aa1ba7fcac0cb812be381928effe134}} 
+\index{game.c@{game.c}!abc@{abc}}
+\index{abc@{abc}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{abc}{abc}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structletter}{letter}}$\ast$ abc}
+
+
+
+The game\textquotesingle{}s alphabet. 
+
+\mbox{\Hypertarget{game_8c_a91b7eb3a6d11836107267c4bd6daf72d}\label{game_8c_a91b7eb3a6d11836107267c4bd6daf72d}} 
+\index{game.c@{game.c}!blackChar@{blackChar}}
+\index{blackChar@{blackChar}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{blackChar}{blackChar}}
+{\footnotesize\ttfamily char $\ast$ black\+Char}
+
+\mbox{\Hypertarget{game_8c_a63350bc24db6ea4c877e6e8a50169767}\label{game_8c_a63350bc24db6ea4c877e6e8a50169767}} 
+\index{game.c@{game.c}!errorMessage@{errorMessage}}
+\index{errorMessage@{errorMessage}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{errorMessage}{errorMessage}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structletter}{letter}} $\ast$ error\+Message}
+
+\mbox{\Hypertarget{game_8c_a0c5553f4dbeead8d2e30b91569cf6d32}\label{game_8c_a0c5553f4dbeead8d2e30b91569cf6d32}} 
+\index{game.c@{game.c}!greenChar@{greenChar}}
+\index{greenChar@{greenChar}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{greenChar}{greenChar}}
+{\footnotesize\ttfamily char$\ast$ green\+Char}
+
+
+
+to store green color bytes in rgb565 
+
+\mbox{\Hypertarget{game_8c_a8024bb17e2463e3ccf943106e2a2bfa0}\label{game_8c_a8024bb17e2463e3ccf943106e2a2bfa0}} 
+\index{game.c@{game.c}!MOUSE\_HOOK\_ID@{MOUSE\_HOOK\_ID}}
+\index{MOUSE\_HOOK\_ID@{MOUSE\_HOOK\_ID}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{MOUSE\_HOOK\_ID}{MOUSE\_HOOK\_ID}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} M\+O\+U\+S\+E\+\_\+\+H\+O\+O\+K\+\_\+\+ID}
+
+\mbox{\Hypertarget{game_8c_ac2122a5504125f11c374898036f53680}\label{game_8c_ac2122a5504125f11c374898036f53680}} 
+\index{game.c@{game.c}!numbers@{numbers}}
+\index{numbers@{numbers}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{numbers}{numbers}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structnumber}{number}}$\ast$ numbers}
+
+
+
+The game\textquotesingle{}s numeric alphabet. 
+
+An array of char sentences that may be generated when playing the game \mbox{\Hypertarget{game_8c_a1afc4e0f161fbfda3ba08a7bdc4eb372}\label{game_8c_a1afc4e0f161fbfda3ba08a7bdc4eb372}} 
+\index{game.c@{game.c}!PACKET@{PACKET}}
+\index{PACKET@{PACKET}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{PACKET}{PACKET}}
+{\footnotesize\ttfamily uint8\+\_\+t P\+A\+C\+K\+ET}
+
+\mbox{\Hypertarget{game_8c_ae67372145a3663fd82b8e96e146eade4}\label{game_8c_ae67372145a3663fd82b8e96e146eade4}} 
+\index{game.c@{game.c}!PACKET\_BYTE\_COUNTER@{PACKET\_BYTE\_COUNTER}}
+\index{PACKET\_BYTE\_COUNTER@{PACKET\_BYTE\_COUNTER}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{PACKET\_BYTE\_COUNTER}{PACKET\_BYTE\_COUNTER}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} P\+A\+C\+K\+E\+T\+\_\+\+B\+Y\+T\+E\+\_\+\+C\+O\+U\+N\+T\+ER}
+
+\mbox{\Hypertarget{game_8c_a93a62da31cc206f1234906b28892f11d}\label{game_8c_a93a62da31cc206f1234906b28892f11d}} 
+\index{game.c@{game.c}!redChar@{redChar}}
+\index{redChar@{redChar}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{redChar}{redChar}}
+{\footnotesize\ttfamily char $\ast$ red\+Char}
+
+\mbox{\Hypertarget{game_8c_ab7b1e71aacce175bf1c893054fa07781}\label{game_8c_ab7b1e71aacce175bf1c893054fa07781}} 
+\index{game.c@{game.c}!SCANCODE@{SCANCODE}}
+\index{SCANCODE@{SCANCODE}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{SCANCODE}{SCANCODE}}
+{\footnotesize\ttfamily uint8\+\_\+t S\+C\+A\+N\+C\+O\+DE\mbox{[}2\mbox{]}}
+
+\mbox{\Hypertarget{game_8c_a172035857ff29c458da347f647932126}\label{game_8c_a172035857ff29c458da347f647932126}} 
+\index{game.c@{game.c}!SCANCODE\_2B@{SCANCODE\_2B}}
+\index{SCANCODE\_2B@{SCANCODE\_2B}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{SCANCODE\_2B}{SCANCODE\_2B}}
+{\footnotesize\ttfamily bool S\+C\+A\+N\+C\+O\+D\+E\+\_\+2B}
+
+\mbox{\Hypertarget{game_8c_ad9383479c1fc9cf22dfe67c1c7226f7a}\label{game_8c_ad9383479c1fc9cf22dfe67c1c7226f7a}} 
+\index{game.c@{game.c}!sentences@{sentences}}
+\index{sentences@{sentences}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{sentences}{sentences}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structletter}{letter}}$\ast$$\ast$ sentences}
+
+
+
+Array of xpm\textquotesingle{}s representing an error message that may be showed due to too many errors. 
+
+\mbox{\Hypertarget{game_8c_abf7826fb638d279ecaf7f7a84611b89f}\label{game_8c_abf7826fb638d279ecaf7f7a84611b89f}} 
+\index{game.c@{game.c}!TIMER\_COUNTER@{TIMER\_COUNTER}}
+\index{TIMER\_COUNTER@{TIMER\_COUNTER}!game.c@{game.c}}
+\doxysubsubsection{\texorpdfstring{TIMER\_COUNTER}{TIMER\_COUNTER}}
+{\footnotesize\ttfamily uint32\+\_\+t T\+I\+M\+E\+R\+\_\+\+C\+O\+U\+N\+T\+ER}
+

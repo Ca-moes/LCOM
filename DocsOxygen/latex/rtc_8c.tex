@@ -1,0 +1,121 @@
+\hypertarget{rtc_8c}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/rtc.c File Reference}
+\label{rtc_8c}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/rtc.c@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/rtc.c}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$rtc.\+h$>$}\newline
+Include dependency graph for rtc.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{rtc_8c_a8e562473fe7c6e414b655b0edee66138}{rtc\+\_\+read}} (uint32\+\_\+t reg, uint32\+\_\+t $\ast$data)
+\begin{DoxyCompactList}\small\item\em Reads from R\+T\+C\+\_\+\+D\+A\+T\+A\+\_\+\+R\+EG what is in port. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{rtc_8c_a372efb1351dcf0468894632441b12e9a}{bcd\+\_\+to\+\_\+binary}} (uint32\+\_\+t $\ast$val)
+\begin{DoxyCompactList}\small\item\em Converts num to binary if and only if it is in bcd. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{rtc_8c_a2612ab4da31e866317aedbbc8cdadbc4}{is\+Updating}} ()
+\begin{DoxyCompactList}\small\item\em Checks if rtc is updating. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{rtc_8c_abbc06d30fa1fc5a86e081a8adff67312}{bcd}} ()
+\begin{DoxyCompactList}\small\item\em Checks if it is in bcd. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structreal_time}{real\+Time}} \mbox{\hyperlink{rtc_8c_ae2d4030307cef7e5e87606f7e09be07b}{rtc\+\_\+read\+\_\+date}} ()
+\begin{DoxyCompactList}\small\item\em Subscribes interrupts to the R\+TC. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{rtc_8c_af60e6fe27df995c7fa5734213d666d56}{R\+T\+C\+\_\+\+H\+O\+O\+K\+\_\+\+ID}} = \mbox{\hyperlink{group__rtc__macros_ga4e22feb6ffbc1cda32fadff5c740dc51}{R\+T\+C\+\_\+\+I\+RQ}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{rtc_8c_abbc06d30fa1fc5a86e081a8adff67312}\label{rtc_8c_abbc06d30fa1fc5a86e081a8adff67312}} 
+\index{rtc.c@{rtc.c}!bcd@{bcd}}
+\index{bcd@{bcd}!rtc.c@{rtc.c}}
+\doxysubsubsection{\texorpdfstring{bcd()}{bcd()}}
+{\footnotesize\ttfamily bool bcd (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if it is in bcd. 
+
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{rtc_8c_a372efb1351dcf0468894632441b12e9a}\label{rtc_8c_a372efb1351dcf0468894632441b12e9a}} 
+\index{rtc.c@{rtc.c}!bcd\_to\_binary@{bcd\_to\_binary}}
+\index{bcd\_to\_binary@{bcd\_to\_binary}!rtc.c@{rtc.c}}
+\doxysubsubsection{\texorpdfstring{bcd\_to\_binary()}{bcd\_to\_binary()}}
+{\footnotesize\ttfamily void bcd\+\_\+to\+\_\+binary (\begin{DoxyParamCaption}\item[{uint32\+\_\+t $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Converts num to binary if and only if it is in bcd. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & number to be converted \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{rtc_8c_a2612ab4da31e866317aedbbc8cdadbc4}\label{rtc_8c_a2612ab4da31e866317aedbbc8cdadbc4}} 
+\index{rtc.c@{rtc.c}!isUpdating@{isUpdating}}
+\index{isUpdating@{isUpdating}!rtc.c@{rtc.c}}
+\doxysubsubsection{\texorpdfstring{isUpdating()}{isUpdating()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} is\+Updating (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if rtc is updating. 
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{rtc_8c_a8e562473fe7c6e414b655b0edee66138}\label{rtc_8c_a8e562473fe7c6e414b655b0edee66138}} 
+\index{rtc.c@{rtc.c}!rtc\_read@{rtc\_read}}
+\index{rtc\_read@{rtc\_read}!rtc.c@{rtc.c}}
+\doxysubsubsection{\texorpdfstring{rtc\_read()}{rtc\_read()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} rtc\+\_\+read (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{reg,  }\item[{uint32\+\_\+t $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Reads from R\+T\+C\+\_\+\+D\+A\+T\+A\+\_\+\+R\+EG what is in port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & One of the possible registers from rtc \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{rtc_8c_ae2d4030307cef7e5e87606f7e09be07b}\label{rtc_8c_ae2d4030307cef7e5e87606f7e09be07b}} 
+\index{rtc.c@{rtc.c}!rtc\_read\_date@{rtc\_read\_date}}
+\index{rtc\_read\_date@{rtc\_read\_date}!rtc.c@{rtc.c}}
+\doxysubsubsection{\texorpdfstring{rtc\_read\_date()}{rtc\_read\_date()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structreal_time}{real\+Time}} rtc\+\_\+read\+\_\+date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Subscribes interrupts to the R\+TC. 
+
+Enables interrupts from the R\+TC Disables interrupts from the R\+TC 
+\begin{DoxyParams}{Parameters}
+{\em bit\+\_\+no} & address of memory to be initialized with the bit number to be set in the mask returned upon an interrupt \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise
+\end{DoxyReturn}
+Unsubscribes R\+TC interrupts
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise
+\end{DoxyReturn}
+Reads date from the rtc only if rtc is not updating, also, if it is bcd converts to bcd Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{rtc_8c_af60e6fe27df995c7fa5734213d666d56}\label{rtc_8c_af60e6fe27df995c7fa5734213d666d56}} 
+\index{rtc.c@{rtc.c}!RTC\_HOOK\_ID@{RTC\_HOOK\_ID}}
+\index{RTC\_HOOK\_ID@{RTC\_HOOK\_ID}!rtc.c@{rtc.c}}
+\doxysubsubsection{\texorpdfstring{RTC\_HOOK\_ID}{RTC\_HOOK\_ID}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} R\+T\+C\+\_\+\+H\+O\+O\+K\+\_\+\+ID = \mbox{\hyperlink{group__rtc__macros_ga4e22feb6ffbc1cda32fadff5c740dc51}{R\+T\+C\+\_\+\+I\+RQ}}}
+

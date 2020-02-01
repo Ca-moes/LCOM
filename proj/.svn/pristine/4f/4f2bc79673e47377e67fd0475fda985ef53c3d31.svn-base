@@ -1,0 +1,82 @@
+#pragma once
+#include <lcom/lcf.h>
+#include <keyboard.h>
+#include "mouse.h"
+#include "vc_macros.h"
+#include "i8042.h"
+#include "vc.h"
+
+/**
+ *Load letters,sentences and xpm's, set graphics mode and start game
+ * 
+ * @return 0 on success and 1 otherwise
+ */
+int gameStart();
+
+/**
+ *Load letters,sentences and xpm's, set graphics mode and start game
+ * 
+ * @param menu_sprite,mouse_sprite,button1_sprite,button2_sprite,button1Pressed_sprite,button2Pressed_sprite Sprites for the menu's graphical interface
+ * @param menuImg,mouseImg,button1Img,button2Img,button1PressedImg,button2PressedImg Images information for the  menu's graphical interface
+ * @param road_sprite,car_sprite,field_sprite,error_sprite Sprites for Classic Mode
+ * @param roadImg,carImg,fieldImg,errorImg Images information for Classic Mode
+ *         
+ * @return Return 0 upon success and non-zero otherwise
+ */
+int gameStateHandler(uint8_t * menu_sprite,uint8_t *results_sprite,uint8_t * mouse_sprite,uint8_t * button1_sprite,uint8_t * button2_sprite,uint8_t * button1Pressed_sprite,uint8_t * button2Pressed_sprite,uint8_t * menu_button_sprite,uint8_t * menu_button_pressed_sprite,xpm_image_t *menuImg,xpm_image_t *resultsImg,xpm_image_t * mouseImg, xpm_image_t *button1Img,xpm_image_t *button2Img,xpm_image_t *button1PressedImg,xpm_image_t *button2PressedImg,xpm_image_t * menu_buttonImg,xpm_image_t * menu_button_pressedImg,uint8_t * road_sprite, uint8_t * car_sprite, uint8_t * field_sprite, uint8_t * error_sprite,xpm_image_t *carImg,xpm_image_t *roadImg,xpm_image_t *fieldImg,xpm_image_t *errorImg);
+
+/**
+ * Draw Menu's components on the screen depending on the position of the mouse - buttons pressed or unpressed
+ * 
+ * @param menu_sprite,mouse_sprite,button1_sprite,button2_sprite,button1Pressed_sprite,button2Pressed_sprite Sprites for the menu's graphical interface
+ * @param menuImg,mouseImg,button1Img,button2Img,button1PressedImg,button2PressedImg Images information for the  menu's graphical interface
+ * @param mouseX,mouseY coordinates of the mouse cursor
+ */
+void drawMainMenu(uint8_t * menu_sprite,uint8_t * mouse_sprite,uint8_t * button1_sprite,uint8_t * button2_sprite,uint8_t * button1Pressed_sprite,uint8_t * button2Pressed_sprite,xpm_image_t *menuImg,xpm_image_t *mouseImg,xpm_image_t *button1Img,xpm_image_t *button2Img,xpm_image_t *button1PressedImg,xpm_image_t *button2PressedImg,int mouseX, int mouseY);
+
+/**
+ * Displays a 3 2 1 counter before the start of the game mode
+*/
+void counterStart(uint8_t * road_sprite, xpm_image_t *roadImg);
+
+/**
+ *Draw the initial game components for the Classic Mode on the screen. Generate a random sentence and allocate space for input. Define how much the car moves on each correct input based on the size of the generated sentence.
+ * 
+ * @param road_sprite,car_sprite,field_sprite,error_sprite Sprites for Classic Mode
+ * @param roadImg,carImg,fieldImg,errorImg Images information for Classic Mode
+ */
+void classicModeStart(letter ** sentence, letter ** input, uint8_t * road_sprite, uint8_t * car_sprite, uint8_t * field_sprite, uint8_t * error_sprite,xpm_image_t *carImg,xpm_image_t *roadImg,xpm_image_t *fieldImg,xpm_image_t *errorImg);
+
+/**
+ * Perform game actions according to the game State, which is defined based on the key that was pressed. ex: Exit game on Esc, validate the letter,...
+ * 
+ * @param sentence The sentence that the user must write
+ * @param input The letter typed by the user
+ * @param mode To be changed to 'm' if Esc is pressed to go back to the main menu
+ * @param start To be changed to true if Esc is pressed to go back to the main menu and perform it's initial actions
+ * @param i The index of the last valid letter typed
+ */
+void classicModeKbc(letter ** sentence, letter ** input, char * mode, bool * start, unsigned int * i);
+
+void classicModeDraw(uint8_t * road_sprite,uint8_t * field_sprite,uint8_t * car_sprite,uint8_t * error_sprite, xpm_image_t *roadImg,xpm_image_t *fieldImg,xpm_image_t *carImg,xpm_image_t *errorImg, letter * sentence, letter * input, unsigned int i);
+
+/**
+ * Draws the results layout
+ */
+void resultScreen(uint8_t * results_sprite,uint8_t * menu_button_sprite,uint8_t * menu_button_pressed_sprite,xpm_image_t * menu_buttonImg,xpm_image_t * menu_button_pressedImg,xpm_image_t * resultsImg,int timeSpentSec,int timeSpentCentSec,int speed, uint8_t * mouse_sprite, xpm_image_t * mouseImg,int mouseX, int mouseY);
+/**/
+
+/**
+ * Calculates statistics to send to resultScreen() to display
+*/
+void sentenceCompleted(int * timeSpentSec,int * timeSpentCentSec,int * speed);
+
+int checkScanCode(uint8_t * scancode);
+
+int validateLetter(letter * let, uint8_t * scancode, letter ** input, unsigned i);
+
+/*if 4 errors were made clean error with backspace*/
+void cleanErrors();
+
+/**/
+void generateRandomSentence(letter ** sentence);

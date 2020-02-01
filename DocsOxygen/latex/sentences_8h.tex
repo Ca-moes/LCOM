@@ -1,0 +1,330 @@
+\hypertarget{sentences_8h}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/sentences.h File Reference}
+\label{sentences_8h}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/sentences.h@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/sentences.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}xpm.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for sentences.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structletter}{letter}}
+\begin{DoxyCompactList}\small\item\em Information about a letter -\/ scancode, char, lower or upper case, sprite and xpm image. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structnumber}{number}}
+\begin{DoxyCompactList}\small\item\em Information about a number -\/ char, sprite and xpm image. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{sentences_8h_ad58282c09dc704f07593dcbd7365d9e8}{n\+Letters}}~59
+\begin{DoxyCompactList}\small\item\em The number of letters and symbols in the game\textquotesingle{}s alphabet. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{sentences_8h_a22d4503bc16bb83bbf5db3dcbb1ea116}{n\+Sentences}}~30
+\begin{DoxyCompactList}\small\item\em The number of sentences that may be generated in the game. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{sentences_8h_a48929e27e49fdd8a87f0056d2281ca01}{n\+Chars}}~163
+\begin{DoxyCompactList}\small\item\em The max number of chars of a game\textquotesingle{}s sentence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structletter}{letter}} \mbox{\hyperlink{sentences_8h_a9bac7a3ce4627f36eb20eb0829fa1025}{letter}}
+\begin{DoxyCompactList}\small\item\em Information about a letter -\/ scancode, char, lower or upper case, sprite and xpm image. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structnumber}{number}} \mbox{\hyperlink{sentences_8h_ad5d1b37e788292061bf03aeac7bc0c4a}{number}}
+\begin{DoxyCompactList}\small\item\em Information about a number -\/ char, sprite and xpm image. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{sentences_8h_a7745112d26b762ba2d12b7f324710869}{destroy\+Sentences\+And\+Letters}} ()
+\begin{DoxyCompactList}\small\item\em Destroys sentences, letters other related variables ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$ \mbox{\hyperlink{sentences_8h_aaa6329c5eeb6b0d2792ae3db5c5bb8a0}{allocate\+Two\+Dimen\+Array\+On\+Heap\+Using\+Malloc}} (\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} row, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} col)
+\begin{DoxyCompactList}\small\item\em Allocate space for a two dimensional array of letters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sentences_8h_a0f2b0bd4d289402d64680c11783b9704}{destroy\+Two\+Dimen\+Array\+On\+Heap\+Using\+Free}} (\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$ptr, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} row, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} col)
+\begin{DoxyCompactList}\small\item\em Free the allocated space for a two dimensional array of letters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sentences_8h_a698032048ecab0fc46ac97da011e9ee0}{load\+Letters}} ()
+\begin{DoxyCompactList}\small\item\em Fill abc array with the game\textquotesingle{}s alphabet. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sentences_8h_a9c190c5de3d7b253b05eff01cc84a109}{load\+Sentences}} ()
+\begin{DoxyCompactList}\small\item\em Fill sentences array with the game\textquotesingle{}s sentences. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sentences_8h_a5caa2956a259c15d67de63fcddff3e57}{swap}} (char $\ast$x, char $\ast$y)
+\begin{DoxyCompactList}\small\item\em Swap two chars. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{sentences_8h_ac8a933084935cebe42203f95291c8834}{reverse}} (char $\ast$buffer, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} i, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} j)
+\begin{DoxyCompactList}\small\item\em Reverse buffer\mbox{[}i..j\mbox{]} -\/ auxiliar function for \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa()}} \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa}} (\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} value, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} base)
+\begin{DoxyCompactList}\small\item\em Implement \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa()}} from C -\/ convert a value in a specific base to an array of chars. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structletter}{letter}} $\ast$ \mbox{\hyperlink{sentences_8h_a2aa1ba7fcac0cb812be381928effe134}{abc}}
+\begin{DoxyCompactList}\small\item\em The game\textquotesingle{}s alphabet. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structnumber}{number}} $\ast$ \mbox{\hyperlink{sentences_8h_ac2122a5504125f11c374898036f53680}{numbers}}
+\begin{DoxyCompactList}\small\item\em The game\textquotesingle{}s numeric alphabet. \end{DoxyCompactList}\item 
+static char \mbox{\hyperlink{sentences_8h_abf492dc10daef596abb368db385fab26}{sentences\+Char}} \mbox{[}\mbox{\hyperlink{sentences_8h_a22d4503bc16bb83bbf5db3dcbb1ea116}{n\+Sentences}}\mbox{]}\mbox{[}\mbox{\hyperlink{sentences_8h_a48929e27e49fdd8a87f0056d2281ca01}{n\+Chars}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Too many errors message. \end{DoxyCompactList}\item 
+static char \mbox{\hyperlink{sentences_8h_a7c4daa96ddcce36f19770de058ce0893}{error\+Message\+Char}} \mbox{[}50\mbox{]} = \{\char`\"{}Too many errors, please press Back\+Space.\char`\"{}\}
+\begin{DoxyCompactList}\small\item\em An array of xpm\textquotesingle{}s -\/ sentences that may be generated when playing the game. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$ \mbox{\hyperlink{sentences_8h_ad9383479c1fc9cf22dfe67c1c7226f7a}{sentences}}
+\begin{DoxyCompactList}\small\item\em Array of xpm\textquotesingle{}s representing an error message that may be showed due to too many errors. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structletter}{letter}} $\ast$ \mbox{\hyperlink{sentences_8h_a2c4d78df5d5c8187390832dc5475e8b9}{error\+Message}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{sentences_8h_a48929e27e49fdd8a87f0056d2281ca01}\label{sentences_8h_a48929e27e49fdd8a87f0056d2281ca01}} 
+\index{sentences.h@{sentences.h}!nChars@{nChars}}
+\index{nChars@{nChars}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{nChars}{nChars}}
+{\footnotesize\ttfamily \#define n\+Chars~163}
+
+
+
+The max number of chars of a game\textquotesingle{}s sentence. 
+
+\mbox{\Hypertarget{sentences_8h_ad58282c09dc704f07593dcbd7365d9e8}\label{sentences_8h_ad58282c09dc704f07593dcbd7365d9e8}} 
+\index{sentences.h@{sentences.h}!nLetters@{nLetters}}
+\index{nLetters@{nLetters}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{nLetters}{nLetters}}
+{\footnotesize\ttfamily \#define n\+Letters~59}
+
+
+
+The number of letters and symbols in the game\textquotesingle{}s alphabet. 
+
+\mbox{\Hypertarget{sentences_8h_a22d4503bc16bb83bbf5db3dcbb1ea116}\label{sentences_8h_a22d4503bc16bb83bbf5db3dcbb1ea116}} 
+\index{sentences.h@{sentences.h}!nSentences@{nSentences}}
+\index{nSentences@{nSentences}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{nSentences}{nSentences}}
+{\footnotesize\ttfamily \#define n\+Sentences~30}
+
+
+
+The number of sentences that may be generated in the game. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{sentences_8h_a9bac7a3ce4627f36eb20eb0829fa1025}\label{sentences_8h_a9bac7a3ce4627f36eb20eb0829fa1025}} 
+\index{sentences.h@{sentences.h}!letter@{letter}}
+\index{letter@{letter}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{letter}{letter}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structletter}{letter}} \mbox{\hyperlink{structletter}{letter}}}
+
+
+
+Information about a letter -\/ scancode, char, lower or upper case, sprite and xpm image. 
+
+\mbox{\Hypertarget{sentences_8h_ad5d1b37e788292061bf03aeac7bc0c4a}\label{sentences_8h_ad5d1b37e788292061bf03aeac7bc0c4a}} 
+\index{sentences.h@{sentences.h}!number@{number}}
+\index{number@{number}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{number}{number}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structnumber}{number}} \mbox{\hyperlink{structnumber}{number}}}
+
+
+
+Information about a number -\/ char, sprite and xpm image. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{sentences_8h_aaa6329c5eeb6b0d2792ae3db5c5bb8a0}\label{sentences_8h_aaa6329c5eeb6b0d2792ae3db5c5bb8a0}} 
+\index{sentences.h@{sentences.h}!allocateTwoDimenArrayOnHeapUsingMalloc@{allocateTwoDimenArrayOnHeapUsingMalloc}}
+\index{allocateTwoDimenArrayOnHeapUsingMalloc@{allocateTwoDimenArrayOnHeapUsingMalloc}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{allocateTwoDimenArrayOnHeapUsingMalloc()}{allocateTwoDimenArrayOnHeapUsingMalloc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structletter}{letter}}$\ast$$\ast$ allocate\+Two\+Dimen\+Array\+On\+Heap\+Using\+Malloc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{row,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{col }\end{DoxyParamCaption})}
+
+
+
+Allocate space for a two dimensional array of letters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & the number of rows of the array \\
+\hline
+{\em col} & the number of columns of the array \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{sentences_8h_a7745112d26b762ba2d12b7f324710869}\label{sentences_8h_a7745112d26b762ba2d12b7f324710869}} 
+\index{sentences.h@{sentences.h}!destroySentencesAndLetters@{destroySentencesAndLetters}}
+\index{destroySentencesAndLetters@{destroySentencesAndLetters}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{destroySentencesAndLetters()}{destroySentencesAndLetters()}}
+{\footnotesize\ttfamily void destroy\+Sentences\+And\+Letters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destroys sentences, letters other related variables ~\newline
+ 
+
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{sentences_8h_a0f2b0bd4d289402d64680c11783b9704}\label{sentences_8h_a0f2b0bd4d289402d64680c11783b9704}} 
+\index{sentences.h@{sentences.h}!destroyTwoDimenArrayOnHeapUsingFree@{destroyTwoDimenArrayOnHeapUsingFree}}
+\index{destroyTwoDimenArrayOnHeapUsingFree@{destroyTwoDimenArrayOnHeapUsingFree}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{destroyTwoDimenArrayOnHeapUsingFree()}{destroyTwoDimenArrayOnHeapUsingFree()}}
+{\footnotesize\ttfamily void destroy\+Two\+Dimen\+Array\+On\+Heap\+Using\+Free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{ptr,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{row,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{col }\end{DoxyParamCaption})}
+
+
+
+Free the allocated space for a two dimensional array of letters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & pointer to the array to destroy \\
+\hline
+{\em row} & the number of rows of the array \\
+\hline
+{\em col} & the number of columns of the array \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}\label{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}} 
+\index{sentences.h@{sentences.h}!itoa@{itoa}}
+\index{itoa@{itoa}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{itoa()}{itoa()}}
+{\footnotesize\ttfamily char$\ast$ itoa (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{value,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{base }\end{DoxyParamCaption})}
+
+
+
+Implement \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa()}} from C -\/ convert a value in a specific base to an array of chars. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & the number to convert to char \\
+\hline
+{\em base} & the base of the number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of the conversion from int to array of chars 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{sentences_8h_a698032048ecab0fc46ac97da011e9ee0}\label{sentences_8h_a698032048ecab0fc46ac97da011e9ee0}} 
+\index{sentences.h@{sentences.h}!loadLetters@{loadLetters}}
+\index{loadLetters@{loadLetters}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{loadLetters()}{loadLetters()}}
+{\footnotesize\ttfamily void load\+Letters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fill abc array with the game\textquotesingle{}s alphabet. 
+
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{sentences_8h_a9c190c5de3d7b253b05eff01cc84a109}\label{sentences_8h_a9c190c5de3d7b253b05eff01cc84a109}} 
+\index{sentences.h@{sentences.h}!loadSentences@{loadSentences}}
+\index{loadSentences@{loadSentences}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{loadSentences()}{loadSentences()}}
+{\footnotesize\ttfamily void load\+Sentences (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fill sentences array with the game\textquotesingle{}s sentences. 
+
+Here is the call graph for this function\+:
+% FIG 10
+Here is the caller graph for this function\+:
+% FIG 11
+\mbox{\Hypertarget{sentences_8h_ac8a933084935cebe42203f95291c8834}\label{sentences_8h_ac8a933084935cebe42203f95291c8834}} 
+\index{sentences.h@{sentences.h}!reverse@{reverse}}
+\index{reverse@{reverse}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{reverse()}{reverse()}}
+{\footnotesize\ttfamily char$\ast$ reverse (\begin{DoxyParamCaption}\item[{char $\ast$}]{buffer,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{i,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{j }\end{DoxyParamCaption})}
+
+
+
+Reverse buffer\mbox{[}i..j\mbox{]} -\/ auxiliar function for \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa()}} 
+
+@ buffer array to reverse @ i start index @ j end index \begin{DoxyReturn}{Returns}
+reversed array 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\mbox{\Hypertarget{sentences_8h_a5caa2956a259c15d67de63fcddff3e57}\label{sentences_8h_a5caa2956a259c15d67de63fcddff3e57}} 
+\index{sentences.h@{sentences.h}!swap@{swap}}
+\index{swap@{swap}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{swap()}{swap()}}
+{\footnotesize\ttfamily void swap (\begin{DoxyParamCaption}\item[{char $\ast$}]{x,  }\item[{char $\ast$}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Swap two chars. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & char to swap \\
+\hline
+{\em y} & char to swap \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 14
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{sentences_8h_a2aa1ba7fcac0cb812be381928effe134}\label{sentences_8h_a2aa1ba7fcac0cb812be381928effe134}} 
+\index{sentences.h@{sentences.h}!abc@{abc}}
+\index{abc@{abc}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{abc}{abc}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structletter}{letter}}$\ast$ abc}
+
+
+
+The game\textquotesingle{}s alphabet. 
+
+\mbox{\Hypertarget{sentences_8h_a2c4d78df5d5c8187390832dc5475e8b9}\label{sentences_8h_a2c4d78df5d5c8187390832dc5475e8b9}} 
+\index{sentences.h@{sentences.h}!errorMessage@{errorMessage}}
+\index{errorMessage@{errorMessage}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{errorMessage}{errorMessage}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structletter}{letter}}$\ast$ error\+Message}
+
+\mbox{\Hypertarget{sentences_8h_a7c4daa96ddcce36f19770de058ce0893}\label{sentences_8h_a7c4daa96ddcce36f19770de058ce0893}} 
+\index{sentences.h@{sentences.h}!errorMessageChar@{errorMessageChar}}
+\index{errorMessageChar@{errorMessageChar}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{errorMessageChar}{errorMessageChar}}
+{\footnotesize\ttfamily char error\+Message\+Char\mbox{[}50\mbox{]} = \{\char`\"{}Too many errors, please press Back\+Space.\char`\"{}\}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+An array of xpm\textquotesingle{}s -\/ sentences that may be generated when playing the game. 
+
+\mbox{\Hypertarget{sentences_8h_ac2122a5504125f11c374898036f53680}\label{sentences_8h_ac2122a5504125f11c374898036f53680}} 
+\index{sentences.h@{sentences.h}!numbers@{numbers}}
+\index{numbers@{numbers}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{numbers}{numbers}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structnumber}{number}}$\ast$ numbers}
+
+
+
+The game\textquotesingle{}s numeric alphabet. 
+
+An array of char sentences that may be generated when playing the game \mbox{\Hypertarget{sentences_8h_ad9383479c1fc9cf22dfe67c1c7226f7a}\label{sentences_8h_ad9383479c1fc9cf22dfe67c1c7226f7a}} 
+\index{sentences.h@{sentences.h}!sentences@{sentences}}
+\index{sentences@{sentences}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{sentences}{sentences}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structletter}{letter}}$\ast$$\ast$ sentences}
+
+
+
+Array of xpm\textquotesingle{}s representing an error message that may be showed due to too many errors. 
+
+\mbox{\Hypertarget{sentences_8h_abf492dc10daef596abb368db385fab26}\label{sentences_8h_abf492dc10daef596abb368db385fab26}} 
+\index{sentences.h@{sentences.h}!sentencesChar@{sentencesChar}}
+\index{sentencesChar@{sentencesChar}!sentences.h@{sentences.h}}
+\doxysubsubsection{\texorpdfstring{sentencesChar}{sentencesChar}}
+{\footnotesize\ttfamily char sentences\+Char\mbox{[}\mbox{\hyperlink{sentences_8h_a22d4503bc16bb83bbf5db3dcbb1ea116}{n\+Sentences}}\mbox{]}\mbox{[}\mbox{\hyperlink{sentences_8h_a48929e27e49fdd8a87f0056d2281ca01}{n\+Chars}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Too many errors message. 
+

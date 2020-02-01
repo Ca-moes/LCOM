@@ -1,0 +1,832 @@
+#include <lcom/lcf.h>
+#include <game.h>
+#include <time.h> 
+#include <math.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+extern uint8_t SCANCODE[2];
+extern bool SCANCODE_2B; // true if it is a 2 byte scancode
+extern uint32_t TIMER_COUNTER;
+extern int MOUSE_HOOK_ID;
+extern uint8_t PACKET;
+extern int PACKET_BYTE_COUNTER;
+
+extern letter * abc , *errorMessage;
+extern number * numbers;
+extern letter ** sentences;
+
+extern char * greenChar,* redChar,* blackChar;
+
+unsigned int moveCar = 0, numberOfLetters = 0, nLet = 0; //marca a posição onde se vai desenhar o carro
+float oneMove = 0;
+bool drawGame = false,completed = false,errorState =false;
+bool capital = false;
+uint8_t errors = 0;
+int CapsMakeCount = 0;
+
+/*
+0 - make code esc
+1 - make code ponto
+2 - make/break caps e shift
+3 - breaks do que nao for caps ou shift
+4 - make de letras ou backspace
+5 - errorState
+*/
+int gameState = 3;
+
+int gameStart(){
+  enum xpm_image_type type= XPM_5_6_5;
+  uint8_t road_sprite, car_sprite, field_sprite, error_sprite, menu_sprite,button1_sprite,button2_sprite,button1Pressed_sprite,button2Pressed_sprite,mouse_sprite, results_sprite,menu_button_sprite,menu_button_pressed_sprite, redlight_sprite, yellowlight_sprite, greenlight_sprite;
+
+  xpm_image_t carImg,roadImg,fieldImg,errorImg,menuImg,button1Img,button2Img,button1PressedImg,button2PressedImg,mouseImg,resultsImg,menu_buttonImg,menu_button_pressedImg, redlightImg, yellowlightImg, greenlightImg;
+
+  loadLetters();  // passa todas as letras para abc[]
+  loadSentences(); // makes an array of letters out of an array of strings(chars)
+
+  //load xpm's
+  road_sprite = *xpm_load(road2,type,&roadImg);
+  menu_sprite = *xpm_load(menu,type,&menuImg);
+  button1_sprite = *xpm_load(button_unpressed,type,&button1Img);
+  button2_sprite = *xpm_load(button_unpressed2,type,&button2Img);
+  button1Pressed_sprite = *xpm_load(button_pressed,type,&button1PressedImg);
+  button2Pressed_sprite = *xpm_load(button_pressed2,type,&button2PressedImg);
+  car_sprite = *xpm_load(car,type,&carImg);
+  field_sprite = *xpm_load(text_field,type,&fieldImg);
+  error_sprite = *xpm_load(error,type,&errorImg);
+  mouse_sprite = *xpm_load(mouse,type,&mouseImg);
+  results_sprite = *xpm_load(results,type,&resultsImg);
+  menu_button_sprite = *xpm_load(menu_button,type,&menu_buttonImg);
+  menu_button_pressed_sprite = *xpm_load(menu_button_pressed,type,&menu_button_pressedImg);
+  redlight_sprite = *xpm_load(traffic_red,type,&redlightImg);
+  yellowlight_sprite = *xpm_load(traffic_yellow,type,&yellowlightImg);
+  greenlight_sprite = *xpm_load(traffic_green,type,&greenlightImg);
+
+  //set graphics mode
+  if (graphics_mode(0x117) != 0) return 1;
+
+  if(gameStateHandler(&menu_sprite,&results_sprite,&mouse_sprite,&button1_sprite,&button2_sprite,&button1Pressed_sprite,&button2Pressed_sprite,&menu_button_sprite,&menu_button_pressed_sprite,&redlight_sprite,&yellowlight_sprite,&greenlight_sprite,&menuImg,&resultsImg,&mouseImg,&button1Img,&button2Img,&button1PressedImg,&button2PressedImg,&menu_buttonImg,&menu_button_pressedImg,&road_sprite,&car_sprite,&field_sprite, &error_sprite,&carImg,&roadImg,&fieldImg,&errorImg,&redlightImg, &yellowlightImg, &greenlightImg) != 0) return 1;
+
+  return 0;
+}
+
+int gameStateHandler(uint8_t * menu_sprite,uint8_t *results_sprite,uint8_t * mouse_sprite,uint8_t * button1_sprite,uint8_t * button2_sprite,uint8_t * button1Pressed_sprite,uint8_t * button2Pressed_sprite,uint8_t * menu_button_sprite,uint8_t * menu_button_pressed_sprite, uint8_t * redlight_sprite,uint8_t * yellowlight_sprite,uint8_t * greenlight_sprite, xpm_image_t *menuImg,xpm_image_t *resultsImg,xpm_image_t * mouseImg, xpm_image_t *button1Img,xpm_image_t *button2Img,xpm_image_t *button1PressedImg,xpm_image_t *button2PressedImg,xpm_image_t * menu_buttonImg,xpm_image_t * menu_button_pressedImg,uint8_t * road_sprite, uint8_t * car_sprite, uint8_t * field_sprite, uint8_t * error_sprite,xpm_image_t *carImg,xpm_image_t *roadImg,xpm_image_t *fieldImg,xpm_image_t *errorImg, xpm_image_t *redlightImg,xpm_image_t *yellowlightImg,xpm_image_t *greenlightImg){
+
+  int ipc_status;
+  uint8_t bit_number;
+  message msg;
+  int r;
+  uint32_t irq_set_kbc,irq_set_timer,irq_set_mouse;
+  struct packet p;
+
+  /** 
+  m - menu 
+  c - modo classic
+  t - modo timed
+  e - exit
+  r - results
+  */
+  char mode = 'm'; 
+  bool start = true;  // determines if it is the 1º frame to draw
+  bool timedResults=false;
+  bool lbPressed = false;
+  bool sec3counter = true, timerreset = false; // true para fazer a contagem;
+
+  //results variables
+  int timeSpentSec;
+  int timeSpentCentSec;
+  int speed;
+  
+  //draw random sentence to start the game
+  letter * sentence= NULL; // n = numero de letras da frase
+  letter * input = NULL; // aloca espaço para o array de input - deixa espaço para 5 erros no fim
+
+  //set colors
+  greenChar = (char*)malloc(3*sizeof(char));
+  uint32_t greenCopy = 0x005D00;
+  memcpy(greenChar,&greenCopy,3*sizeof(char));
+
+  redChar = (char*)malloc(3*sizeof(char));
+  uint32_t redCopy = 0x00B900;
+  memcpy(redChar,&redCopy,3*sizeof(char));
+
+  blackChar = (char*)malloc(3*sizeof(char));
+  uint32_t blackCopy = 0x00B200;
+  memcpy(blackChar,&blackCopy,3*sizeof(char));
+  
+
+   //subscribe the timer
+  if(timer_subscribe_int(&bit_number) != 0)
+      return 1;
+  irq_set_timer = BIT(bit_number);
+
+  //enable stream mode and data reporting by mouse in stream mode
+  if(mouse_enable_data_rep() != 0)
+    return 1;
+
+  //subscribe the keyboard
+  if(kbc_subscribe_int(&bit_number) != 0)
+      return 1;
+  irq_set_kbc = BIT(bit_number);
+  
+  //subscribe the mouse
+  if(mouse_subscribe_int(&bit_number) != 0)
+      return 1; 
+  irq_set_mouse = BIT(bit_number);
+
+  unsigned int index=0; // until this index it was written correctly
+  int mouseX=get_hres()/2;
+  int mouseY=get_vres()/2;
+  while(mode != 'e'){ //enquanto não se sai do jogo
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    } if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */
+          if(msg.m_notify.interrupts & irq_set_mouse){
+            mouse_ih();
+            switch (mode)
+            {
+            case 'm':
+              if(PACKET_BYTE_COUNTER % 3 == 0){
+                build_packet_struct(&p,&PACKET);
+                lbPressed = p.lb;
+                if(mouseX + p.delta_x >= 0 && mouseX + p.delta_x + mouseImg->width <= (int)get_hres()){
+                   mouseX += p.delta_x;
+                }
+                if(mouseY-p.delta_y >= 0 && mouseY - p.delta_y + mouseImg->height <= (int)get_vres()){
+                  mouseY -= p.delta_y;
+                }
+              }
+              break;
+            case 'c'://classic mode
+              break;
+            case 't':
+              break;
+            case 'e':
+              break;
+            case 'r':
+              if(PACKET_BYTE_COUNTER % 3 == 0){
+                build_packet_struct(&p,&PACKET);
+                lbPressed = p.lb;
+                if(mouseX + p.delta_x >= 0 && mouseX + p.delta_x + mouseImg->width <= (int)get_hres()){
+                   mouseX += p.delta_x;
+                }
+                if(mouseY-p.delta_y >= 0 && mouseY - p.delta_y + mouseImg->height <= (int)get_vres()){
+                  mouseY -= p.delta_y;
+                }
+              }
+              break;
+            default:
+              break;
+            }
+          }		
+          if (msg.m_notify.interrupts & irq_set_kbc){
+            kbc_ih();
+            switch (mode)
+            {
+            case 'm':
+              if(SCANCODE[0] == MC_ESC){
+                mode = 'e';
+              }
+              break;
+            case 'c'://classic mode
+              if (sec3counter)
+              {
+                if(SCANCODE[0] == MC_ESC){
+                mode = 'm';
+                start = 0;
+                }
+              }
+              if(!completed && !start){
+                classicModeKbc(&sentence,&input, &mode, &start, &index);
+              }
+              break;
+            case 't':
+              if (sec3counter)
+              {
+                if(SCANCODE[0] == MC_ESC){
+                mode = 'm';
+                start = 0;
+                }
+              }
+              if(!completed && !start && !timedResults){
+                classicModeKbc(&sentence,&input, &mode, &start, &index);
+              }
+              break;
+            case 'e':
+              break;
+            case 'r':
+              // verifica ESC para sair 
+              if(SCANCODE[0] == MC_ESC){
+                mode = 'm';
+                start = 0;
+              }
+              break;
+            default:
+              break;
+            }
+          }
+          if(msg.m_notify.interrupts & irq_set_timer){
+            timer_int_handler();
+            switch (mode)
+            {
+            case 'm':
+              if(start){
+                /*draw menu components*/
+                lbPressed =false;
+                mouseX  = get_hres()/2;
+                mouseY = get_vres()/2;
+                drawMainMenu(menu_sprite,mouse_sprite,button1_sprite,button2_sprite,button1Pressed_sprite,button2Pressed_sprite,menuImg,mouseImg,button1Img,button2Img,button1PressedImg,button2PressedImg,mouseX,mouseY);
+                start = false;
+              }
+              else{
+                  drawMainMenu(menu_sprite,mouse_sprite,button1_sprite,button2_sprite,button1Pressed_sprite,button2Pressed_sprite,menuImg,mouseImg,button1Img,button2Img,button1PressedImg,button2PressedImg,mouseX,mouseY);
+                  if(mouseX >= 283 && mouseX <= 479 && mouseY>=400 && mouseY<= 396+button1Img->height-23 && lbPressed){
+                    mode = 'c';
+                    gameState = 3;
+                    drawGame = false;
+                    start = true;
+                    sec3counter = true;
+                    timerreset = false;
+                  }
+                  else if(mouseX >= 550 && mouseX <= 746 && mouseY>=400 && mouseY<= 396+button1Img->height-23 && lbPressed){
+                    mode = 't';
+                    gameState = 3;
+                    drawGame = false;
+                    start = true;
+                    TIMER_COUNTER = 0;
+                    timedResults=false;
+                    nLet = 0;
+                    sec3counter = true;
+                    timerreset = false;
+                  }
+              }
+              break;
+            case 'c': //classic mode
+              if (sec3counter)
+              {
+                if(!timerreset){
+                  TIMER_COUNTER = 0;
+                  timerreset = true;
+                }
+                counterStart(road_sprite, redlight_sprite, yellowlight_sprite, greenlight_sprite, roadImg, redlightImg, yellowlightImg, greenlightImg);
+                if(TIMER_COUNTER >= 160){
+                  sec3counter = false;
+                  timerreset = false;
+                }  
+                break;
+              }
+              if(start){
+                index = 0;
+                errors = 0;
+                nLet=0;
+                errorState = false;
+                completed = false;
+                classicModeStart(&sentence, &input, road_sprite,car_sprite, field_sprite, error_sprite,carImg,roadImg,fieldImg,errorImg);
+                start = false;
+                TIMER_COUNTER = 0;
+                break;
+              }
+              
+              if(gameState == 0){// se for Esc sai do loop e não recebe mais interrupções
+                mode ='m';
+                start = true;
+                sec3counter = true;
+                free(input);
+                free(sentence);
+                break;
+              }
+              else if(gameState == 1 && errors == 0 && errorState == false ){
+                sentenceCompleted(&timeSpentSec,&timeSpentCentSec,&speed);
+                lbPressed =false;
+                nLet = numberOfLetters;
+                mode ='r';
+                start = true;
+                sec3counter = true;
+                free(input);
+                free(sentence);
+                break;
+              }
+              
+              if(drawGame){
+                classicModeDraw(road_sprite,field_sprite,car_sprite,error_sprite,roadImg,fieldImg,carImg,errorImg,sentence, input, index);
+                drawGame = false;
+                if(completed){
+                  sec3counter = true;
+                  break;
+                } 
+              }
+              break;
+            case 't':
+            if (sec3counter)
+              {
+                if(!timerreset){
+                  TIMER_COUNTER = 0;
+                  timerreset = true;
+                }
+                counterStart(road_sprite, redlight_sprite, yellowlight_sprite, greenlight_sprite, roadImg, redlightImg, yellowlightImg, greenlightImg);
+                if(TIMER_COUNTER >= 160){
+                  sec3counter = false;
+                  timerreset = false;
+                }  
+                break;
+              }
+
+            if(start){
+                index = 0;
+                errors = 0;
+                errorState = false;
+                completed = false;
+                TIMER_COUNTER = 0;
+                timedModeStart(&sentence, &input, road_sprite,car_sprite, field_sprite, error_sprite,carImg,roadImg,fieldImg,errorImg);
+                start = false;
+                break;
+              }
+
+              if(TIMER_COUNTER / 60 == 60){// passou um minuto
+                timedResults = true;
+              }
+              
+              if(gameState == 0){// se for Esc sai do loop e não recebe mais interrupções
+                mode ='m';
+                start = true;
+                free(input);
+                free(sentence);
+                break;
+              }
+              else if(timedResults){
+                sentenceCompletedTimed(&timeSpentSec,&timeSpentCentSec,&speed);
+                lbPressed =false;
+                mode ='r';
+                start = true;
+                free(input);
+                free(sentence);
+                break;
+              }
+              else if(gameState == 1 && errors == 0 && errorState == false ){
+                gameState = 3;
+                lbPressed =false;
+                mode ='t';
+                start = true;
+                free(input);
+                free(sentence);
+                break;
+              }
+              
+              timedModeDraw(road_sprite,field_sprite,car_sprite,error_sprite,roadImg,fieldImg,carImg,errorImg,sentence, input, index);
+              if(completed) break;
+              
+              break;
+            case 'e':
+              break;
+            case 'r':
+              resultScreen(results_sprite,menu_button_sprite,menu_button_pressed_sprite,menu_buttonImg,menu_button_pressedImg,resultsImg,timeSpentSec,timeSpentCentSec,speed,mouse_sprite,mouseImg,mouseX,mouseY);
+
+              if(!start){            
+                if((unsigned int)mouseX >= (get_hres()-15-menu_buttonImg->width) && (unsigned int)mouseX <= (get_hres()-30) && (unsigned int)mouseY>=(get_vres()-15-menu_buttonImg->height) && (unsigned int)mouseY<= (get_vres()-35) && lbPressed){
+                    mode ='m';
+                    start = 0;
+                }
+              }
+              start = false;
+              break;
+            default:
+              break;
+            }
+          }
+        break;  // break do case HARDWARE
+      default:
+        break;  // break do defaut de switch (_ENDPOINT_P(msg.m_source))
+      }
+    }
+  }
+
+  destroySentencesAndLetters();
+  free(input);
+  
+  if(vg_exit()!= 0) return 1;
+
+  if(mouse_unsubscribe_int() != 0){
+    return 1;
+  }
+
+  if(kbc_unsubscribe_int() != 0)
+    return 1;
+
+
+  if (mouse_disable_data_rep() != 0)
+    return 1;
+  
+  if(timer_unsubscribe_int() != 0)
+  return 1;
+
+  return 0;
+  
+}
+
+void counterStart(uint8_t * road_sprite, uint8_t * redlight_sprite,uint8_t * yellowlight_sprite,uint8_t * greenlight_sprite,xpm_image_t *roadImg,xpm_image_t *redlightImg,xpm_image_t *yellowlightImg,xpm_image_t *greenlightImg){
+  draw_xpm_image(road_sprite,0,0,*roadImg,get_double_buffer());
+  if(TIMER_COUNTER > 0 && TIMER_COUNTER <=60)
+    draw_xpm_image(redlight_sprite,437,132,*redlightImg,get_double_buffer());
+  if(TIMER_COUNTER > 60 && TIMER_COUNTER <= 120)
+    draw_xpm_image(yellowlight_sprite,437,132,*yellowlightImg,get_double_buffer());
+  if(TIMER_COUNTER > 120 && TIMER_COUNTER < 160)
+    draw_xpm_image(greenlight_sprite,437,132,*greenlightImg,get_double_buffer());
+  page_flipping();   
+}
+
+
+void drawMainMenu(uint8_t * menu_sprite,uint8_t * mouse_sprite,uint8_t * button1_sprite,uint8_t * button2_sprite,uint8_t * button1Pressed_sprite,uint8_t * button2Pressed_sprite,xpm_image_t *menuImg,xpm_image_t *mouseImg,xpm_image_t *button1Img,xpm_image_t *button2Img,xpm_image_t *button1PressedImg,xpm_image_t *button2PressedImg,int mouseX, int mouseY){
+  draw_xpm_image(menu_sprite,0,0,*menuImg,get_double_buffer());
+  if(mouseX >= 283 && mouseX <= 479 && mouseY>=400 && mouseY<= 396+button1Img->height-23){
+    draw_xpm_image(button1Pressed_sprite,225,396,*button1PressedImg,get_double_buffer());
+    draw_xpm_image(button2_sprite,480,396,*button2Img,get_double_buffer());
+  }
+  else if(mouseX >= 540 && mouseX <= 736 && mouseY>=400 && mouseY<= 396+button1Img->height-23){
+    draw_xpm_image(button1_sprite,225,396,*button1Img,get_double_buffer());
+    draw_xpm_image(button2Pressed_sprite,480,396,*button2PressedImg,get_double_buffer());
+  }
+  else{
+    draw_xpm_image(button1_sprite,225,396,*button1Img,get_double_buffer());
+    draw_xpm_image(button2_sprite,480,396,*button2Img,get_double_buffer());
+  }
+  draw_xpm_image(mouse_sprite,mouseX,mouseY,*mouseImg,get_double_buffer());
+  page_flipping();
+}
+
+void classicModeStart(letter ** sentence, letter ** input, uint8_t * road_sprite, uint8_t * car_sprite, uint8_t * field_sprite, uint8_t * error_sprite,xpm_image_t *carImg,xpm_image_t *roadImg,xpm_image_t *fieldImg,xpm_image_t *errorImg){
+  
+  //draw game scene and main objects
+  draw_xpm_image(road_sprite,0,0,*roadImg,get_double_buffer());
+  draw_xpm_image(field_sprite,get_hres()/2.0-fieldImg->width/2,get_vres()/2-64,*fieldImg,get_double_buffer());
+  draw_xpm_image(car_sprite,0,get_vres()-carImg->height,*carImg,get_double_buffer());
+
+  //draw random sentence to start the game
+  generateRandomSentence(sentence); // n = numero de letras da frase
+  *input =  (letter*)malloc((numberOfLetters+5)*sizeof(letter)); // aloca espaço para o array de input - deixa espaço para 5 erros no fim
+
+  //numero de pixels a avançar no moveCar counter
+  oneMove = ((float)get_hres()-carImg->width)/(float)numberOfLetters ;
+  moveCar = 0;
+
+  draw_sentence(*sentence,get_hres()/2.0-350 ,get_vres()/2.0-250,get_double_buffer(),errors,-1);
+  page_flipping();
+
+}
+
+void timedModeStart(letter ** sentence, letter ** input, uint8_t * road_sprite, uint8_t * car_sprite, uint8_t * field_sprite, uint8_t * error_sprite,xpm_image_t *carImg,xpm_image_t *roadImg,xpm_image_t *fieldImg,xpm_image_t *errorImg){
+  
+  //draw game scene and main objects
+  draw_xpm_image(road_sprite,0,0,*roadImg,get_double_buffer());
+  draw_xpm_image(field_sprite,get_hres()/2.0-fieldImg->width/2,get_vres()/2-64,*fieldImg,get_double_buffer());
+  draw_xpm_image(car_sprite,0,get_vres()-carImg->height,*carImg,get_double_buffer());
+
+  //draw random sentence to start the game
+  generateRandomSentence(sentence); // n = numero de letras da frase
+  *input =  (letter*)malloc((numberOfLetters+5)*sizeof(letter)); // aloca espaço para o array de input - deixa espaço para 5 erros no fim
+
+  //numero de pixels a avançar no moveCar counter
+  oneMove = ((float)get_hres()-carImg->width)/(float)numberOfLetters ;
+  moveCar = 0;
+
+  draw_sentence(*sentence,get_hres()/2.0-350 ,get_vres()/2.0-250,get_double_buffer(),errors,-1);
+  page_flipping();
+
+}
+
+void classicModeKbc(letter ** sentence, letter ** input, char * mode, bool * start, unsigned int * index){
+  
+  gameState = checkScanCode(SCANCODE);
+  if(gameState == 0){// se for Esc sai do loop e não recebe mais interrupções
+    *mode ='m';
+    *start = true;
+    return;
+  }
+  else if(gameState == 3) drawGame = false;
+  else if(gameState == 1 && *index == numberOfLetters-1 && errors == 0 && errorState == false){//Ponto Final e final da frase
+      validateLetter(*sentence,SCANCODE,input,*index);
+      *index = *index + 1;
+      drawGame = true;
+      completed = true;
+  }
+  else if((gameState == 4 || (gameState == 1 && *index != numberOfLetters-1)) && errorState == false ){ //letra, símbolo ou backspace
+
+    /*
+    0 - acertou na letra
+    1 - letra errada
+    2 - backspace
+    3 - outro (não faz nada)
+    */
+    int validation;
+
+    validation = validateLetter(*sentence,SCANCODE,input,*index);
+    if(validation == 0){ //valid letter
+      drawGame = true;
+      *index = *index + 1;
+      nLet++;
+    }
+    else if(validation == 1){ //invalid letter
+      drawGame = true;
+    }
+    else if(validation == 2){//backspace
+      drawGame = true;
+    }
+  }
+  else if(errorState == true && gameState != 3){
+    drawGame = true;
+  }
+  
+}
+
+void classicModeDraw(uint8_t * road_sprite,uint8_t * field_sprite,uint8_t * car_sprite,uint8_t * error_sprite,xpm_image_t *roadImg,xpm_image_t *fieldImg,xpm_image_t *carImg, xpm_image_t * errorImg, letter * sentence, letter * input, unsigned int index){
+  draw_xpm_image(road_sprite,0,0,*roadImg,get_double_buffer());
+  draw_xpm_image(field_sprite,get_hres()/2.0-fieldImg->width/2,get_vres()/2-64,*fieldImg,get_double_buffer());
+  draw_input_sentence(input,sentence,get_hres()/2.0 - 350 ,get_vres()/2-30,get_double_buffer(),errors,index-1);
+  if(errorState){
+    draw_xpm_image(error_sprite,get_hres()/2.0-fieldImg->width/2,30,*errorImg,get_double_buffer());
+    draw_sentence(errorMessage,get_hres()/2.0-fieldImg->width/2 + errorImg->width + 15 ,40,get_double_buffer(),0,-1);
+  }
+
+  draw_xpm_image(car_sprite,moveCar,get_vres()-carImg->height,*carImg,get_double_buffer());
+  draw_sentence(sentence,get_hres()/2.0 - 350 ,get_vres()/2.0 - 250,get_double_buffer(),errors,index-1);
+  page_flipping();
+}
+
+void timedModeDraw(uint8_t * road_sprite,uint8_t * field_sprite,uint8_t * car_sprite,uint8_t * error_sprite,xpm_image_t *roadImg,xpm_image_t *fieldImg,xpm_image_t *carImg, xpm_image_t * errorImg, letter * sentence, letter * input, unsigned int index){
+  draw_xpm_image(road_sprite,0,0,*roadImg,get_double_buffer());
+
+  drawTimeElapsed();
+
+  draw_xpm_image(field_sprite,get_hres()/2.0-fieldImg->width/2,get_vres()/2-64,*fieldImg,get_double_buffer());
+  draw_input_sentence(input,sentence,get_hres()/2.0 - 350 ,get_vres()/2-30,get_double_buffer(),errors,index-1);
+  if(errorState){
+    draw_xpm_image(error_sprite,get_hres()/2.0-fieldImg->width/2,30,*errorImg,get_double_buffer());
+    draw_sentence(errorMessage,get_hres()/2.0-fieldImg->width/2 + errorImg->width + 15 ,40,get_double_buffer(),0,-1);
+  }
+
+  draw_xpm_image(car_sprite,moveCar,get_vres()-carImg->height,*carImg,get_double_buffer());
+  draw_sentence(sentence,get_hres()/2.0 - 350 ,get_vres()/2.0 - 250,get_double_buffer(),errors,index-1);
+
+  page_flipping();
+}
+
+void drawTimeElapsed(){
+
+  int n=0;
+  //show minutes
+  draw_xpm_image(numbers[0].sprite,0,0,numbers[0].img,get_double_buffer());
+  draw_xpm_image(numbers[0].sprite,17,0,numbers[0].img,get_double_buffer());
+
+  //show two dots
+  draw_xpm_image(numbers[10].sprite,17*2,0,numbers[10].img,get_double_buffer());
+
+  //show seconds
+  bool small = (TIMER_COUNTER/60 < 10);
+  if(small) draw_xpm_image(numbers[0].sprite,17*3,0,numbers[0].img,get_double_buffer());
+
+  char * sec=itoa(TIMER_COUNTER/60,10);
+  for(unsigned int c = 0 ; sec[c] != '\0'; c++){
+    n++;
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == sec[c]){
+        if(small)
+          draw_xpm_image(numbers[i].sprite,17*4+c*17,0,numbers[i].img,get_double_buffer());
+        else
+          draw_xpm_image(numbers[i].sprite,17*3+c*17,0,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  if(n==0){
+    draw_xpm_image(numbers[0].sprite,17*4,0,numbers[0].img,get_double_buffer());
+  }
+}
+
+int checkScanCode(uint8_t * scancode){
+  uint8_t maskMSB= 0x80;
+
+  if(errors == 5){
+     if(scancode[0] == MC_BACK){
+       errorState = false;
+       return 4;
+     }
+     else if(scancode[0] == MC_ESC){
+       errorState = false;
+       return 0;
+     }
+     errorState = true;
+     return 5;
+  }
+  //check for the type of scancode and print it
+  if(!SCANCODE_2B && SCANCODE[0]!=SCANCODE_2B_FB){//if it is a 1 byte scancode
+    if((maskMSB & SCANCODE[0])>>7 != 1){//if it is a make code
+     
+      if(scancode[0] == MC_ESC){
+        return 0;
+      }
+      else if(scancode[0]== MC_DOT){
+        return 1;
+      }
+      else if(scancode[0] == MC_SHIFT || scancode[0] == MC_SHIFT2){
+        if(capital) capital = false;
+        else capital = true;
+        return 2;
+      }
+      else if(scancode[0] == MC_CAPS){
+        if(!capital && CapsMakeCount == 0){
+          CapsMakeCount ++;
+          capital = true;
+        }
+        else if(!capital && CapsMakeCount == 1){
+          CapsMakeCount = 0;
+          capital = false;
+        }
+        else CapsMakeCount = 0;
+        return 2;
+      }
+      //it's a letter/symbol
+      else if((scancode[0] >= 0x10 && scancode[0] <= 0x19) || (scancode[0]>=0x1E && scancode[0] <= 0x26) || (scancode[0]>=0x2C && scancode[0] < 0x34) || scancode[0] == 0x0C || scancode[0] == BC_BACK || scancode[0] == MC_BACK || scancode[0]==0x39){
+        if(errorState && scancode[0] == MC_BACK)
+          errorState = false;
+        return 4;
+      }
+      else return 3;
+   }
+   else{ // it is a break code
+    if(scancode[0] == BC_SHIFT || scancode[0] == BC_SHIFT2){
+      if(capital) capital = false;
+      else capital= true;
+      return 2;
+    }
+    else if(scancode[0] == BC_CAPS){
+      if(capital && CapsMakeCount == 0){
+        capital = false;
+      }
+      return 2;
+    }
+    return 3;
+   }
+     
+  } else return 3;
+}
+
+void generateRandomSentence(letter ** sentence){
+    time_t t;
+    srand((unsigned) time(&t));
+    unsigned x = rand()%nSentences;
+    numberOfLetters = 0;
+    while(sentences[x][numberOfLetters].makeCode !=  MC_DOT) numberOfLetters = numberOfLetters+1;
+    numberOfLetters = numberOfLetters+1;
+
+    *sentence = (letter*)malloc(numberOfLetters*sizeof(letter));
+    memcpy(*sentence,sentences[x], numberOfLetters*sizeof(letter));
+}
+
+void sentenceCompleted(int * timeSpentSec,int * timeSpentCentSec,int * speed){
+  *timeSpentSec = TIMER_COUNTER/60;
+  *timeSpentCentSec = (int)(((TIMER_COUNTER%60)/60.0)*100.0);
+  *speed = (int)(roundf(numberOfLetters/(float)(TIMER_COUNTER/60) * 100) / 100);
+}
+
+void sentenceCompletedTimed(int * timeSpentSec,int * timeSpentCentSec,int * speed){
+  *timeSpentSec = TIMER_COUNTER/60;
+  *timeSpentCentSec = (int)(((TIMER_COUNTER%60)/60.0)*100.0);
+  *speed = (int)(roundf(nLet/(float)(TIMER_COUNTER/60) * 100) / 100);
+}
+
+void resultScreen(uint8_t * results_sprite,uint8_t * menu_button_sprite,uint8_t * menu_button_pressed_sprite,xpm_image_t * menu_buttonImg,xpm_image_t * menu_button_pressedImg,xpm_image_t * resultsImg,int timeSpentSec,int timeSpentCentSec,int speed,uint8_t * mouse_sprite, xpm_image_t * mouseImg,int mouseX, int mouseY){
+  int n=0;
+  //show results screen
+  draw_xpm_image(results_sprite,0,0,*resultsImg,get_double_buffer());
+
+  //draw button to return to menu
+  if((unsigned int)mouseX >= get_hres()-15-menu_buttonImg->width && (unsigned int)mouseX <= get_hres()-30 && (unsigned int)mouseY>=get_vres()-15-menu_buttonImg->height && (unsigned int)mouseY<= get_vres()-35){
+    draw_xpm_image(menu_button_pressed_sprite,get_hres()-15-menu_button_pressedImg->width,get_vres()-menu_button_pressedImg->height-15,*menu_button_pressedImg,get_double_buffer());         
+  }
+  else{
+    draw_xpm_image(menu_button_sprite,get_hres()-15-menu_buttonImg->width,get_vres()-menu_buttonImg->height-15,*menu_buttonImg,get_double_buffer());
+  }
+
+  int positionXi = 590;
+  int positionYi = 300;
+  int positionX = positionXi;
+  int positionY = positionYi;
+
+  //show number of words
+  char * letAr=itoa(nLet,10);
+
+  for(unsigned int c = 0 ; letAr[c] != '\0'; c++){
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == letAr[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  
+  positionX = positionXi;
+  positionY = positionYi + 53;
+
+  //show seconds
+  char * sec=itoa(timeSpentSec,10);
+  for(unsigned int c = 0 ; sec[c] != '\0'; c++){
+    n++;
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == sec[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  if(n==0) draw_xpm_image(numbers[0].sprite,positionX,positionY,numbers[0].img,get_double_buffer());
+
+  //show two dots
+  positionX += 21;
+  draw_xpm_image(numbers[10].sprite,positionX,positionY,numbers[10].img,get_double_buffer());
+
+  n=0;
+  bool small = (timeSpentCentSec < 10);
+  if(small){
+    draw_xpm_image(numbers[0].sprite,positionX+18,positionY,numbers[0].img,get_double_buffer());
+    positionX += 18*2;
+  }
+  
+  //show centiseconds
+  char * centSec=itoa(timeSpentCentSec,10);
+  for(unsigned int c = 0 ; sec[c] != '\0'; c++){
+    n++;
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == centSec[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  if(n==0){
+    draw_xpm_image(numbers[0].sprite,positionX+17,positionY,numbers[0].img,get_double_buffer());
+  }
+
+  positionX = positionXi;
+  positionY = positionYi + 53*2;
+  //show speed
+  char * speedAr=itoa(speed,10);
+  for(unsigned int c = 0 ; speedAr[c] != '\0'; c++){
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == speedAr[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  //draw mouse
+  draw_xpm_image(mouse_sprite,mouseX,mouseY,*mouseImg,get_double_buffer());
+  page_flipping();
+}
+
+/*
+0 - acertou na letra
+1 - letra errada
+2 - backspace
+3 - outro (não faz nada)
+*/
+int validateLetter(letter * let, uint8_t * scancode, letter ** input, unsigned index){
+
+  if(scancode[0] == let[index].makeCode && errors == 0 && capital == let[index].capital){ /*correct input*/
+    moveCar+= oneMove;
+    (*input)[index] = let[index];
+    return 0;
+  }
+  else if((scancode[0] != let[index].makeCode && scancode[0] != MC_BACK && scancode[0] != BC_BACK) || (scancode[0] == let[index].makeCode && errors == 0 && capital == let[index].capital && errors > 0)||(scancode[0] == let[index].makeCode && errors == 0 && capital != let[index].capital)||
+  (scancode[0] == let[index].makeCode && errors != 0 && capital == let[index].capital)||
+  (scancode[0] == let[index].makeCode && errors != 0 && capital != let[index].capital)){ 
+  /*wrong input*/
+    for(int j=0; j< nLetters; j++){
+      if(abc[j].makeCode == scancode[0] && capital == abc[j].capital){
+        (*input)[index+errors] = abc[j];
+        break;
+      }
+    }
+    errors++;
+    return 1;
+  }
+  else if( scancode[0] == MC_BACK){
+    if(errors > 0){
+      (*input)[index+errors] = abc[58];
+      errors--;
+    }
+    else return 3;
+    return 2;
+  }
+  else{
+    return 3;
+  }
+}

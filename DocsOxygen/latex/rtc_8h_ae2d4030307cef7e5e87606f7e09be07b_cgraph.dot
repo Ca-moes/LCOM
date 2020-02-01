@@ -1,0 +1,16 @@
+digraph "rtc_read_date"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="rtc_read_date",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Subscribes interrupts to the RTC."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="bcd",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#abbc06d30fa1fc5a86e081a8adff67312",tooltip="Checks if it is in bcd."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="bcd_to_binary",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#a372efb1351dcf0468894632441b12e9a",tooltip="Converts num to binary if and only if it is in bcd."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="isUpdating",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#a2612ab4da31e866317aedbbc8cdadbc4",tooltip="Checks if rtc is updating."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="rtc_read",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#a8e562473fe7c6e414b655b0edee66138",tooltip="Reads from RTC_DATA_REG what is in port."];
+}

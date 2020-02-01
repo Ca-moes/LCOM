@@ -1,0 +1,905 @@
+#include <lcom/lcf.h>
+
+#include "game.h"
+#include "highscores.h"
+
+extern uint8_t SCANCODE[2];
+extern bool SCANCODE_2B; // true if it is a 2 byte scancode
+extern uint32_t TIMER_COUNTER;
+extern int MOUSE_HOOK_ID;
+extern uint8_t PACKET;
+extern int PACKET_BYTE_COUNTER;
+
+extern letter * abc , *errorMessage;
+extern number * numbers;
+extern letter ** sentences;
+extern char * greenChar,* redChar,* blackChar;
+
+int gameStart(){
+  enum xpm_image_type type= XPM_5_6_5;
+
+  loadLetters();  // passa todas as letras para abc[]
+  loadSentences(); // makes an array of letters out of an array of strings(chars)
+
+  game = (Game*)malloc(sizeof(Game));
+
+  //define estado inicial das variáveis associadas ao jogo
+  game->gameState = 3;
+  game->moveCar = 0; //marca a posição onde desenha o carro
+  game->nLet = 0;
+  game->numberOfLetters = 0;
+  game->oneMove = 0; //define tamanho de um movimento do carro
+  game->drawGame = false;
+  game->completed = false;
+  game->errorState =false;
+  game->capital = false;
+  game->errors = 0;
+  game->CapsMakeCount = 0;
+
+  //highscores
+  game->NUMBEROFSCORES = 0;
+  game->highscores = (highScore*) malloc(sizeof(highScore) * 5);
+  game->date = (realTime*)malloc(sizeof(realTime));
+  get_highscores(game);
+
+  //set colors
+  greenChar = (char*)malloc(3*sizeof(char));
+  uint32_t greenCopy = 0x005D00;
+  memcpy(greenChar,&greenCopy,3*sizeof(char));
+  redChar = (char*)malloc(3*sizeof(char));
+  uint32_t redCopy = 0x00B900;
+  memcpy(redChar,&redCopy,3*sizeof(char));
+  blackChar = (char*)malloc(3*sizeof(char));
+  uint32_t blackCopy = 0x00B200;
+  memcpy(blackChar,&blackCopy,3*sizeof(char));
+
+  //load xpm's
+  game->road_sprite = xpm_load(road2,type,&game->roadImg);
+  game->menu_sprite = xpm_load(menu,type,&game->menuImg);
+  game->button1_sprite = xpm_load(button_unpressed,type,&game->button1Img);
+  game->button2_sprite = xpm_load(button_unpressed2,type,&game->button2Img);
+  game->button1Pressed_sprite = xpm_load(button_pressed,type,&game->button1PressedImg);
+  game->button2Pressed_sprite = xpm_load(button_pressed2,type,&game->button2PressedImg);
+  game->car_sprite = xpm_load(car,type,&game->carImg);
+  game->field_sprite = xpm_load(text_field,type,&game->fieldImg);
+  game->error_sprite = xpm_load(error,type,&game->errorImg);
+  game->mouse_sprite = xpm_load(mouse,type,&game->mouseImg);
+  game->results_sprite = xpm_load(results,type,&game->resultsImg);
+  game->menu_button_sprite = xpm_load(menu_button,type,&game->menu_buttonImg);
+  game->menu_button_pressed_sprite = xpm_load(menu_button_pressed,type,&game->menu_button_pressedImg);
+  game->redlight_sprite = xpm_load(traffic_red,type,&game->redlightImg);
+  game->yellowlight_sprite = xpm_load(traffic_yellow,type,&game->yellowlightImg);
+  game->greenlight_sprite = xpm_load(traffic_green,type,&game->greenlightImg);
+
+  //set graphics mode
+  if (graphics_mode(0x117) != 0) return 1;
+
+  if(gameStateHandler() != 0) return 1;
+
+  set_highscores(game);
+
+  return 0;
+}
+
+int gameStateHandler(){
+
+  int ipc_status;
+  uint8_t bit_number;
+  message msg;
+  int r;
+  uint32_t irq_set_kbc,irq_set_timer,irq_set_mouse,irq_set_rtc;
+  struct packet p;
+  char modeResult;
+
+  /** 
+  m - menu 
+  c - modo classic
+  t - modo timed
+  e - exit
+  r - results
+  */
+  char mode = 'm'; 
+  bool start = true;  // determines if it is the 1º frame to draw
+  bool timedResults=false;
+  bool lbPressed = false;
+  bool sec3counter = true, timerreset = false; // true para fazer a contagem;
+
+  //results variables
+  int timeSpentSec;
+  int timeSpentCentSec;
+  int speed;
+
+  letter * sentence= NULL; // n = numero de letras da frase
+  letter * input = NULL; // aloca espaço para o array de input - deixa espaço para 5 erros no fim
+  
+  //subsribe RTC
+  if(rtc_subscribe_int(&bit_number) != 0)
+      return 1;
+  irq_set_rtc = BIT(bit_number);
+
+  //subscribe the timer
+  if(timer_subscribe_int(&bit_number) != 0)
+      return 1;
+  irq_set_timer = BIT(bit_number);
+
+  //enable stream mode and data reporting by mouse in stream mode
+  if(mouse_enable_data_rep() != 0)
+    return 1;
+
+  //subscribe the keyboard
+  if(kbc_subscribe_int(&bit_number) != 0)
+      return 1;
+  irq_set_kbc = BIT(bit_number);
+  
+  //subscribe the mouse
+  if(mouse_subscribe_int(&bit_number) != 0)
+      return 1; 
+  irq_set_mouse = BIT(bit_number);
+
+  unsigned int index=0; // until this index it was written correctly
+  int mouseX=get_hres()/2;
+  int mouseY=get_vres()/2;
+  while(mode != 'e'){ //enquanto não se sai do jogo
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+      printf("driver_receive failed with: %d", r);
+      continue;
+    } if (is_ipc_notify(ipc_status)) { /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */
+          if(msg.m_notify.interrupts & irq_set_mouse){
+            mouse_ih();
+            switch (mode)
+            {
+            case 'm':
+              if(PACKET_BYTE_COUNTER % 3 == 0){
+                build_packet_struct(&p,&PACKET);
+                lbPressed = p.lb;
+                if(mouseX + p.delta_x >= 0 && mouseX + p.delta_x + game->mouseImg.width <= (int)get_hres()){
+                   mouseX += p.delta_x;
+                }
+                if(mouseY-p.delta_y >= 0 && mouseY - p.delta_y + game->mouseImg.height <= (int)get_vres()){
+                  mouseY -= p.delta_y;
+                }
+              }
+              break;
+            case 'c'://classic mode
+              break;
+            case 't':
+              break;
+            case 'e':
+              break;
+            case 'r':
+              if(PACKET_BYTE_COUNTER % 3 == 0){
+                build_packet_struct(&p,&PACKET);
+                lbPressed = p.lb;
+                if(mouseX + p.delta_x >= 0 && mouseX + p.delta_x + game->mouseImg.width <= (int)get_hres()){
+                   mouseX += p.delta_x;
+                }
+                if(mouseY-p.delta_y >= 0 && mouseY - p.delta_y + game->mouseImg.height <= (int)get_vres()){
+                  mouseY -= p.delta_y;
+                }
+              }
+              break;
+            default:
+              break;
+            }
+          }		
+          if (msg.m_notify.interrupts & irq_set_kbc){
+            kbc_ih();
+            switch (mode)
+            {
+            case 'm':
+              if(SCANCODE[0] == MC_ESC){
+                mode = 'e';
+              }
+              break;
+            case 'c'://classic mode
+              if (sec3counter)
+              {
+                if(SCANCODE[0] == MC_ESC){
+                mode = 'm';
+                start = 0;
+                }
+              }
+              if(!game->completed && !start){
+                classicModeKbc(&sentence,&input, &mode, &start, &index);
+              }
+              break;
+            case 't':
+              if (sec3counter)
+              {
+                if(SCANCODE[0] == MC_ESC){
+                mode = 'm';
+                start = 0;
+                }
+              }
+              if(!game->completed && !start && !timedResults){
+                classicModeKbc(&sentence,&input, &mode, &start, &index);
+              }
+              break;
+            case 'e':
+              break;
+            case 'r':
+              // verifica ESC para sair 
+              if(SCANCODE[0] == MC_ESC){
+                mode = 'm';
+                start = 0;
+              }
+              break;
+            default:
+              break;
+            }
+          }
+          if(msg.m_notify.interrupts & irq_set_timer){
+            timer_int_handler();
+            switch (mode)
+            {
+            case 'm':
+              if(start){
+                *game->date = rtc_read_date();
+                /*draw menu components*/
+                lbPressed =false;
+                mouseX  = get_hres()/2;
+                mouseY = get_vres()/2;
+                drawMainMenu(mouseX,mouseY);
+                start = false;
+              }
+              else{
+                  drawMainMenu(mouseX,mouseY);
+                  if(mouseX >= 283 && mouseX <= 479 && mouseY>=400 && mouseY<= 396+game->button1Img.height-23 && lbPressed){
+                    mode = 'c';
+                    game->gameState = 3;
+                    game->drawGame = false;
+                    start = true;
+                    sec3counter = true;
+                    timerreset = false;
+                  }
+                  else if(mouseX >= 550 && mouseX <= 746 && mouseY>=400 && mouseY<= 396+game->button1Img.height-23 && lbPressed){
+                    mode = 't';
+                    game->gameState = 3;
+                    game->drawGame = false;
+                    start = true;
+                    TIMER_COUNTER = 0;
+                    timedResults=false;
+                    game->nLet = 0;
+                    sec3counter = true;
+                    timerreset = false;
+                  }
+              }
+              break;
+            case 'c': //classic mode
+              if (sec3counter)
+              {
+                if(!timerreset){
+                  TIMER_COUNTER = 0;
+                  timerreset = true;
+                }
+                counterStart();
+                if(TIMER_COUNTER >= 160){
+                  sec3counter = false;
+                  timerreset = false;
+                }  
+                break;
+              }
+              if(start){
+                index = 0;
+                game->errors = 0;
+                game->nLet=0;
+                game->errorState = false;
+                game->completed = false;
+                classicModeStart(&sentence, &input);
+                start = false;
+                TIMER_COUNTER = 0;
+                break;
+              }
+              
+              if(game->gameState == 0){// se for Esc sai do loop e não recebe mais interrupções
+                mode ='m';
+                start = true;
+                sec3counter = true;
+                free(input);
+                free(sentence);
+                break;
+              }
+              else if(game->gameState == 1 && game->errors == 0 && game->errorState == false ){
+                sentenceCompleted(&timeSpentSec,&timeSpentCentSec,&speed);
+                lbPressed =false;
+                game->nLet = game->numberOfLetters;
+                mode ='r';
+                modeResult = 'c';
+                start = true;
+                sec3counter = true;
+                free(input);
+                free(sentence);
+
+                if(new_highscore(game,speed) < 5) {
+                  add_new_highscore(game,new_highscore(game,speed),speed);
+                }
+                break;
+              }
+              
+              if(game->drawGame){
+                classicModeDraw(sentence, input, index);
+                game->drawGame = false;
+                if(game->completed){
+                  sec3counter = true;
+                  break;
+                } 
+              }
+              break;
+            case 't':
+              if (sec3counter)
+                {
+                  counterStart();
+                  if(TIMER_COUNTER >= 160){
+                    sec3counter = false;
+                    timerreset = false;
+                  }  
+                  break;
+                }
+              
+              if(start){
+                  index = 0;
+                  game->errors = 0;
+                  game->errorState = false;
+                  game->completed = false;
+                  if(!timerreset) TIMER_COUNTER = 0;
+                  timerreset = true;
+                  timedModeStart(&sentence, &input);
+                  start = false;
+                  break;
+                }
+
+                if(TIMER_COUNTER / 60 == 60){// passou um minuto
+                  timedResults = true;
+                }
+                
+                if(game->gameState == 0){// se for Esc sai do loop e não recebe mais interrupções
+                  mode ='m';
+                  start = true;
+                  free(input);
+                  free(sentence);
+                  break;
+                }
+                else if(timedResults){
+                  sentenceCompletedTimed(&timeSpentSec,&timeSpentCentSec,&speed);
+                  lbPressed =false;
+                  mode ='r';
+                  modeResult = 't';
+                  start = true;
+                  free(input);
+                  free(sentence);
+                  if(new_highscore(game,speed) < 5) {
+                    add_new_highscore(game,new_highscore(game,speed),speed);
+                  }
+                  break;
+                }
+                else if(game->gameState == 1 && game->errors == 0 && game->errorState == false ){
+                  game->gameState = 3;
+                  lbPressed =false;
+                  mode ='t';
+                  start = true;
+                  free(input);
+                  free(sentence);
+                  break;
+                }
+                
+                timedModeDraw(sentence, input, index);
+                if(game->completed) break;
+                
+                break;
+            case 'e':
+              break;
+            case 'r':
+              resultScreen(timeSpentSec,timeSpentCentSec,speed,mouseX,mouseY,modeResult);
+
+              if(!start){            
+                if((unsigned int)mouseX >= (get_hres()-15-game->menu_buttonImg.width) && (unsigned int)mouseX <= (get_hres()-30) && (unsigned int)mouseY>=(get_vres()-15-game->menu_buttonImg.height) && (unsigned int)mouseY<= (get_vres()-35) && lbPressed){
+                    mode ='m';
+                    start = 0;
+                }
+              }
+              start = false;
+              break;
+            default:
+              break;
+            }
+          }
+        break;  // break do case HARDWARE
+      default:
+        break;  // break do defaut de switch (_ENDPOINT_P(msg.m_source))
+      }
+    }
+  }
+
+  destroySentencesAndLetters();
+  free(input);
+  free_double_buffer();
+  free(game);
+  
+  if(vg_exit()!= 0) return 1;
+
+  if(mouse_unsubscribe_int() != 0){
+    return 1;
+  }
+
+  if(kbc_unsubscribe_int() != 0)
+    return 1;
+
+
+  if (mouse_disable_data_rep() != 0)
+    return 1;
+  
+  if(timer_unsubscribe_int() != 0)
+  return 1;
+
+  if(rtc_unsubscribe_int() != 0)
+    return 1;
+
+  return 0;
+  
+}
+
+void counterStart(){
+  draw_xpm_image(game->road_sprite,0,0,game->roadImg,get_double_buffer());
+  if(TIMER_COUNTER > 0 && TIMER_COUNTER <=60)
+    draw_xpm_image(game->redlight_sprite,437,132,game->redlightImg,get_double_buffer());
+  if(TIMER_COUNTER > 60 && TIMER_COUNTER <= 120)
+    draw_xpm_image(game->yellowlight_sprite,437,132,game->yellowlightImg,get_double_buffer());
+  if(TIMER_COUNTER > 120 && TIMER_COUNTER < 160)
+    draw_xpm_image(game->greenlight_sprite,437,132,game->greenlightImg,get_double_buffer());
+  page_flipping();  
+}
+
+void drawMainMenu(int mouseX, int mouseY){
+  draw_xpm_image(game->menu_sprite,0,0,game->menuImg,get_double_buffer());
+  if(mouseX >= 283 && mouseX <= 479 && mouseY>=400 && mouseY<= 396+game->button1Img.height-23){
+    draw_xpm_image(game->button1Pressed_sprite,225,396,game->button1PressedImg,get_double_buffer());
+    draw_xpm_image(game->button2_sprite,480,396,game->button2Img,get_double_buffer());
+  }
+  else if(mouseX >= 540 && mouseX <= 736 && mouseY>=400 && mouseY<= 396+game->button1Img.height-23){
+    draw_xpm_image(game->button1_sprite,225,396,game->button1Img,get_double_buffer());
+    draw_xpm_image(game->button2Pressed_sprite,480,396,game->button2PressedImg,get_double_buffer());
+  }
+  else{
+    draw_xpm_image(game->button1_sprite,225,396,game->button1Img,get_double_buffer());
+    draw_xpm_image(game->button2_sprite,480,396,game->button2Img,get_double_buffer());
+  }
+  draw_xpm_image(game->mouse_sprite,mouseX,mouseY,game->mouseImg,get_double_buffer());
+
+  draw_date();
+  page_flipping();
+}
+
+void classicModeStart(letter ** sentence, letter ** input){
+  
+  //draw game scene and main objects
+  draw_xpm_image(game->road_sprite,0,0,game->roadImg,get_double_buffer());
+  draw_xpm_image(game->field_sprite,get_hres()/2.0-game->fieldImg.width/2,get_vres()/2-64,game->fieldImg,get_double_buffer());
+  draw_xpm_image(game->car_sprite,0,get_vres()-game->carImg.height,game->carImg,get_double_buffer());
+
+  //draw random sentence to start the game
+  generateRandomSentence(sentence); // n = numero de letras da frase
+  *input =  (letter*)malloc((game->numberOfLetters+5)*sizeof(letter)); // aloca espaço para o array de input - deixa espaço para 5 erros no fim
+
+  //numero de pixels a avançar no moveCar counter
+  game->oneMove = ((float)get_hres()-game->carImg.width)/(float)game->numberOfLetters ;
+  game->moveCar = 0;
+
+  draw_sentence(*sentence,get_hres()/2.0-350 ,get_vres()/2.0-250,get_double_buffer(),game->errors,-1);
+  page_flipping();
+
+}
+
+void timedModeStart(letter ** sentence, letter ** input){
+  
+  //draw game scene and main objects
+  draw_xpm_image(game->road_sprite,0,0,game->roadImg,get_double_buffer());
+  draw_xpm_image(game->field_sprite,get_hres()/2.0-game->fieldImg.width/2,get_vres()/2-64,game->fieldImg,get_double_buffer());
+  draw_xpm_image(game->car_sprite,0,get_vres()-game->carImg.height,game->carImg,get_double_buffer());
+
+  //draw random sentence to start the game
+  generateRandomSentence(sentence); // n = numero de letras da frase
+  *input =  (letter*)malloc((game->numberOfLetters+5)*sizeof(letter)); // aloca espaço para o array de input - deixa espaço para 5 erros no fim
+
+  //numero de pixels a avançar no moveCar counter
+  game->oneMove = ((float)get_hres()-game->carImg.width)/(float)game->numberOfLetters ;
+  game->moveCar = 0;
+
+  draw_sentence(*sentence,get_hres()/2.0-350 ,get_vres()/2.0-250,get_double_buffer(),game->errors,-1);
+  page_flipping();
+
+}
+
+void classicModeKbc(letter ** sentence, letter ** input, char * mode, bool * start, unsigned int * index){
+  
+  game->gameState = checkScanCode(SCANCODE);
+  if(game->gameState == 0){// se for Esc sai do loop e não recebe mais interrupções
+    *mode ='m';
+    *start = true;
+    return;
+  }
+  else if(game->gameState == 3) game->drawGame = false;
+  else if(game->gameState == 1 && *index == game->numberOfLetters-1 && game->errors == 0 && game->errorState == false){//Ponto Final e final da frase
+      validateLetter(*sentence,SCANCODE,input,*index);
+      *index = *index + 1;
+      game->drawGame = true;
+      game->completed = true;
+  }
+  else if((game->gameState == 4 || (game->gameState == 1 && *index != game->numberOfLetters-1)) && game->errorState == false ){ //letra, símbolo ou backspace
+
+    /*
+    0 - acertou na letra
+    1 - letra errada
+    2 - backspace
+    3 - outro (não faz nada)
+    */
+    int validation;
+
+    validation = validateLetter(*sentence,SCANCODE,input,*index);
+    if(validation == 0){ //valid letter
+      game->drawGame = true;
+      *index = *index + 1;
+      game->nLet++;
+    }
+    else if(validation == 1){ //invalid letter
+      game->drawGame = true;
+    }
+    else if(validation == 2){//backspace
+      game->drawGame = true;
+    }
+  }
+  else if(game->errorState == true && game->gameState != 3){
+    game->drawGame = true;
+  }
+  
+}
+
+void classicModeDraw(letter * sentence, letter * input, unsigned int index){
+  draw_xpm_image(game->road_sprite,0,0,game->roadImg,get_double_buffer());
+  draw_xpm_image(game->field_sprite,get_hres()/2.0-game->fieldImg.width/2,get_vres()/2-64,game->fieldImg,get_double_buffer());
+  draw_input_sentence(input,sentence,get_hres()/2.0 - 350 ,get_vres()/2-30,get_double_buffer(),game->errors,index-1);
+  if(game->errorState){
+    draw_xpm_image(game->error_sprite,get_hres()/2.0-game->fieldImg.width/2,30,game->errorImg,get_double_buffer());
+    draw_sentence(errorMessage,get_hres()/2.0-game->fieldImg.width/2 + game->errorImg.width + 15 ,40,get_double_buffer(),0,-1);
+  }
+
+  draw_xpm_image(game->car_sprite,game->moveCar,get_vres()-game->carImg.height,game->carImg,get_double_buffer());
+  draw_sentence(sentence,get_hres()/2.0 - 350 ,get_vres()/2.0 - 250,get_double_buffer(),game->errors,index-1);
+  page_flipping();
+}
+
+void timedModeDraw(letter * sentence, letter * input, unsigned int index){
+  draw_xpm_image(game->road_sprite,0,0,game->roadImg,get_double_buffer());
+
+  drawTimeElapsed();
+
+  draw_xpm_image(game->field_sprite,get_hres()/2.0-game->fieldImg.width/2,get_vres()/2-64,game->fieldImg,get_double_buffer());
+  draw_input_sentence(input,sentence,get_hres()/2.0 - 350 ,get_vres()/2-30,get_double_buffer(),game->errors,index-1);
+  if(game->errorState){
+    draw_xpm_image(game->error_sprite,get_hres()/2.0-game->fieldImg.width/2,30,game->errorImg,get_double_buffer());
+    draw_sentence(errorMessage,get_hres()/2.0-game->fieldImg.width/2 + game->errorImg.width + 15 ,40,get_double_buffer(),0,-1);
+  }
+
+  draw_xpm_image(game->car_sprite,game->moveCar,get_vres()-game->carImg.height,game->carImg,get_double_buffer());
+  draw_sentence(sentence,get_hres()/2.0 - 350 ,get_vres()/2.0 - 250,get_double_buffer(),game->errors,index-1);
+
+  page_flipping();
+}
+
+void drawTimeElapsed(){
+
+  int n=0;
+  //show minutes
+  draw_xpm_image(numbers[0].sprite,0,3,numbers[0].img,get_double_buffer());
+  draw_xpm_image(numbers[0].sprite,17,3,numbers[0].img,get_double_buffer());
+
+  //show two dots
+  draw_xpm_image(numbers[10].sprite,17*2,3,numbers[10].img,get_double_buffer());
+
+  //show seconds
+  bool small = (TIMER_COUNTER/60 < 10);
+  if(small) draw_xpm_image(numbers[0].sprite,17*3,3,numbers[0].img,get_double_buffer());
+
+  char * sec=itoa(TIMER_COUNTER/60,10);
+  for(unsigned int c = 0 ; sec[c] != '\0'; c++){
+    n++;
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == sec[c]){
+        if(small)
+          draw_xpm_image(numbers[i].sprite,17*4+c*17,3,numbers[i].img,get_double_buffer());
+        else
+          draw_xpm_image(numbers[i].sprite,17*3+c*17,3,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  if(n==0){
+    draw_xpm_image(numbers[0].sprite,17*4,3,numbers[0].img,get_double_buffer());
+  }
+}
+
+int checkScanCode(uint8_t * scancode){
+  uint8_t maskMSB= 0x80;
+
+  if(game->errors == 5){
+     if(scancode[0] == MC_BACK){
+       game->errorState = false;
+       return 4;
+     }
+     else if(scancode[0] == MC_ESC){
+       game->errorState = false;
+       return 0;
+     }
+     game->errorState = true;
+     return 5;
+  }
+  //check for the type of scancode and print it
+  if(!SCANCODE_2B && SCANCODE[0]!=SCANCODE_2B_FB){//if it is a 1 byte scancode
+    if((maskMSB & SCANCODE[0])>>7 != 1){//if it is a make code
+     
+      if(scancode[0] == MC_ESC){
+        return 0;
+      }
+      else if(scancode[0]== MC_DOT){
+        return 1;
+      }
+      else if(scancode[0] == MC_SHIFT || scancode[0] == MC_SHIFT2){
+        if(game->capital) game->capital = false;
+        else game->capital = true;
+        return 2;
+      }
+      else if(scancode[0] == MC_CAPS){
+        if(!game->capital && game->CapsMakeCount == 0){
+          game->CapsMakeCount ++;
+          game->capital = true;
+        }
+        else if(!game->capital && game->CapsMakeCount == 1){
+          game->CapsMakeCount = 0;
+          game->capital = false;
+        }
+        else game->CapsMakeCount = 0;
+        return 2;
+      }
+      //it's a letter/symbol
+      else if((scancode[0] >= 0x10 && scancode[0] <= 0x19) || (scancode[0]>=0x1E && scancode[0] <= 0x26) || (scancode[0]>=0x2C && scancode[0] < 0x34) || scancode[0] == 0x0C || scancode[0] == BC_BACK || scancode[0] == MC_BACK || scancode[0]==0x39){
+        if(game->errorState && scancode[0] == MC_BACK)
+          game->errorState = false;
+        return 4;
+      }
+      else return 3;
+   }
+   else{ // it is a break code
+    if(scancode[0] == BC_SHIFT || scancode[0] == BC_SHIFT2){
+      if(game->capital) game->capital = false;
+      else game->capital= true;
+      return 2;
+    }
+    else if(scancode[0] == BC_CAPS){
+      if(game->capital && game->CapsMakeCount == 0){
+        game->capital = false;
+      }
+      return 2;
+    }
+    return 3;
+   }
+     
+  } else return 3;
+}
+
+void generateRandomSentence(letter ** sentence){
+    time_t t;
+    srand((unsigned) time(&t));
+    unsigned x = rand()%nSentences;
+    game->numberOfLetters = 0;
+    while(sentences[x][game->numberOfLetters].makeCode !=  MC_DOT) game->numberOfLetters = game->numberOfLetters+1;
+    game->numberOfLetters = game->numberOfLetters+1;
+
+    *sentence = (letter*)malloc(game->numberOfLetters*sizeof(letter));
+    memcpy(*sentence,sentences[x], game->numberOfLetters*sizeof(letter));
+}
+
+void sentenceCompleted(int * timeSpentSec,int * timeSpentCentSec,int * speed){
+  *timeSpentSec = TIMER_COUNTER/60;
+  *timeSpentCentSec = (int)(((TIMER_COUNTER%60)/60.0)*100.0);
+  *speed = (int)(roundf(game->numberOfLetters/(float)(TIMER_COUNTER/60) * 100) / 100);
+}
+
+void sentenceCompletedTimed(int * timeSpentSec,int * timeSpentCentSec,int * speed){
+  *timeSpentSec = TIMER_COUNTER/60;
+  *timeSpentCentSec = 0;
+  *speed = (int)(roundf(game->nLet/(float)(TIMER_COUNTER/60) * 100) / 100);
+}
+
+void resultScreen(int timeSpentSec,int timeSpentCentSec,int speed,int mouseX, int mouseY,char mode){
+  int n=0;
+  //show results screen
+  draw_xpm_image(game->results_sprite,0,0,game->resultsImg,get_double_buffer());
+
+  //draw button to return to menu
+  if((unsigned int)mouseX >= get_hres()-15-game->menu_buttonImg.width && (unsigned int)mouseX <= get_hres()-30 && (unsigned int)mouseY>=get_vres()-15-game->menu_buttonImg.height && (unsigned int)mouseY<= get_vres()-35){
+    draw_xpm_image(game->menu_button_pressed_sprite,get_hres()-15-game->menu_button_pressedImg.width,get_vres()-game->menu_button_pressedImg.height-15,game->menu_button_pressedImg,get_double_buffer());         
+  }
+  else{
+    draw_xpm_image(game->menu_button_sprite,get_hres()-15-game->menu_buttonImg.width,get_vres()-game->menu_buttonImg.height-15,game->menu_buttonImg,get_double_buffer());
+  }
+
+  int positionXi = 590;
+  int positionYi = 300;
+  int positionX = positionXi;
+  int positionY = positionYi;
+
+  //show number of words
+  char * letAr=itoa(game->nLet,10);
+
+  for(unsigned int c = 0 ; letAr[c] != '\0'; c++){
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == letAr[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  
+  positionX = positionXi;
+  positionY = positionYi + 53;
+
+  //show seconds
+  char * sec=itoa(timeSpentSec,10);
+  for(unsigned int c = 0 ; sec[c] != '\0'; c++){
+    n++;
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == sec[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  if(n==0) draw_xpm_image(numbers[0].sprite,positionX,positionY,numbers[0].img,get_double_buffer());
+
+  //show two dots
+  positionX += 21;
+  draw_xpm_image(numbers[10].sprite,positionX,positionY,numbers[10].img,get_double_buffer());
+
+  n=0;
+  bool small = (timeSpentCentSec < 10);
+  if(small){
+    draw_xpm_image(numbers[0].sprite,positionX+18,positionY,numbers[0].img,get_double_buffer());
+    positionX += 18;
+  }
+
+  //show centiseconds
+  char * centSec=itoa(timeSpentCentSec,10);
+  for(unsigned int c = 0 ; sec[c] != '\0'; c++){
+    n++;
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == centSec[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  if(n==0){
+    draw_xpm_image(numbers[0].sprite,positionX,positionY,numbers[0].img,get_double_buffer());
+  }
+
+  positionX = positionXi;
+  positionY = positionYi + 53*2;
+  //show speed
+  char * speedAr=itoa(speed,10);
+  for(unsigned int c = 0 ; speedAr[c] != '\0'; c++){
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == speedAr[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  //draw mouse
+  draw_xpm_image(game->mouse_sprite,mouseX,mouseY,game->mouseImg,get_double_buffer());
+
+  page_flipping();
+  free(centSec);
+  free(sec);
+  free(speedAr);
+  free(letAr);
+}
+
+/*
+0 - acertou na letra
+1 - letra errada
+2 - backspace
+3 - outro (não faz nada)
+*/
+int validateLetter(letter * let, uint8_t * scancode, letter ** input, unsigned index){
+
+  if(scancode[0] == let[index].makeCode && game->errors == 0 && game->capital == let[index].capital){ /*correct input*/
+    game->moveCar+= game->oneMove;
+    (*input)[index] = let[index];
+    return 0;
+  }
+  else if((scancode[0] != let[index].makeCode && scancode[0] != MC_BACK && scancode[0] != BC_BACK) || (scancode[0] == let[index].makeCode && game->errors == 0 && game->capital == let[index].capital && game->errors > 0)||(scancode[0] == let[index].makeCode && game->errors == 0 && game->capital != let[index].capital)||
+  (scancode[0] == let[index].makeCode && game->errors != 0 && game->capital == let[index].capital)||
+  (scancode[0] == let[index].makeCode && game->errors != 0 && game->capital != let[index].capital)){ 
+  /*wrong input*/
+    for(int j=0; j< nLetters; j++){
+      if(abc[j].makeCode == scancode[0] && game->capital == abc[j].capital){
+        (*input)[index+game->errors] = abc[j];
+        break;
+      }
+    }
+    game->errors++;
+    return 1;
+  }
+  else if( scancode[0] == MC_BACK){
+    if(game->errors > 0){
+      (*input)[index+game->errors] = abc[58];
+      game->errors--;
+    }
+    else return 3;
+    return 2;
+  }
+  else{
+    return 3;
+  }
+}
+
+void draw_date(){
+  int positionXi = -10;
+  int positionYi = 8;
+  int positionX = positionXi;
+  int positionY = positionYi;
+
+  //show Day
+  char * day=itoa(game->date->day,10);
+
+  for(unsigned int c = 0 ; day[c] != '\0'; c++){
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == day[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+
+  positionX += 22;
+  draw_xpm_image(numbers[11].sprite,positionX,positionY,numbers[11].img,get_double_buffer());
+
+  //show Month
+  char * month=itoa(game->date->month,10);
+
+  for(unsigned int c = 0 ; month[c] != '\0'; c++){
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == month[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+  positionX += 22;
+  draw_xpm_image(numbers[11].sprite,positionX,positionY,numbers[11].img,get_double_buffer());
+
+  //show Year
+  char * year=itoa(game->date->year,10);
+
+  for(unsigned int c = 0 ; year[c] != '\0'; c++){
+    for(unsigned int i = 0; i < 10; i++){
+      if(numbers[i].number == year[c]){
+        positionX += 18;
+        draw_xpm_image(numbers[i].sprite,positionX,positionY,numbers[i].img,get_double_buffer());
+        break;
+      }
+    }
+  }
+
+  free(year);
+  free(month);
+  free(day);
+}

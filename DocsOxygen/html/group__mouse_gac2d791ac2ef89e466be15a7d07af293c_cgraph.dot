@@ -1,0 +1,23 @@
+digraph "mouse_write_command"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="mouse_write_command",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Write a Mouse Command(reg 0xD4) - written as argument of Kbc Write Mouse byte command."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="kbc_issue_command",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__keyboard.html#gafef77d0b7c2ee5a579ddb0393ad3597c",tooltip="Issues KBC's read and write commands, after checking the IBF flag."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="kbc_read_state_field",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__keyboard.html#ga9453fe291021234b7acdb48b9153e042",tooltip="reads the specified field of the status register"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="util_sys_inb",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8c.html#a79a031a8611f5b2d6afa4158e92b0fb4",tooltip="Invokes sys_inb() system call but reads the value into a uint8_t variable."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="kbc_write_command_args",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__keyboard.html#gae9d0239cc864fd704805e47ccda7d55d",tooltip="Write Command Arguments to register 0x60, after checking the IBF flag."];
+  Node5 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="mouse_check_ack",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__mouse.html#ga61a09c55d6ae925765830865c5645422",tooltip="Check the acknowledgment byte sent by the mouse controller."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="kbc_read_command_return",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__keyboard.html#ga075c2cba7a8cbeaa3c3b22660ad81460",tooltip="Read Command from the Output Buffer - in Lab3 reads return value from a KBC command."];
+  Node7 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

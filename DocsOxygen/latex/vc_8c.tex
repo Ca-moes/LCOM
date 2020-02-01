@@ -1,0 +1,473 @@
+\hypertarget{vc_8c}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/vc.c File Reference}
+\label{vc_8c}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/vc.c@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/vc.c}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$vc.\+h$>$}\newline
+{\ttfamily \#include $<$vc\+\_\+macros.\+h$>$}\newline
+{\ttfamily \#include $<$keyboard.\+h$>$}\newline
+{\ttfamily \#include $<$i8042.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for vc.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{vc_8c_afd41fed726d4b51c536ef35d3c40776e}{vbe\+\_\+get\+\_\+info\+\_\+mode}} (uint16\+\_\+t \mbox{\hyperlink{game_8h_a1a6b6fb557d8d37d59700faf4e4c9167}{mode}}, vbe\+\_\+mode\+\_\+info\+\_\+t $\ast$vmi\+\_\+p)
+\begin{DoxyCompactList}\small\item\em Return V\+BE Mode Information. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{vc_8c_a35c677977685f08e46a8dc940a1c4e45}{graphics\+\_\+mode}} (uint16\+\_\+t \mbox{\hyperlink{game_8h_a1a6b6fb557d8d37d59700faf4e4c9167}{mode}})
+\begin{DoxyCompactList}\small\item\em Sets the Graphics Mode. \end{DoxyCompactList}\item 
+unsigned \mbox{\hyperlink{vc_8c_a10e416c59639a7f6b6f9f8f020fdb8d0}{get\+\_\+hres}} ()
+\begin{DoxyCompactList}\small\item\em Get horizontal resolution. \end{DoxyCompactList}\item 
+unsigned \mbox{\hyperlink{vc_8c_a1c1b9a9c811575beb06fc355241ef17d}{get\+\_\+vres}} ()
+\begin{DoxyCompactList}\small\item\em Get vertical resolution. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{vc_8c_a0cf63b55241db8e042bd55d93901566d}{draw\+\_\+xpm\+\_\+image}} (uint8\+\_\+t $\ast$sprite, uint16\+\_\+t x, uint16\+\_\+t y, xpm\+\_\+image\+\_\+t img, void $\ast$buff)
+\begin{DoxyCompactList}\small\item\em Draws an X\+PM on the screen at specified coordinates. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{vc_8c_a39f0bde9aaab6ed1432749a642471488}{draw\+\_\+sentence}} (\mbox{\hyperlink{structletter}{letter}} $\ast$sentence, uint16\+\_\+t x, uint16\+\_\+t y, void $\ast$buff, uint8\+\_\+t errors, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} correct)
+\begin{DoxyCompactList}\small\item\em Draws sentence on the screen at specified coordinates. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{vc_8c_a8fa2f951c438f58389b8888597a4d523}{draw\+\_\+input\+\_\+sentence}} (\mbox{\hyperlink{structletter}{letter}} $\ast$input, \mbox{\hyperlink{structletter}{letter}} $\ast$sentence, uint16\+\_\+t x, uint16\+\_\+t y, void $\ast$buff, uint8\+\_\+t errors, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} correct)
+\begin{DoxyCompactList}\small\item\em Draws the input from the user on the screen at specified coordinates. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{vc_8c_a87ed620696016e546afba21d658621d8}{draw\+\_\+name}} (\mbox{\hyperlink{structletter}{letter}} $\ast$sentence, uint16\+\_\+t x, uint16\+\_\+t y, void $\ast$buff, unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} n)
+\begin{DoxyCompactList}\small\item\em Draws the name of a player (username) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{vc_8c_afbd4aed1170f23b5f48dddd79a957b33}{draw\+\_\+letter}} (uint8\+\_\+t $\ast$sprite, uint16\+\_\+t x, uint16\+\_\+t y, xpm\+\_\+image\+\_\+t img, void $\ast$buff, void $\ast$color)
+\begin{DoxyCompactList}\small\item\em Draws a letter on the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{vc_8c_a82c7d64d78290967cdb6c47aefe16b78}{draw\+\_\+pixel}} (uint16\+\_\+t x, uint16\+\_\+t y, const void $\ast$color, void $\ast$buff)
+\begin{DoxyCompactList}\small\item\em Draw a pixel on the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{vc_8c_a243163f132ab9dce6b21d946df703fd4}{page\+\_\+flipping}} ()
+\begin{DoxyCompactList}\small\item\em Perform page flipping -\/ copy contents of the double buffer to the first buffer. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{vc_8c_a55c5883685bf347fccf094f10aa399e8}{get\+\_\+double\+\_\+buffer}} ()
+\begin{DoxyCompactList}\small\item\em Get double buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{vc_8c_a5c9a2ecbe4ff77b9dbe4ff3826682300}{free\+\_\+double\+\_\+buffer}} ()
+\begin{DoxyCompactList}\small\item\em Free memory allocate for the double buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static vbe\+\_\+mode\+\_\+info\+\_\+t \mbox{\hyperlink{vc_8c_a0cb3d0ba34458283fd5bfe568bc6b2ac}{info}}
+\begin{DoxyCompactList}\small\item\em structure to be initialized with the V\+BE information on the input mode \end{DoxyCompactList}\item 
+static void $\ast$ \mbox{\hyperlink{vc_8c_a5077a1a703b40b073dc6b5c1129ab0a1}{video\+\_\+mem}}
+\begin{DoxyCompactList}\small\item\em frame-\/buffer VM address \end{DoxyCompactList}\item 
+static char $\ast$ \mbox{\hyperlink{vc_8c_aa3b05db7dca7a1fd396ecb42c0432467}{double\+\_\+buf}}
+\begin{DoxyCompactList}\small\item\em double buffer will be a copy of video mem (page flipping) \end{DoxyCompactList}\item 
+static uint16\+\_\+t \mbox{\hyperlink{vc_8c_abc3c784566289e1414929d23e32a0c6c}{hres}}
+\begin{DoxyCompactList}\small\item\em Horizontal resolution in pixels. \end{DoxyCompactList}\item 
+static uint16\+\_\+t \mbox{\hyperlink{vc_8c_a573eca15e5986d6dd7ae53b5dab582e2}{vres}}
+\begin{DoxyCompactList}\small\item\em Vertical resolution in pixels. \end{DoxyCompactList}\item 
+static unsigned \mbox{\hyperlink{vc_8c_a89fa3fb58e975d148fcb2413e24b78a1}{bits\+\_\+per\+\_\+pixel}}
+\begin{DoxyCompactList}\small\item\em Number of V\+R\+AM bits per pixel. \end{DoxyCompactList}\item 
+static mmap\+\_\+t \mbox{\hyperlink{vc_8c_a093154ad2a8c83f3c270e2ec82a0c3fd}{mem\+\_\+map}}
+\begin{DoxyCompactList}\small\item\em mapping of physical memory to virtual memory \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{vc_8c_ab7b1e71aacce175bf1c893054fa07781}{S\+C\+A\+N\+C\+O\+DE}} \mbox{[}2\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array to store the bytes from the scancode. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{vc_8c_a172035857ff29c458da347f647932126}{S\+C\+A\+N\+C\+O\+D\+E\+\_\+2B}}
+\begin{DoxyCompactList}\small\item\em true if the scancode has 2 bytes \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{vc_8c_abf7826fb638d279ecaf7f7a84611b89f}{T\+I\+M\+E\+R\+\_\+\+C\+O\+U\+N\+T\+ER}}
+\begin{DoxyCompactList}\small\item\em Counter to keep track of the elapsed time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{vc_8c_a8fa2f951c438f58389b8888597a4d523}\label{vc_8c_a8fa2f951c438f58389b8888597a4d523}} 
+\index{vc.c@{vc.c}!draw\_input\_sentence@{draw\_input\_sentence}}
+\index{draw\_input\_sentence@{draw\_input\_sentence}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{draw\_input\_sentence()}{draw\_input\_sentence()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} draw\+\_\+input\+\_\+sentence (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{input,  }\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{sentence,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{void $\ast$}]{buff,  }\item[{uint8\+\_\+t}]{errors,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{correct }\end{DoxyParamCaption})}
+
+
+
+Draws the input from the user on the screen at specified coordinates. 
+
+Also sets the color of each letter taking into account the ones that were correctly typed by the $\ast$ user and the ones that were not. Avoids breaking words by measuring width between two spaces.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & the input from the user \\
+\hline
+{\em sentence} & the sentence \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner \\
+\hline
+{\em buff} & linear buffer ~\newline
+ \\
+\hline
+{\em errors} & the number of errors \\
+\hline
+{\em correct} & the index of the last letter typed correctly\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{vc_8c_afbd4aed1170f23b5f48dddd79a957b33}\label{vc_8c_afbd4aed1170f23b5f48dddd79a957b33}} 
+\index{vc.c@{vc.c}!draw\_letter@{draw\_letter}}
+\index{draw\_letter@{draw\_letter}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{draw\_letter()}{draw\_letter()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} draw\+\_\+letter (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{sprite,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{xpm\+\_\+image\+\_\+t}]{img,  }\item[{void $\ast$}]{buff,  }\item[{void $\ast$}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws a letter on the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sprite} & letter\textquotesingle{}s sprite \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner \\
+\hline
+{\em img} & xpm image to draw \\
+\hline
+{\em buff} & linear buffer ~\newline
+ \\
+\hline
+{\em color} & the color of the letter\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{vc_8c_a87ed620696016e546afba21d658621d8}\label{vc_8c_a87ed620696016e546afba21d658621d8}} 
+\index{vc.c@{vc.c}!draw\_name@{draw\_name}}
+\index{draw\_name@{draw\_name}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{draw\_name()}{draw\_name()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} draw\+\_\+name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{sentence,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{void $\ast$}]{buff,  }\item[{unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{n }\end{DoxyParamCaption})}
+
+
+
+Draws the name of a player (username) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & the name of the user \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner \\
+\hline
+{\em buff} & linear buffer ~\newline
+ \\
+\hline
+{\em n} & number of letter of the username\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{vc_8c_a82c7d64d78290967cdb6c47aefe16b78}\label{vc_8c_a82c7d64d78290967cdb6c47aefe16b78}} 
+\index{vc.c@{vc.c}!draw\_pixel@{draw\_pixel}}
+\index{draw\_pixel@{draw\_pixel}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{draw\_pixel()}{draw\_pixel()}}
+{\footnotesize\ttfamily void draw\+\_\+pixel (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{const void $\ast$}]{color,  }\item[{void $\ast$}]{buff }\end{DoxyParamCaption})}
+
+
+
+Draw a pixel on the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & horizontal coordinate of upper-\/left corner \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner \\
+\hline
+{\em color} & the color of the letter \\
+\hline
+{\em buff} & linear buffer \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{vc_8c_a39f0bde9aaab6ed1432749a642471488}\label{vc_8c_a39f0bde9aaab6ed1432749a642471488}} 
+\index{vc.c@{vc.c}!draw\_sentence@{draw\_sentence}}
+\index{draw\_sentence@{draw\_sentence}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{draw\_sentence()}{draw\_sentence()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} draw\+\_\+sentence (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$}]{sentence,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{void $\ast$}]{buff,  }\item[{uint8\+\_\+t}]{errors,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{correct }\end{DoxyParamCaption})}
+
+
+
+Draws sentence on the screen at specified coordinates. 
+
+Also sets the color of each letter taking into account the ones that were correctly typed by the $\ast$ user and the ones that were not. Avoids breaking words by measuring width between two spaces.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sentence} & the sentence \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner \\
+\hline
+{\em buff} & linear buffer ~\newline
+ \\
+\hline
+{\em errors} & the number of errors \\
+\hline
+{\em correct} & the index of the last letter typed correctly\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{vc_8c_a0cf63b55241db8e042bd55d93901566d}\label{vc_8c_a0cf63b55241db8e042bd55d93901566d}} 
+\index{vc.c@{vc.c}!draw\_xpm\_image@{draw\_xpm\_image}}
+\index{draw\_xpm\_image@{draw\_xpm\_image}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{draw\_xpm\_image()}{draw\_xpm\_image()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} draw\+\_\+xpm\+\_\+image (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{sprite,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{xpm\+\_\+image\+\_\+t}]{img,  }\item[{void $\ast$}]{buff }\end{DoxyParamCaption})}
+
+
+
+Draws an X\+PM on the screen at specified coordinates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sprite} & sprite \\
+\hline
+{\em x} & horizontal coordinate of upper-\/left corner \\
+\hline
+{\em y} & vertical coordinate of upper-\/left corner \\
+\hline
+{\em img} & xpm image to draw \\
+\hline
+{\em buff} & linear buffer ~\newline
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 10
+Here is the caller graph for this function\+:
+% FIG 11
+\mbox{\Hypertarget{vc_8c_a5c9a2ecbe4ff77b9dbe4ff3826682300}\label{vc_8c_a5c9a2ecbe4ff77b9dbe4ff3826682300}} 
+\index{vc.c@{vc.c}!free\_double\_buffer@{free\_double\_buffer}}
+\index{free\_double\_buffer@{free\_double\_buffer}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{free\_double\_buffer()}{free\_double\_buffer()}}
+{\footnotesize\ttfamily void free\+\_\+double\+\_\+buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Free memory allocate for the double buffer. 
+
+Here is the caller graph for this function\+:
+% FIG 12
+\mbox{\Hypertarget{vc_8c_a55c5883685bf347fccf094f10aa399e8}\label{vc_8c_a55c5883685bf347fccf094f10aa399e8}} 
+\index{vc.c@{vc.c}!get\_double\_buffer@{get\_double\_buffer}}
+\index{get\_double\_buffer@{get\_double\_buffer}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{get\_double\_buffer()}{get\_double\_buffer()}}
+{\footnotesize\ttfamily char$\ast$ get\+\_\+double\+\_\+buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get double buffer. 
+
+\begin{DoxyReturn}{Returns}
+Double buffer address 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 13
+\mbox{\Hypertarget{vc_8c_a10e416c59639a7f6b6f9f8f020fdb8d0}\label{vc_8c_a10e416c59639a7f6b6f9f8f020fdb8d0}} 
+\index{vc.c@{vc.c}!get\_hres@{get\_hres}}
+\index{get\_hres@{get\_hres}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{get\_hres()}{get\_hres()}}
+{\footnotesize\ttfamily unsigned get\+\_\+hres (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get horizontal resolution. 
+
+\begin{DoxyReturn}{Returns}
+horizontal resolution 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 14
+\mbox{\Hypertarget{vc_8c_a1c1b9a9c811575beb06fc355241ef17d}\label{vc_8c_a1c1b9a9c811575beb06fc355241ef17d}} 
+\index{vc.c@{vc.c}!get\_vres@{get\_vres}}
+\index{get\_vres@{get\_vres}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{get\_vres()}{get\_vres()}}
+{\footnotesize\ttfamily unsigned get\+\_\+vres (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get vertical resolution. 
+
+\begin{DoxyReturn}{Returns}
+vertical resolution 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 15
+\mbox{\Hypertarget{vc_8c_a35c677977685f08e46a8dc940a1c4e45}\label{vc_8c_a35c677977685f08e46a8dc940a1c4e45}} 
+\index{vc.c@{vc.c}!graphics\_mode@{graphics\_mode}}
+\index{graphics\_mode@{graphics\_mode}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{graphics\_mode()}{graphics\_mode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} graphics\+\_\+mode (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+
+
+Sets the Graphics Mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & the graphics mode to set\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 16
+Here is the caller graph for this function\+:
+% FIG 17
+\mbox{\Hypertarget{vc_8c_a243163f132ab9dce6b21d946df703fd4}\label{vc_8c_a243163f132ab9dce6b21d946df703fd4}} 
+\index{vc.c@{vc.c}!page\_flipping@{page\_flipping}}
+\index{page\_flipping@{page\_flipping}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{page\_flipping()}{page\_flipping()}}
+{\footnotesize\ttfamily void page\+\_\+flipping (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Perform page flipping -\/ copy contents of the double buffer to the first buffer. 
+
+Here is the caller graph for this function\+:
+% FIG 18
+\mbox{\Hypertarget{vc_8c_afd41fed726d4b51c536ef35d3c40776e}\label{vc_8c_afd41fed726d4b51c536ef35d3c40776e}} 
+\index{vc.c@{vc.c}!vbe\_get\_info\_mode@{vbe\_get\_info\_mode}}
+\index{vbe\_get\_info\_mode@{vbe\_get\_info\_mode}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{vbe\_get\_info\_mode()}{vbe\_get\_info\_mode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} vbe\+\_\+get\+\_\+info\+\_\+mode (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode,  }\item[{vbe\+\_\+mode\+\_\+info\+\_\+t $\ast$}]{vmi\+\_\+p }\end{DoxyParamCaption})}
+
+
+
+Return V\+BE Mode Information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & mode whose information should be returned \\
+\hline
+{\em vmi\+\_\+p} & address of vbe\+\_\+mode\+\_\+info\+\_\+t structure to be initialized\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 19
+Here is the caller graph for this function\+:
+% FIG 20
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{vc_8c_a89fa3fb58e975d148fcb2413e24b78a1}\label{vc_8c_a89fa3fb58e975d148fcb2413e24b78a1}} 
+\index{vc.c@{vc.c}!bits\_per\_pixel@{bits\_per\_pixel}}
+\index{bits\_per\_pixel@{bits\_per\_pixel}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{bits\_per\_pixel}{bits\_per\_pixel}}
+{\footnotesize\ttfamily unsigned bits\+\_\+per\+\_\+pixel\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Number of V\+R\+AM bits per pixel. 
+
+\mbox{\Hypertarget{vc_8c_aa3b05db7dca7a1fd396ecb42c0432467}\label{vc_8c_aa3b05db7dca7a1fd396ecb42c0432467}} 
+\index{vc.c@{vc.c}!double\_buf@{double\_buf}}
+\index{double\_buf@{double\_buf}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{double\_buf}{double\_buf}}
+{\footnotesize\ttfamily char$\ast$ double\+\_\+buf\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+double buffer will be a copy of video mem (page flipping) 
+
+\mbox{\Hypertarget{vc_8c_abc3c784566289e1414929d23e32a0c6c}\label{vc_8c_abc3c784566289e1414929d23e32a0c6c}} 
+\index{vc.c@{vc.c}!hres@{hres}}
+\index{hres@{hres}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{hres}{hres}}
+{\footnotesize\ttfamily uint16\+\_\+t hres\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Horizontal resolution in pixels. 
+
+\mbox{\Hypertarget{vc_8c_a0cb3d0ba34458283fd5bfe568bc6b2ac}\label{vc_8c_a0cb3d0ba34458283fd5bfe568bc6b2ac}} 
+\index{vc.c@{vc.c}!info@{info}}
+\index{info@{info}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{info}{info}}
+{\footnotesize\ttfamily vbe\+\_\+mode\+\_\+info\+\_\+t info\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+structure to be initialized with the V\+BE information on the input mode 
+
+\mbox{\Hypertarget{vc_8c_a093154ad2a8c83f3c270e2ec82a0c3fd}\label{vc_8c_a093154ad2a8c83f3c270e2ec82a0c3fd}} 
+\index{vc.c@{vc.c}!mem\_map@{mem\_map}}
+\index{mem\_map@{mem\_map}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{mem\_map}{mem\_map}}
+{\footnotesize\ttfamily mmap\+\_\+t mem\+\_\+map\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+mapping of physical memory to virtual memory 
+
+\mbox{\Hypertarget{vc_8c_ab7b1e71aacce175bf1c893054fa07781}\label{vc_8c_ab7b1e71aacce175bf1c893054fa07781}} 
+\index{vc.c@{vc.c}!SCANCODE@{SCANCODE}}
+\index{SCANCODE@{SCANCODE}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{SCANCODE}{SCANCODE}}
+{\footnotesize\ttfamily uint8\+\_\+t S\+C\+A\+N\+C\+O\+DE\mbox{[}2\mbox{]}}
+
+
+
+Array to store the bytes from the scancode. 
+
+\mbox{\Hypertarget{vc_8c_a172035857ff29c458da347f647932126}\label{vc_8c_a172035857ff29c458da347f647932126}} 
+\index{vc.c@{vc.c}!SCANCODE\_2B@{SCANCODE\_2B}}
+\index{SCANCODE\_2B@{SCANCODE\_2B}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{SCANCODE\_2B}{SCANCODE\_2B}}
+{\footnotesize\ttfamily bool S\+C\+A\+N\+C\+O\+D\+E\+\_\+2B}
+
+
+
+true if the scancode has 2 bytes 
+
+\mbox{\Hypertarget{vc_8c_abf7826fb638d279ecaf7f7a84611b89f}\label{vc_8c_abf7826fb638d279ecaf7f7a84611b89f}} 
+\index{vc.c@{vc.c}!TIMER\_COUNTER@{TIMER\_COUNTER}}
+\index{TIMER\_COUNTER@{TIMER\_COUNTER}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{TIMER\_COUNTER}{TIMER\_COUNTER}}
+{\footnotesize\ttfamily uint32\+\_\+t T\+I\+M\+E\+R\+\_\+\+C\+O\+U\+N\+T\+ER}
+
+
+
+Counter to keep track of the elapsed time. 
+
+\mbox{\Hypertarget{vc_8c_a5077a1a703b40b073dc6b5c1129ab0a1}\label{vc_8c_a5077a1a703b40b073dc6b5c1129ab0a1}} 
+\index{vc.c@{vc.c}!video\_mem@{video\_mem}}
+\index{video\_mem@{video\_mem}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{video\_mem}{video\_mem}}
+{\footnotesize\ttfamily void$\ast$ video\+\_\+mem\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+frame-\/buffer VM address 
+
+\mbox{\Hypertarget{vc_8c_a573eca15e5986d6dd7ae53b5dab582e2}\label{vc_8c_a573eca15e5986d6dd7ae53b5dab582e2}} 
+\index{vc.c@{vc.c}!vres@{vres}}
+\index{vres@{vres}!vc.c@{vc.c}}
+\doxysubsubsection{\texorpdfstring{vres}{vres}}
+{\footnotesize\ttfamily uint16\+\_\+t vres\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Vertical resolution in pixels. 
+

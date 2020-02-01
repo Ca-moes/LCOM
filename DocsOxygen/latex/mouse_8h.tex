@@ -1,0 +1,48 @@
+\hypertarget{mouse_8h}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/mouse.h File Reference}
+\label{mouse_8h}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/mouse.h@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/mouse.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for mouse.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group__mouse_gaa0aafed44fec19806d8f9ad834be1248}{state\+\_\+t}} \{ \mbox{\hyperlink{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}{I\+N\+IT}}, 
+\mbox{\hyperlink{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a32baa7d1ad095c8e2b1534d3ffd9501f}{D\+R\+A\+W\+D\+O\+WN}}, 
+\mbox{\hyperlink{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a2e4d5495bd9d476f78962cebe074ebbd}{V\+E\+R\+T\+EX}}, 
+\mbox{\hyperlink{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248ab6a2858648b154fcc397d4f247b8786b}{D\+R\+A\+W\+UP}}
+ \}
+\begin{DoxyCompactList}\small\item\em Mouse event enumeration for the actual state. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{group__mouse_gaabca14b349ba212174a00ffc1d2a2f31}{ev\+\_\+type\+\_\+t}} \{ \newline
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aaf7c118e8e01fba26de9975c8bb8b1a6}{L\+E\+F\+T\+\_\+\+D\+O\+WN}}, 
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31a68d2cceb071f30c4b3ffbefdf0499137}{L\+E\+F\+T\+\_\+\+UP}}, 
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aa5f8da60a088071fe87d5d31be4842ec}{R\+I\+G\+H\+T\+\_\+\+D\+O\+WN}}, 
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aab50c2b56b93fa86d463d070cf63ab55}{R\+I\+G\+H\+T\+\_\+\+UP}}, 
+\newline
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aef2863a469df3ea6871d640e3669a2f2}{I\+N\+V\+A\+L\+ID}}
+ \}
+\begin{DoxyCompactList}\small\item\em Mouse event enumeration type, relevant for gesture detection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() \mbox{\hyperlink{group__mouse_ga20285aed4b3ef45812cd967532dd09db}{mouse\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em Subscribe and enable Mouse\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() \mbox{\hyperlink{group__mouse_ga3ecf823d80520009ae5e0d76ae40a3c3}{mouse\+\_\+unsubscribe\+\_\+int}} ()
+\begin{DoxyCompactList}\small\item\em Unsubscribe Mouses\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__mouse_gadd0e2314743caac1dbf4e0b1cc6404a7}{build\+\_\+packet\+\_\+struct}} (struct packet $\ast$p, uint8\+\_\+t $\ast$packet)
+\begin{DoxyCompactList}\small\item\em Construct a packet struct with the bits of a 3 byte packet. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_gaa9d6e472ee03d2d391174fe3fe5a4d7f}{mouse\+\_\+enable}} ()
+\begin{DoxyCompactList}\small\item\em Enable the mouse. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_ga4b21609cf20aa6689e73976702f26bce}{mouse\+\_\+disable}} ()
+\begin{DoxyCompactList}\small\item\em Disable the mouse. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_gab70f0bd710edb4b5e9312c3ce2b4777c}{mouse\+\_\+enable\+\_\+data\+\_\+rep}} ()
+\begin{DoxyCompactList}\small\item\em Enable Data Reporting. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_ga8af1c102bf50696674ef14cc377b80cc}{mouse\+\_\+disable\+\_\+data\+\_\+rep}} ()
+\begin{DoxyCompactList}\small\item\em Enable Data Reporting. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_gac2d791ac2ef89e466be15a7d07af293c}{mouse\+\_\+write\+\_\+command}} (uint8\+\_\+t cmd)
+\begin{DoxyCompactList}\small\item\em Write a Mouse Command(reg 0x\+D4) -\/ written as argument of Kbc Write Mouse byte command. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_ga61a09c55d6ae925765830865c5645422}{mouse\+\_\+check\+\_\+ack}} (uint8\+\_\+t $\ast$ackB)
+\begin{DoxyCompactList}\small\item\em Check the acknowledgment byte sent by the mouse controller. \end{DoxyCompactList}\end{DoxyCompactItemize}

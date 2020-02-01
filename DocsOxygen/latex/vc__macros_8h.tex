@@ -1,0 +1,123 @@
+\hypertarget{vc__macros_8h}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/vc\+\_\+macros.h File Reference}
+\label{vc__macros_8h}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/vc\_macros.h@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/vc\_macros.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+Include dependency graph for vc\+\_\+macros.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{vc__macros_8h_a9d120d89092a608ee5baf2000c0cd5af}{V\+BE}}~0x4\+F00
+\item 
+\#define \mbox{\hyperlink{vc__macros_8h_ab32156e1d72cb92b120bb16883c87eea}{S\+E\+T\+\_\+\+V\+B\+E\+\_\+\+M\+O\+DE}}~0x2
+\begin{DoxyCompactList}\small\item\em Set V\+BE mode, V\+BE call, function 02. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{vc__macros_8h_ac3faf02beab492e13687e9f10efb6ca4}{G\+E\+T\+\_\+\+V\+B\+E\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+FO}}~0x1
+\begin{DoxyCompactList}\small\item\em Return V\+BE Mode Information, V\+BE call, function 01. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{vc__macros_8h_a388cdaf5669a032ffd1d57f35ca945ce}{G\+E\+T\+\_\+\+V\+B\+E\+\_\+\+C\+T\+R\+L\+\_\+\+I\+N\+FO}}~0x0
+\begin{DoxyCompactList}\small\item\em Return V\+BE Controller Info, V\+BE call,function 00. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{vc__macros_8h_add94f4b2c5552329a03ba6951402c4cf}{S\+E\+T\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+M\+O\+DE}}~B\+IT(14)
+\begin{DoxyCompactList}\small\item\em set bit 14\+: linear framebuffer \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{vc__macros_8h_a403202df7f734a04fdfb0961cfb4d6a9}{V\+C\+\_\+\+I\+NT}}~0x10
+\begin{DoxyCompactList}\small\item\em B\+I\+OS\textquotesingle{} video services. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{vc__macros_8h_a0c5553f4dbeead8d2e30b91569cf6d32}{green\+Char}}
+\begin{DoxyCompactList}\small\item\em to store green color bytes in rgb565 \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{vc__macros_8h_a9bf91ecdd2123ef46f4b5d4801bce241}{red\+Char}}
+\begin{DoxyCompactList}\small\item\em to store red color bytes in rgb565 \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{vc__macros_8h_ad09741cce4bf67160aafc6c411b22f6d}{black\+Char}}
+\begin{DoxyCompactList}\small\item\em to store black color bytes in rgb565 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{vc__macros_8h_a388cdaf5669a032ffd1d57f35ca945ce}\label{vc__macros_8h_a388cdaf5669a032ffd1d57f35ca945ce}} 
+\index{vc\_macros.h@{vc\_macros.h}!GET\_VBE\_CTRL\_INFO@{GET\_VBE\_CTRL\_INFO}}
+\index{GET\_VBE\_CTRL\_INFO@{GET\_VBE\_CTRL\_INFO}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{GET\_VBE\_CTRL\_INFO}{GET\_VBE\_CTRL\_INFO}}
+{\footnotesize\ttfamily \#define G\+E\+T\+\_\+\+V\+B\+E\+\_\+\+C\+T\+R\+L\+\_\+\+I\+N\+FO~0x0}
+
+
+
+Return V\+BE Controller Info, V\+BE call,function 00. 
+
+\mbox{\Hypertarget{vc__macros_8h_ac3faf02beab492e13687e9f10efb6ca4}\label{vc__macros_8h_ac3faf02beab492e13687e9f10efb6ca4}} 
+\index{vc\_macros.h@{vc\_macros.h}!GET\_VBE\_MODE\_INFO@{GET\_VBE\_MODE\_INFO}}
+\index{GET\_VBE\_MODE\_INFO@{GET\_VBE\_MODE\_INFO}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{GET\_VBE\_MODE\_INFO}{GET\_VBE\_MODE\_INFO}}
+{\footnotesize\ttfamily \#define G\+E\+T\+\_\+\+V\+B\+E\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+FO~0x1}
+
+
+
+Return V\+BE Mode Information, V\+BE call, function 01. 
+
+\mbox{\Hypertarget{vc__macros_8h_add94f4b2c5552329a03ba6951402c4cf}\label{vc__macros_8h_add94f4b2c5552329a03ba6951402c4cf}} 
+\index{vc\_macros.h@{vc\_macros.h}!SET\_LINEAR\_MODE@{SET\_LINEAR\_MODE}}
+\index{SET\_LINEAR\_MODE@{SET\_LINEAR\_MODE}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{SET\_LINEAR\_MODE}{SET\_LINEAR\_MODE}}
+{\footnotesize\ttfamily \#define S\+E\+T\+\_\+\+L\+I\+N\+E\+A\+R\+\_\+\+M\+O\+DE~B\+IT(14)}
+
+
+
+set bit 14\+: linear framebuffer 
+
+\mbox{\Hypertarget{vc__macros_8h_ab32156e1d72cb92b120bb16883c87eea}\label{vc__macros_8h_ab32156e1d72cb92b120bb16883c87eea}} 
+\index{vc\_macros.h@{vc\_macros.h}!SET\_VBE\_MODE@{SET\_VBE\_MODE}}
+\index{SET\_VBE\_MODE@{SET\_VBE\_MODE}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{SET\_VBE\_MODE}{SET\_VBE\_MODE}}
+{\footnotesize\ttfamily \#define S\+E\+T\+\_\+\+V\+B\+E\+\_\+\+M\+O\+DE~0x2}
+
+
+
+Set V\+BE mode, V\+BE call, function 02. 
+
+\mbox{\Hypertarget{vc__macros_8h_a9d120d89092a608ee5baf2000c0cd5af}\label{vc__macros_8h_a9d120d89092a608ee5baf2000c0cd5af}} 
+\index{vc\_macros.h@{vc\_macros.h}!VBE@{VBE}}
+\index{VBE@{VBE}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{VBE}{VBE}}
+{\footnotesize\ttfamily \#define V\+BE~0x4\+F00}
+
+\mbox{\Hypertarget{vc__macros_8h_a403202df7f734a04fdfb0961cfb4d6a9}\label{vc__macros_8h_a403202df7f734a04fdfb0961cfb4d6a9}} 
+\index{vc\_macros.h@{vc\_macros.h}!VC\_INT@{VC\_INT}}
+\index{VC\_INT@{VC\_INT}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{VC\_INT}{VC\_INT}}
+{\footnotesize\ttfamily \#define V\+C\+\_\+\+I\+NT~0x10}
+
+
+
+B\+I\+OS\textquotesingle{} video services. 
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{vc__macros_8h_ad09741cce4bf67160aafc6c411b22f6d}\label{vc__macros_8h_ad09741cce4bf67160aafc6c411b22f6d}} 
+\index{vc\_macros.h@{vc\_macros.h}!blackChar@{blackChar}}
+\index{blackChar@{blackChar}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{blackChar}{blackChar}}
+{\footnotesize\ttfamily char$\ast$ black\+Char}
+
+
+
+to store black color bytes in rgb565 
+
+\mbox{\Hypertarget{vc__macros_8h_a0c5553f4dbeead8d2e30b91569cf6d32}\label{vc__macros_8h_a0c5553f4dbeead8d2e30b91569cf6d32}} 
+\index{vc\_macros.h@{vc\_macros.h}!greenChar@{greenChar}}
+\index{greenChar@{greenChar}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{greenChar}{greenChar}}
+{\footnotesize\ttfamily char$\ast$ green\+Char}
+
+
+
+to store green color bytes in rgb565 
+
+\mbox{\Hypertarget{vc__macros_8h_a9bf91ecdd2123ef46f4b5d4801bce241}\label{vc__macros_8h_a9bf91ecdd2123ef46f4b5d4801bce241}} 
+\index{vc\_macros.h@{vc\_macros.h}!redChar@{redChar}}
+\index{redChar@{redChar}!vc\_macros.h@{vc\_macros.h}}
+\doxysubsubsection{\texorpdfstring{redChar}{redChar}}
+{\footnotesize\ttfamily char$\ast$ red\+Char}
+
+
+
+to store red color bytes in rgb565 
+

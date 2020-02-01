@@ -1,0 +1,12 @@
+digraph "graphics_mode"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="graphics_mode",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Sets the Graphics Mode."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="vbe_get_info_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#afd41fed726d4b51c536ef35d3c40776e",tooltip="Return VBE Mode Information."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$keyboard_8c.html#a50a84762c05cd5d0f1746b2ebef9b000",tooltip=" "];
+}

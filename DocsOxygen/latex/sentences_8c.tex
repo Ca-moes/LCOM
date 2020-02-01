@@ -1,0 +1,174 @@
+\hypertarget{sentences_8c}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/sentences.c File Reference}
+\label{sentences_8c}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/sentences.c@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/sentences.c}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}sentences.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for sentences.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{sentences_8c_a698032048ecab0fc46ac97da011e9ee0}{load\+Letters}} ()
+\begin{DoxyCompactList}\small\item\em Fill abc array with the game\textquotesingle{}s alphabet. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sentences_8c_a9c190c5de3d7b253b05eff01cc84a109}{load\+Sentences}} ()
+\begin{DoxyCompactList}\small\item\em Fill sentences array with the game\textquotesingle{}s sentences. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$ \mbox{\hyperlink{sentences_8c_aaa6329c5eeb6b0d2792ae3db5c5bb8a0}{allocate\+Two\+Dimen\+Array\+On\+Heap\+Using\+Malloc}} (\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} row, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} col)
+\begin{DoxyCompactList}\small\item\em Allocate space for a two dimensional array of letters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sentences_8c_a0f2b0bd4d289402d64680c11783b9704}{destroy\+Two\+Dimen\+Array\+On\+Heap\+Using\+Free}} (\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$ptr, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} row, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} col)
+\begin{DoxyCompactList}\small\item\em Free the allocated space for a two dimensional array of letters. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sentences_8c_a7745112d26b762ba2d12b7f324710869}{destroy\+Sentences\+And\+Letters}} ()
+\begin{DoxyCompactList}\small\item\em Destroys sentences, letters other related variables ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sentences_8c_a5caa2956a259c15d67de63fcddff3e57}{swap}} (char $\ast$x, char $\ast$y)
+\begin{DoxyCompactList}\small\item\em Swap two chars. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{sentences_8c_ac8a933084935cebe42203f95291c8834}{reverse}} (char $\ast$buffer, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} i, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} j)
+\begin{DoxyCompactList}\small\item\em Reverse buffer\mbox{[}i..j\mbox{]} -\/ auxiliar function for \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa()}} \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{sentences_8c_a7e23ebebd89544f52813761ecd3aba09}{itoa}} (\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} value, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} base)
+\begin{DoxyCompactList}\small\item\em Implement \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa()}} from C -\/ convert a value in a specific base to an array of chars. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{sentences_8c_aaa6329c5eeb6b0d2792ae3db5c5bb8a0}\label{sentences_8c_aaa6329c5eeb6b0d2792ae3db5c5bb8a0}} 
+\index{sentences.c@{sentences.c}!allocateTwoDimenArrayOnHeapUsingMalloc@{allocateTwoDimenArrayOnHeapUsingMalloc}}
+\index{allocateTwoDimenArrayOnHeapUsingMalloc@{allocateTwoDimenArrayOnHeapUsingMalloc}!sentences.c@{sentences.c}}
+\doxysubsubsection{\texorpdfstring{allocateTwoDimenArrayOnHeapUsingMalloc()}{allocateTwoDimenArrayOnHeapUsingMalloc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structletter}{letter}}$\ast$$\ast$ allocate\+Two\+Dimen\+Array\+On\+Heap\+Using\+Malloc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{row,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{col }\end{DoxyParamCaption})}
+
+
+
+Allocate space for a two dimensional array of letters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & the number of rows of the array \\
+\hline
+{\em col} & the number of columns of the array \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{sentences_8c_a7745112d26b762ba2d12b7f324710869}\label{sentences_8c_a7745112d26b762ba2d12b7f324710869}} 
+\index{sentences.c@{sentences.c}!destroySentencesAndLetters@{destroySentencesAndLetters}}
+\index{destroySentencesAndLetters@{destroySentencesAndLetters}!sentences.c@{sentences.c}}
+\doxysubsubsection{\texorpdfstring{destroySentencesAndLetters()}{destroySentencesAndLetters()}}
+{\footnotesize\ttfamily void destroy\+Sentences\+And\+Letters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destroys sentences, letters other related variables ~\newline
+ 
+
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{sentences_8c_a0f2b0bd4d289402d64680c11783b9704}\label{sentences_8c_a0f2b0bd4d289402d64680c11783b9704}} 
+\index{sentences.c@{sentences.c}!destroyTwoDimenArrayOnHeapUsingFree@{destroyTwoDimenArrayOnHeapUsingFree}}
+\index{destroyTwoDimenArrayOnHeapUsingFree@{destroyTwoDimenArrayOnHeapUsingFree}!sentences.c@{sentences.c}}
+\doxysubsubsection{\texorpdfstring{destroyTwoDimenArrayOnHeapUsingFree()}{destroyTwoDimenArrayOnHeapUsingFree()}}
+{\footnotesize\ttfamily void destroy\+Two\+Dimen\+Array\+On\+Heap\+Using\+Free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structletter}{letter}} $\ast$$\ast$}]{ptr,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{row,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{col }\end{DoxyParamCaption})}
+
+
+
+Free the allocated space for a two dimensional array of letters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & pointer to the array to destroy \\
+\hline
+{\em row} & the number of rows of the array \\
+\hline
+{\em col} & the number of columns of the array \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{sentences_8c_a7e23ebebd89544f52813761ecd3aba09}\label{sentences_8c_a7e23ebebd89544f52813761ecd3aba09}} 
+\index{sentences.c@{sentences.c}!itoa@{itoa}}
+\index{itoa@{itoa}!sentences.c@{sentences.c}}
+\doxysubsubsection{\texorpdfstring{itoa()}{itoa()}}
+{\footnotesize\ttfamily char$\ast$ itoa (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{value,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{base }\end{DoxyParamCaption})}
+
+
+
+Implement \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa()}} from C -\/ convert a value in a specific base to an array of chars. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & the number to convert to char \\
+\hline
+{\em base} & the base of the number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result of the conversion from int to array of chars 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{sentences_8c_a698032048ecab0fc46ac97da011e9ee0}\label{sentences_8c_a698032048ecab0fc46ac97da011e9ee0}} 
+\index{sentences.c@{sentences.c}!loadLetters@{loadLetters}}
+\index{loadLetters@{loadLetters}!sentences.c@{sentences.c}}
+\doxysubsubsection{\texorpdfstring{loadLetters()}{loadLetters()}}
+{\footnotesize\ttfamily void load\+Letters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fill abc array with the game\textquotesingle{}s alphabet. 
+
+Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{sentences_8c_a9c190c5de3d7b253b05eff01cc84a109}\label{sentences_8c_a9c190c5de3d7b253b05eff01cc84a109}} 
+\index{sentences.c@{sentences.c}!loadSentences@{loadSentences}}
+\index{loadSentences@{loadSentences}!sentences.c@{sentences.c}}
+\doxysubsubsection{\texorpdfstring{loadSentences()}{loadSentences()}}
+{\footnotesize\ttfamily void load\+Sentences (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fill sentences array with the game\textquotesingle{}s sentences. 
+
+Here is the call graph for this function\+:
+% FIG 9
+Here is the caller graph for this function\+:
+% FIG 10
+\mbox{\Hypertarget{sentences_8c_ac8a933084935cebe42203f95291c8834}\label{sentences_8c_ac8a933084935cebe42203f95291c8834}} 
+\index{sentences.c@{sentences.c}!reverse@{reverse}}
+\index{reverse@{reverse}!sentences.c@{sentences.c}}
+\doxysubsubsection{\texorpdfstring{reverse()}{reverse()}}
+{\footnotesize\ttfamily char$\ast$ reverse (\begin{DoxyParamCaption}\item[{char $\ast$}]{buffer,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{i,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{j }\end{DoxyParamCaption})}
+
+
+
+Reverse buffer\mbox{[}i..j\mbox{]} -\/ auxiliar function for \mbox{\hyperlink{sentences_8h_a7e23ebebd89544f52813761ecd3aba09}{itoa()}} 
+
+@ buffer array to reverse @ i start index @ j end index \begin{DoxyReturn}{Returns}
+reversed array 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 11
+Here is the caller graph for this function\+:
+% FIG 12
+\mbox{\Hypertarget{sentences_8c_a5caa2956a259c15d67de63fcddff3e57}\label{sentences_8c_a5caa2956a259c15d67de63fcddff3e57}} 
+\index{sentences.c@{sentences.c}!swap@{swap}}
+\index{swap@{swap}!sentences.c@{sentences.c}}
+\doxysubsubsection{\texorpdfstring{swap()}{swap()}}
+{\footnotesize\ttfamily void swap (\begin{DoxyParamCaption}\item[{char $\ast$}]{x,  }\item[{char $\ast$}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Swap two chars. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & char to swap \\
+\hline
+{\em y} & char to swap \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 13

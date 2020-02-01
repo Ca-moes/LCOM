@@ -1,0 +1,85 @@
+\hypertarget{keyboard_8c}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/keyboard.c File Reference}
+\label{keyboard_8c}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/keyboard.c@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/keyboard.c}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$keyboard.\+h$>$}\newline
+{\ttfamily \#include $<$i8042.\+h$>$}\newline
+{\ttfamily \#include $<$utils.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for keyboard.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() \mbox{\hyperlink{group__keyboard_ga02884ada1971dbade466081413210b18}{kbc\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em Subscribes and enables K\+BC\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{keyboard_8c_a50a84762c05cd5d0f1746b2ebef9b000}{int}} (\mbox{\hyperlink{group__keyboard_ga1102381e6a9e876e05dd78c58ccb5673}{kbc\+\_\+unsubscribe\+\_\+int}}())
+\item 
+void() \mbox{\hyperlink{keyboard_8c_aea970a154161a35f6894898a092ed70a}{kbc\+\_\+ih}} ()
+\item 
+uint8\+\_\+t \mbox{\hyperlink{group__keyboard_ga9453fe291021234b7acdb48b9153e042}{kbc\+\_\+read\+\_\+state\+\_\+field}} (const uint8\+\_\+t \mbox{\hyperlink{mouse_8c_a499e7824037af983d0524a98081e7f0b}{state}}, enum \mbox{\hyperlink{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}{kbc\+\_\+state\+\_\+field}} field)
+\begin{DoxyCompactList}\small\item\em reads the specified field of the status register \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__keyboard_ga075c2cba7a8cbeaa3c3b22660ad81460}{kbc\+\_\+read\+\_\+command\+\_\+return}} (uint8\+\_\+t $\ast$cmd)
+\begin{DoxyCompactList}\small\item\em Read Command from the Output Buffer -\/ in Lab3 reads return value from a K\+BC command. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__keyboard_gae9d0239cc864fd704805e47ccda7d55d}{kbc\+\_\+write\+\_\+command\+\_\+args}} (uint8\+\_\+t cmd\+Arg)
+\begin{DoxyCompactList}\small\item\em Write Command Arguments to register 0x60, after checking the I\+BF flag. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__keyboard_gafef77d0b7c2ee5a579ddb0393ad3597c}{kbc\+\_\+issue\+\_\+command}} (uint8\+\_\+t $\ast$\mbox{\hyperlink{mouse_8c_a499e7824037af983d0524a98081e7f0b}{state}}, uint8\+\_\+t cmd)
+\begin{DoxyCompactList}\small\item\em Issues K\+BC\textquotesingle{}s read and write commands, after checking the I\+BF flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{keyboard_8c_a63c62dc7f7b6dafe32d8b7dbacc7dee0}{K\+B\+C\+\_\+\+H\+O\+O\+K\+\_\+\+ID}} = \mbox{\hyperlink{group__i8042_ga16c5827f043d82f87c726c2d4369c11d}{K\+B\+C\+\_\+\+I\+RQ}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{keyboard_8c_ab7b1e71aacce175bf1c893054fa07781}{S\+C\+A\+N\+C\+O\+DE}} \mbox{[}2\mbox{]} =\{0,0\}
+\begin{DoxyCompactList}\small\item\em Array to store the bytes from the scancode. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{keyboard_8c_a172035857ff29c458da347f647932126}{S\+C\+A\+N\+C\+O\+D\+E\+\_\+2B}} = false
+\begin{DoxyCompactList}\small\item\em true if the scancode has 2 bytes \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{keyboard_8c_a50a84762c05cd5d0f1746b2ebef9b000}\label{keyboard_8c_a50a84762c05cd5d0f1746b2ebef9b000}} 
+\index{keyboard.c@{keyboard.c}!int@{int}}
+\index{int@{int}!keyboard.c@{keyboard.c}}
+\doxysubsubsection{\texorpdfstring{int()}{int()}}
+{\footnotesize\ttfamily int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__keyboard_ga1102381e6a9e876e05dd78c58ccb5673}{kbc\+\_\+unsubscribe\+\_\+int}}()}]{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{keyboard_8c_aea970a154161a35f6894898a092ed70a}\label{keyboard_8c_aea970a154161a35f6894898a092ed70a}} 
+\index{keyboard.c@{keyboard.c}!kbc\_ih@{kbc\_ih}}
+\index{kbc\_ih@{kbc\_ih}!keyboard.c@{keyboard.c}}
+\doxysubsubsection{\texorpdfstring{kbc\_ih()}{kbc\_ih()}}
+{\footnotesize\ttfamily void() kbc\+\_\+ih (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{keyboard_8c_a63c62dc7f7b6dafe32d8b7dbacc7dee0}\label{keyboard_8c_a63c62dc7f7b6dafe32d8b7dbacc7dee0}} 
+\index{keyboard.c@{keyboard.c}!KBC\_HOOK\_ID@{KBC\_HOOK\_ID}}
+\index{KBC\_HOOK\_ID@{KBC\_HOOK\_ID}!keyboard.c@{keyboard.c}}
+\doxysubsubsection{\texorpdfstring{KBC\_HOOK\_ID}{KBC\_HOOK\_ID}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} K\+B\+C\+\_\+\+H\+O\+O\+K\+\_\+\+ID = \mbox{\hyperlink{group__i8042_ga16c5827f043d82f87c726c2d4369c11d}{K\+B\+C\+\_\+\+I\+RQ}}}
+
+\mbox{\Hypertarget{keyboard_8c_ab7b1e71aacce175bf1c893054fa07781}\label{keyboard_8c_ab7b1e71aacce175bf1c893054fa07781}} 
+\index{keyboard.c@{keyboard.c}!SCANCODE@{SCANCODE}}
+\index{SCANCODE@{SCANCODE}!keyboard.c@{keyboard.c}}
+\doxysubsubsection{\texorpdfstring{SCANCODE}{SCANCODE}}
+{\footnotesize\ttfamily uint8\+\_\+t S\+C\+A\+N\+C\+O\+DE\mbox{[}2\mbox{]} =\{0,0\}}
+
+
+
+Array to store the bytes from the scancode. 
+
+\mbox{\Hypertarget{keyboard_8c_a172035857ff29c458da347f647932126}\label{keyboard_8c_a172035857ff29c458da347f647932126}} 
+\index{keyboard.c@{keyboard.c}!SCANCODE\_2B@{SCANCODE\_2B}}
+\index{SCANCODE\_2B@{SCANCODE\_2B}!keyboard.c@{keyboard.c}}
+\doxysubsubsection{\texorpdfstring{SCANCODE\_2B}{SCANCODE\_2B}}
+{\footnotesize\ttfamily bool S\+C\+A\+N\+C\+O\+D\+E\+\_\+2B = false}
+
+
+
+true if the scancode has 2 bytes 
+

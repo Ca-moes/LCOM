@@ -1,0 +1,84 @@
+#include <lcom/lcf.h>
+#include "highscores.h"
+#include "rtc_macros.h"
+
+void get_highscores(Game * game)
+{
+  FILE* fp;
+
+  fp = fopen("/home/lcom/labs/proj/src/highscores.txt", "r");
+
+  if (fp == NULL){
+    printf("Highscore file not found\n");
+    return;
+  } 
+
+  fscanf(fp, "%d ", &game->NUMBEROFSCORES);
+
+  for(unsigned int i = 0; i < game->NUMBEROFSCORES; i++) {
+
+    highScore* highscore = &game->highscores[i];
+
+    fscanf(fp, "%d %d %d %d %d %d", &highscore->date.hour, &highscore->date.minutes, &highscore->date.day, &highscore->date.month, &highscore->date.year, &highscore->speed);
+  }
+  
+  fclose(fp);
+}
+
+int new_highscore(Game * game,int speed)
+{
+  
+  for(unsigned int i = 0; i < game->NUMBEROFSCORES; i++) {
+    if(speed >= (game->highscores[i].speed))
+      return i;
+  }
+  
+  printf("%d\n",game->NUMBEROFSCORES);
+  return game->NUMBEROFSCORES;
+}
+
+void set_highscores(Game* game)
+{
+  if(game->NUMBEROFSCORES == 0){
+    printf("no highscores to set\n");
+    return;
+  }
+
+  FILE* fp;
+
+  fp = fopen("/home/lcom/labs/proj/src/highscores.txt", "w");
+
+  fprintf(fp, "%d", game->NUMBEROFSCORES);
+
+  for(unsigned int i = 0; i < game->NUMBEROFSCORES; i++) {
+
+    highScore* highscore = &game->highscores[i];
+
+    fprintf(fp, "\n%d %d %d %d %d %d", highscore->date.hour, highscore->date.minutes, highscore->date.day, highscore->date.month, highscore->date.year, highscore->speed);
+  }
+
+  fclose(fp);
+}
+
+void add_new_highscore(Game* game, unsigned int pos,int speed)
+{
+  realTime dt = rtc_read_date();
+
+  if (game->NUMBEROFSCORES == pos) {
+    game->highscores[pos].date = dt;
+    game->highscores[pos].speed = speed;
+    game->NUMBEROFSCORES++;
+  }
+  else {
+    for (unsigned int i=game->NUMBEROFSCORES;i>pos;i--){
+      if (i==5) continue;
+      game->highscores[i].date = game->highscores[i-1].date;
+      game->highscores[i].speed = game->highscores[i-1].speed;
+    }
+    game->highscores[pos].date = dt;
+    game->highscores[pos].speed = speed;
+
+    if (game->NUMBEROFSCORES < 5) game->NUMBEROFSCORES++;
+  }
+
+}

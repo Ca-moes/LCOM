@@ -1,0 +1,215 @@
+\hypertarget{group__keyboard}{}\doxysection{keyboard}
+\label{group__keyboard}\index{keyboard@{keyboard}}
+
+
+Functions for using the i8042.  
+
+
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}{kbc\+\_\+state\+\_\+field}} \{ \newline
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daaf6914338a7d87f35c09ed6b0c82d4533}{ksf\+\_\+all}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daab2b73306c6e469bd30896028aa455f36}{ksf\+\_\+parity}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa01c8422da1e5cc1a78728d8ccba7e128}{ksf\+\_\+timeout}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa1d10dcda079b4de5b5e9b71646e57c11}{ksf\+\_\+aux}}, 
+\newline
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa16a144650b8ee4a054ccb773174619d6}{ksf\+\_\+inh}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daaa2263d3b65946d0b0e853bf0d1dfa896}{ksf\+\_\+a2}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa29c178ed5d927cca63b4224773d353e3}{ksf\+\_\+sys}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa2f8382ab98138bd082ca9b2ac746e583}{ksf\+\_\+ibf}}, 
+\newline
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daac5f37126233b1eff55b4658bf7d9a704}{ksf\+\_\+obf}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumerated type for identifying the K\+BC Status Register state fields. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{group__keyboard_ga02884ada1971dbade466081413210b18}{kbc\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em Subscribes and enables K\+BC\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{group__keyboard_ga1102381e6a9e876e05dd78c58ccb5673}{kbc\+\_\+unsubscribe\+\_\+int}} ()
+\begin{DoxyCompactList}\small\item\em Unsubscribes K\+BC\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__keyboard_ga9453fe291021234b7acdb48b9153e042}{kbc\+\_\+read\+\_\+state\+\_\+field}} (const uint8\+\_\+t state, enum \mbox{\hyperlink{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}{kbc\+\_\+state\+\_\+field}} field)
+\begin{DoxyCompactList}\small\item\em reads the specified field of the status register \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__keyboard_ga075c2cba7a8cbeaa3c3b22660ad81460}{kbc\+\_\+read\+\_\+command\+\_\+return}} (uint8\+\_\+t $\ast$cmd)
+\begin{DoxyCompactList}\small\item\em Read Command from the Output Buffer -\/ in Lab3 reads return value from a K\+BC command. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__keyboard_gae9d0239cc864fd704805e47ccda7d55d}{kbc\+\_\+write\+\_\+command\+\_\+args}} (uint8\+\_\+t cmd\+Arg)
+\begin{DoxyCompactList}\small\item\em Write Command Arguments to register 0x60, after checking the I\+BF flag. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__keyboard_gafef77d0b7c2ee5a579ddb0393ad3597c}{kbc\+\_\+issue\+\_\+command}} (uint8\+\_\+t $\ast$state, uint8\+\_\+t cmd)
+\begin{DoxyCompactList}\small\item\em Issues K\+BC\textquotesingle{}s read and write commands, after checking the I\+BF flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions for using the i8042. 
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}\label{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}} 
+\index{keyboard@{keyboard}!kbc\_state\_field@{kbc\_state\_field}}
+\index{kbc\_state\_field@{kbc\_state\_field}!keyboard@{keyboard}}
+\doxysubsubsection{\texorpdfstring{kbc\_state\_field}{kbc\_state\_field}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}{kbc\+\_\+state\+\_\+field}}}
+
+
+
+Enumerated type for identifying the K\+BC Status Register state fields. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_all@{ksf\_all}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_all@{ksf\_all}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daaf6914338a7d87f35c09ed6b0c82d4533}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daaf6914338a7d87f35c09ed6b0c82d4533}} 
+ksf\+\_\+all&state byte \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_parity@{ksf\_parity}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_parity@{ksf\_parity}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daab2b73306c6e469bd30896028aa455f36}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daab2b73306c6e469bd30896028aa455f36}} 
+ksf\+\_\+parity&Parity Error \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_timeout@{ksf\_timeout}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_timeout@{ksf\_timeout}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa01c8422da1e5cc1a78728d8ccba7e128}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa01c8422da1e5cc1a78728d8ccba7e128}} 
+ksf\+\_\+timeout&Timeout Error \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_aux@{ksf\_aux}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_aux@{ksf\_aux}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa1d10dcda079b4de5b5e9b71646e57c11}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa1d10dcda079b4de5b5e9b71646e57c11}} 
+ksf\+\_\+aux&Aux mode \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_inh@{ksf\_inh}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_inh@{ksf\_inh}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa16a144650b8ee4a054ccb773174619d6}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa16a144650b8ee4a054ccb773174619d6}} 
+ksf\+\_\+inh&Inhibit Flag \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_a2@{ksf\_a2}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_a2@{ksf\_a2}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daaa2263d3b65946d0b0e853bf0d1dfa896}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daaa2263d3b65946d0b0e853bf0d1dfa896}} 
+ksf\+\_\+a2&command/data byte \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_sys@{ksf\_sys}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_sys@{ksf\_sys}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa29c178ed5d927cca63b4224773d353e3}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa29c178ed5d927cca63b4224773d353e3}} 
+ksf\+\_\+sys&System Flag \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_ibf@{ksf\_ibf}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_ibf@{ksf\_ibf}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa2f8382ab98138bd082ca9b2ac746e583}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa2f8382ab98138bd082ca9b2ac746e583}} 
+ksf\+\_\+ibf&I\+N\+\_\+\+B\+UF Full \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ksf\_obf@{ksf\_obf}!keyboard@{keyboard}}\index{keyboard@{keyboard}!ksf\_obf@{ksf\_obf}}}\mbox{\Hypertarget{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daac5f37126233b1eff55b4658bf7d9a704}\label{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daac5f37126233b1eff55b4658bf7d9a704}} 
+ksf\+\_\+obf&O\+U\+T\+\_\+\+B\+UF Full \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__keyboard_gafef77d0b7c2ee5a579ddb0393ad3597c}\label{group__keyboard_gafef77d0b7c2ee5a579ddb0393ad3597c}} 
+\index{keyboard@{keyboard}!kbc\_issue\_command@{kbc\_issue\_command}}
+\index{kbc\_issue\_command@{kbc\_issue\_command}!keyboard@{keyboard}}
+\doxysubsubsection{\texorpdfstring{kbc\_issue\_command()}{kbc\_issue\_command()}}
+{\footnotesize\ttfamily int kbc\+\_\+issue\+\_\+command (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{state,  }\item[{uint8\+\_\+t}]{cmd }\end{DoxyParamCaption})}
+
+
+
+Issues K\+BC\textquotesingle{}s read and write commands, after checking the I\+BF flag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & address of 8bit-\/variable to be updated with the status register\textquotesingle{}s byte \\
+\hline
+{\em cmd} & the K\+BC read or write command to be issued \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon no errors and no-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 0
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{group__keyboard_ga075c2cba7a8cbeaa3c3b22660ad81460}\label{group__keyboard_ga075c2cba7a8cbeaa3c3b22660ad81460}} 
+\index{keyboard@{keyboard}!kbc\_read\_command\_return@{kbc\_read\_command\_return}}
+\index{kbc\_read\_command\_return@{kbc\_read\_command\_return}!keyboard@{keyboard}}
+\doxysubsubsection{\texorpdfstring{kbc\_read\_command\_return()}{kbc\_read\_command\_return()}}
+{\footnotesize\ttfamily int kbc\+\_\+read\+\_\+command\+\_\+return (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{cmd }\end{DoxyParamCaption})}
+
+
+
+Read Command from the Output Buffer -\/ in Lab3 reads return value from a K\+BC command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & address of 8-\/bit variable to be update with the value read from the Output Buffer -\/ $\ast$ (the value that the K\+BC command returns) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and no-\/zero otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{group__keyboard_ga9453fe291021234b7acdb48b9153e042}\label{group__keyboard_ga9453fe291021234b7acdb48b9153e042}} 
+\index{keyboard@{keyboard}!kbc\_read\_state\_field@{kbc\_read\_state\_field}}
+\index{kbc\_read\_state\_field@{kbc\_read\_state\_field}!keyboard@{keyboard}}
+\doxysubsubsection{\texorpdfstring{kbc\_read\_state\_field()}{kbc\_read\_state\_field()}}
+{\footnotesize\ttfamily uint8\+\_\+t kbc\+\_\+read\+\_\+state\+\_\+field (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{state,  }\item[{enum \mbox{\hyperlink{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}{kbc\+\_\+state\+\_\+field}}}]{field }\end{DoxyParamCaption})}
+
+
+
+reads the specified field of the status register 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & a byte read from the status register with information about the K\+BC state \\
+\hline
+{\em field} & one of the status register\textquotesingle{}s fields \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return the value of the specified field (0/1)-\/ bit; or the full state byte 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{group__keyboard_ga02884ada1971dbade466081413210b18}\label{group__keyboard_ga02884ada1971dbade466081413210b18}} 
+\index{keyboard@{keyboard}!kbc\_subscribe\_int@{kbc\_subscribe\_int}}
+\index{kbc\_subscribe\_int@{kbc\_subscribe\_int}!keyboard@{keyboard}}
+\doxysubsubsection{\texorpdfstring{kbc\_subscribe\_int()}{kbc\_subscribe\_int()}}
+{\footnotesize\ttfamily int() kbc\+\_\+subscribe\+\_\+int (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{bit\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+Subscribes and enables K\+BC\textquotesingle{}s interrupts. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bit\+\_\+no} & address of memory to be initialized with the bit number to be set in the mask returned upon an interrupt \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__keyboard_ga1102381e6a9e876e05dd78c58ccb5673}\label{group__keyboard_ga1102381e6a9e876e05dd78c58ccb5673}} 
+\index{keyboard@{keyboard}!kbc\_unsubscribe\_int@{kbc\_unsubscribe\_int}}
+\index{kbc\_unsubscribe\_int@{kbc\_unsubscribe\_int}!keyboard@{keyboard}}
+\doxysubsubsection{\texorpdfstring{kbc\_unsubscribe\_int()}{kbc\_unsubscribe\_int()}}
+{\footnotesize\ttfamily int() kbc\+\_\+unsubscribe\+\_\+int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Unsubscribes K\+BC\textquotesingle{}s interrupts. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__keyboard_gae9d0239cc864fd704805e47ccda7d55d}\label{group__keyboard_gae9d0239cc864fd704805e47ccda7d55d}} 
+\index{keyboard@{keyboard}!kbc\_write\_command\_args@{kbc\_write\_command\_args}}
+\index{kbc\_write\_command\_args@{kbc\_write\_command\_args}!keyboard@{keyboard}}
+\doxysubsubsection{\texorpdfstring{kbc\_write\_command\_args()}{kbc\_write\_command\_args()}}
+{\footnotesize\ttfamily int kbc\+\_\+write\+\_\+command\+\_\+args (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{cmd\+Arg }\end{DoxyParamCaption})}
+
+
+
+Write Command Arguments to register 0x60, after checking the I\+BF flag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd\+Arg} & the argument for the last issued kbc command \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and no-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 4

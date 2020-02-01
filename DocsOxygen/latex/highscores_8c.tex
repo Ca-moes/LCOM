@@ -1,0 +1,98 @@
+\hypertarget{highscores_8c}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/highscores.c File Reference}
+\label{highscores_8c}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/highscores.c@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/highscores.c}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}highscores.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rtc\+\_\+macros.\+h\char`\"{}}\newline
+Include dependency graph for highscores.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{highscores_8c_a7da357b719c8e37b852dbdc6888fdce4}{get\+\_\+highscores}} (\mbox{\hyperlink{struct_game}{Game}} $\ast$\mbox{\hyperlink{game_8h_a58bdb5643d0814ac4e697a1564b79b70}{game}})
+\begin{DoxyCompactList}\small\item\em Load top 5 highscores from file. If no file exists create one. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{highscores_8c_a9cc451c6c5bd05490178df678c552d5e}{new\+\_\+highscore}} (\mbox{\hyperlink{struct_game}{Game}} $\ast$\mbox{\hyperlink{game_8h_a58bdb5643d0814ac4e697a1564b79b70}{game}}, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} speed)
+\begin{DoxyCompactList}\small\item\em Check if the new score is better that the ones in the highscoresr. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{highscores_8c_a95c6dcf639e390bca793f07a378dfbff}{set\+\_\+highscores}} (\mbox{\hyperlink{struct_game}{Game}} $\ast$\mbox{\hyperlink{game_8h_a58bdb5643d0814ac4e697a1564b79b70}{game}})
+\begin{DoxyCompactList}\small\item\em Save the highscores in a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{highscores_8c_a036d2ad88dfbaa6c51569daff10640ca}{add\+\_\+new\+\_\+highscore}} (\mbox{\hyperlink{struct_game}{Game}} $\ast$$\ast$\mbox{\hyperlink{game_8h_a58bdb5643d0814ac4e697a1564b79b70}{game}}, unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} pos, \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} speed)
+\begin{DoxyCompactList}\small\item\em Add new highscore to highscores. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{highscores_8c_a036d2ad88dfbaa6c51569daff10640ca}\label{highscores_8c_a036d2ad88dfbaa6c51569daff10640ca}} 
+\index{highscores.c@{highscores.c}!add\_new\_highscore@{add\_new\_highscore}}
+\index{add\_new\_highscore@{add\_new\_highscore}!highscores.c@{highscores.c}}
+\doxysubsubsection{\texorpdfstring{add\_new\_highscore()}{add\_new\_highscore()}}
+{\footnotesize\ttfamily void add\+\_\+new\+\_\+highscore (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_game}{Game}} $\ast$$\ast$}]{game,  }\item[{unsigned \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{pos,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{speed }\end{DoxyParamCaption})}
+
+
+
+Add new highscore to highscores. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer \\
+\hline
+{\em pos} & index of the highscores array to insert new highscore \\
+\hline
+{\em speed} & The number of letters written per second in the last game \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{highscores_8c_a7da357b719c8e37b852dbdc6888fdce4}\label{highscores_8c_a7da357b719c8e37b852dbdc6888fdce4}} 
+\index{highscores.c@{highscores.c}!get\_highscores@{get\_highscores}}
+\index{get\_highscores@{get\_highscores}!highscores.c@{highscores.c}}
+\doxysubsubsection{\texorpdfstring{get\_highscores()}{get\_highscores()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} get\+\_\+highscores (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_game}{Game}} $\ast$}]{game }\end{DoxyParamCaption})}
+
+
+
+Load top 5 highscores from file. If no file exists create one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{highscores_8c_a9cc451c6c5bd05490178df678c552d5e}\label{highscores_8c_a9cc451c6c5bd05490178df678c552d5e}} 
+\index{highscores.c@{highscores.c}!new\_highscore@{new\_highscore}}
+\index{new\_highscore@{new\_highscore}!highscores.c@{highscores.c}}
+\doxysubsubsection{\texorpdfstring{new\_highscore()}{new\_highscore()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} new\+\_\+highscore (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_game}{Game}} $\ast$}]{game,  }\item[{\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}}]{speed }\end{DoxyParamCaption})}
+
+
+
+Check if the new score is better that the ones in the highscoresr. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+index to insert the new highscore or N\+U\+M\+B\+E\+R\+O\+F\+S\+C\+O\+R\+ES if it is not an highscore 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{highscores_8c_a95c6dcf639e390bca793f07a378dfbff}\label{highscores_8c_a95c6dcf639e390bca793f07a378dfbff}} 
+\index{highscores.c@{highscores.c}!set\_highscores@{set\_highscores}}
+\index{set\_highscores@{set\_highscores}!highscores.c@{highscores.c}}
+\doxysubsubsection{\texorpdfstring{set\_highscores()}{set\_highscores()}}
+{\footnotesize\ttfamily void set\+\_\+highscores (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_game}{Game}} $\ast$}]{game }\end{DoxyParamCaption})}
+
+
+
+Save the highscores in a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em game} & pointer \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 5

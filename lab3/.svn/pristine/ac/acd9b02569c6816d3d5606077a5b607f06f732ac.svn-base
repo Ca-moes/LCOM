@@ -1,0 +1,38 @@
+#ifndef _LCOM_I8042
+#define _LCOM_I8042_H_
+
+#include <lcom/lcf.h>
+
+/** @defgroup i8042 i8042
+ * @{
+ *
+ * Constants for programming the i8042 Timer. Needs to be completed.
+ */
+
+#define KBC_IRQ 1 /**<@brief Keyboard Controller IRQ line - 1*/
+
+/* Registers */
+
+#define OUT_BUF       0X60    /**<@brief Output Buffer */
+#define STAT_REG      0x64    /**<@brief Satus Register */
+#define KBC_CMD_REG   0x64    /**<@brief Where to Write Keyboard Command  */
+#define KBC_CMD_ARGS  0x60    /**<@brief Where to Write the KBC arguments */
+
+
+/* KBC commands */
+
+#define READ_CB    0x20   /**<@brief Read Command Byte - R: CB*/
+#define WRITE_CB   0x60   /**<@brief Write Command Byte  - A: CB*/
+#define SELF_TEST  0xAA   /**<@brief Self Test - R_OK: 0x55; R_ERROR: 0xFC*/
+#define CHECK_KBI  0xAB   /**<@brief Check Keyboard Interface - R_OK: 0;*/
+#define DIS_KBI    0xAD   /**<@brief Disable Keyboard Interface*/
+#define EN_KBI     0xAE   /**<@brief Enable Keyboard Interface*/
+
+/* Status Register */
+
+#define KB_SR_PARITY   BIT(7)  /**<@brief Parity Error (1) */
+#define KB_SR_TIMEOUT  BIT(6)  /**<@brief Time Out Error (1) */
+#define KB_SR_AUX      BIT(5)  /**<@brief Mode in which the controller doesn't check parity nor converts scan codes*/
+
+#endif _LCOM_I8042
+

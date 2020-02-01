@@ -1,0 +1,53 @@
+digraph "get_double_buffer"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="get_double_buffer",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Get double buffer."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="classicModeDraw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#ab37d0fced05f5dfbf1dc8172029c73ae",tooltip="Draw game components for Classic Mode on screen."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="classic_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a6d636c5d37c022c2b68db53b8a4a6b87",tooltip="Draw classic mode sentence,input and handle classic game mode state."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="gameStateHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a8df558a332b33b1b0be4f15a02438531",tooltip="Load letters,sentences and xpm's, set graphics mode and start game."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="gameStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#aaaff4e132cd3b41673859b2b4ea1159f",tooltip="Load letters,sentences and xpm's, set graphics mode and start game."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$proj_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="classicModeStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a1584348a343494bd3b81c20776dde34b",tooltip="Draw the initial game components for the Classic Mode on the screen."];
+  Node7 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="counterStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a1ccca907138b5e9af2569d8c0732b74b",tooltip="Displays a 3 2 1 counter before the start of the game mode."];
+  Node8 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="timed_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a98389bdfd88eb39ac7e97b7746a86887",tooltip="Draw timed mode sentence,input and handle timed game mode state."];
+  Node9 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="draw_date",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a92264a80f56133f509aabd1b25fd9b7d",tooltip="Draw the date."];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="drawMainMenu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a06326bc3ce2fdfe90cb6eb3172159fd0",tooltip="Draw Menu's components on screen depending on the position/pressed buttons of the mouse."];
+  Node11 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="menu_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a384fd7bc5dd16b6f904889a9b44d0ca6",tooltip="Draw menu components, buttons and mouse and go to game modes if buttons are pressed."];
+  Node12 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="drawTimeElapsed",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#adedf4c6f1ed84aa26f340279deba04fe",tooltip="Draw the time elapsed since the start of the timed mode."];
+  Node13 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="timedModeDraw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#aa7eb18acc842b698793554bd3d23d3eb",tooltip="Draw game components for Timed Mode on screen."];
+  Node14 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="highScoresScreen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a7a6196f9ae7dc4d6ac8cc52a16719141",tooltip="Show a screen with the highest scores (top 5)"];
+  Node15 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="resultScreen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a6b53c7bdd4b90b905dd483f3e7dab7b7",tooltip="Draws the results layout."];
+  Node16 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node17 [label="save_score_screen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a26b9c84c114e6513e181679f76a97854",tooltip="Shows a screen with a \"buffer\" where the user should enter a username to save the score."];
+  Node17 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node18 [label="timedModeStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a4923d4462686f737bb06f5b0b7a2e596",tooltip="Draw the initial game components for the Timed Mode on the screen."];
+  Node18 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

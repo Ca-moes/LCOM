@@ -1,0 +1,50 @@
+digraph "classic_mode"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="classic_mode",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Draw classic mode sentence,input and handle classic game mode state."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="classicModeDraw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#ae2c313c74afd4c1d014957c8a8ad3f19",tooltip="Draw game components for Classic Mode on screen."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="draw_input_sentence",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a8fa2f951c438f58389b8888597a4d523",tooltip="Draws the input from the user on the screen at specified coordinates."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="draw_letter",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#afbd4aed1170f23b5f48dddd79a957b33",tooltip="Draws a letter on the screen."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="draw_pixel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a82c7d64d78290967cdb6c47aefe16b78",tooltip="Draw a pixel on the screen."];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$keyboard_8c.html#a50a84762c05cd5d0f1746b2ebef9b000",tooltip=" "];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="draw_sentence",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a39f0bde9aaab6ed1432749a642471488",tooltip="Draws sentence on the screen at specified coordinates."];
+  Node7 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="draw_xpm_image",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a0cf63b55241db8e042bd55d93901566d",tooltip="Draws an XPM on the screen at specified coordinates."];
+  Node8 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="get_double_buffer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a55c5883685bf347fccf094f10aa399e8",tooltip="Get double buffer."];
+  Node2 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="get_hres",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a10e416c59639a7f6b6f9f8f020fdb8d0",tooltip="Get horizontal resolution."];
+  Node2 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="get_vres",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a1c1b9a9c811575beb06fc355241ef17d",tooltip="Get vertical resolution."];
+  Node2 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="page_flipping",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a243163f132ab9dce6b21d946df703fd4",tooltip="Perform page flipping - copy contents of the double buffer to the first buffer."];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="classicModeStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#a1584348a343494bd3b81c20776dde34b",tooltip="Draw the initial game components for the Classic Mode on the screen."];
+  Node13 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="generateRandomSentence",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#aa2a9eecf722be30effc443be4e32b075",tooltip="Generate a random sentence from a array of sentences."];
+  Node13 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="counterStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#a1ccca907138b5e9af2569d8c0732b74b",tooltip="Displays a 3 2 1 counter before the start of the game mode."];
+  Node15 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="sentenceCompleted",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#a428244ddf0eb2af89871387d2b7b8abd",tooltip="Calculates statistics to send to resultScreen() to display."];
+  Node16 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

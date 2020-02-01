@@ -1,0 +1,263 @@
+\hypertarget{group__mouse}{}\doxysection{mouse}
+\label{group__mouse}\index{mouse@{mouse}}
+
+
+Functions for using the i8042 P\+S/2 Mouse.  
+
+
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group__mouse_gaa0aafed44fec19806d8f9ad834be1248}{state\+\_\+t}} \{ \mbox{\hyperlink{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}{I\+N\+IT}}, 
+\mbox{\hyperlink{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a32baa7d1ad095c8e2b1534d3ffd9501f}{D\+R\+A\+W\+D\+O\+WN}}, 
+\mbox{\hyperlink{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a2e4d5495bd9d476f78962cebe074ebbd}{V\+E\+R\+T\+EX}}, 
+\mbox{\hyperlink{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248ab6a2858648b154fcc397d4f247b8786b}{D\+R\+A\+W\+UP}}
+ \}
+\begin{DoxyCompactList}\small\item\em Mouse event enumeration for the actual state. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{group__mouse_gaabca14b349ba212174a00ffc1d2a2f31}{ev\+\_\+type\+\_\+t}} \{ \newline
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aaf7c118e8e01fba26de9975c8bb8b1a6}{L\+E\+F\+T\+\_\+\+D\+O\+WN}}, 
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31a68d2cceb071f30c4b3ffbefdf0499137}{L\+E\+F\+T\+\_\+\+UP}}, 
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aa5f8da60a088071fe87d5d31be4842ec}{R\+I\+G\+H\+T\+\_\+\+D\+O\+WN}}, 
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aab50c2b56b93fa86d463d070cf63ab55}{R\+I\+G\+H\+T\+\_\+\+UP}}, 
+\newline
+\mbox{\hyperlink{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aef2863a469df3ea6871d640e3669a2f2}{I\+N\+V\+A\+L\+ID}}
+ \}
+\begin{DoxyCompactList}\small\item\em Mouse event enumeration type, relevant for gesture detection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() \mbox{\hyperlink{group__mouse_ga20285aed4b3ef45812cd967532dd09db}{mouse\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em Subscribe and enable Mouse\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() \mbox{\hyperlink{group__mouse_ga3ecf823d80520009ae5e0d76ae40a3c3}{mouse\+\_\+unsubscribe\+\_\+int}} ()
+\begin{DoxyCompactList}\small\item\em Unsubscribe Mouses\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__mouse_gadd0e2314743caac1dbf4e0b1cc6404a7}{build\+\_\+packet\+\_\+struct}} (struct packet $\ast$p, uint8\+\_\+t $\ast$packet)
+\begin{DoxyCompactList}\small\item\em Construct a packet struct with the bits of a 3 byte packet. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_gaa9d6e472ee03d2d391174fe3fe5a4d7f}{mouse\+\_\+enable}} ()
+\begin{DoxyCompactList}\small\item\em Enable the mouse. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_ga4b21609cf20aa6689e73976702f26bce}{mouse\+\_\+disable}} ()
+\begin{DoxyCompactList}\small\item\em Disable the mouse. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_gab70f0bd710edb4b5e9312c3ce2b4777c}{mouse\+\_\+enable\+\_\+data\+\_\+rep}} ()
+\begin{DoxyCompactList}\small\item\em Enable Data Reporting. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_ga8af1c102bf50696674ef14cc377b80cc}{mouse\+\_\+disable\+\_\+data\+\_\+rep}} ()
+\begin{DoxyCompactList}\small\item\em Enable Data Reporting. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_gac2d791ac2ef89e466be15a7d07af293c}{mouse\+\_\+write\+\_\+command}} (uint8\+\_\+t cmd)
+\begin{DoxyCompactList}\small\item\em Write a Mouse Command(reg 0x\+D4) -\/ written as argument of Kbc Write Mouse byte command. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__mouse_ga61a09c55d6ae925765830865c5645422}{mouse\+\_\+check\+\_\+ack}} (uint8\+\_\+t $\ast$ackB)
+\begin{DoxyCompactList}\small\item\em Check the acknowledgment byte sent by the mouse controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions for using the i8042 P\+S/2 Mouse. 
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{group__mouse_gaabca14b349ba212174a00ffc1d2a2f31}\label{group__mouse_gaabca14b349ba212174a00ffc1d2a2f31}} 
+\index{mouse@{mouse}!ev\_type\_t@{ev\_type\_t}}
+\index{ev\_type\_t@{ev\_type\_t}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{ev\_type\_t}{ev\_type\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{group__mouse_gaabca14b349ba212174a00ffc1d2a2f31}{ev\+\_\+type\+\_\+t}}}
+
+
+
+Mouse event enumeration type, relevant for gesture detection. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LEFT\_DOWN@{LEFT\_DOWN}!mouse@{mouse}}\index{mouse@{mouse}!LEFT\_DOWN@{LEFT\_DOWN}}}\mbox{\Hypertarget{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aaf7c118e8e01fba26de9975c8bb8b1a6}\label{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aaf7c118e8e01fba26de9975c8bb8b1a6}} 
+L\+E\+F\+T\+\_\+\+D\+O\+WN&pressed left button \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LEFT\_UP@{LEFT\_UP}!mouse@{mouse}}\index{mouse@{mouse}!LEFT\_UP@{LEFT\_UP}}}\mbox{\Hypertarget{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31a68d2cceb071f30c4b3ffbefdf0499137}\label{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31a68d2cceb071f30c4b3ffbefdf0499137}} 
+L\+E\+F\+T\+\_\+\+UP&left button not pressed \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RIGHT\_DOWN@{RIGHT\_DOWN}!mouse@{mouse}}\index{mouse@{mouse}!RIGHT\_DOWN@{RIGHT\_DOWN}}}\mbox{\Hypertarget{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aa5f8da60a088071fe87d5d31be4842ec}\label{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aa5f8da60a088071fe87d5d31be4842ec}} 
+R\+I\+G\+H\+T\+\_\+\+D\+O\+WN&pressed right button \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RIGHT\_UP@{RIGHT\_UP}!mouse@{mouse}}\index{mouse@{mouse}!RIGHT\_UP@{RIGHT\_UP}}}\mbox{\Hypertarget{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aab50c2b56b93fa86d463d070cf63ab55}\label{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aab50c2b56b93fa86d463d070cf63ab55}} 
+R\+I\+G\+H\+T\+\_\+\+UP&right button not pressed \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INVALID@{INVALID}!mouse@{mouse}}\index{mouse@{mouse}!INVALID@{INVALID}}}\mbox{\Hypertarget{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aef2863a469df3ea6871d640e3669a2f2}\label{group__mouse_ggaabca14b349ba212174a00ffc1d2a2f31aef2863a469df3ea6871d640e3669a2f2}} 
+I\+N\+V\+A\+L\+ID&movement that invalidates the gesture we are trying to detect \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{group__mouse_gaa0aafed44fec19806d8f9ad834be1248}\label{group__mouse_gaa0aafed44fec19806d8f9ad834be1248}} 
+\index{mouse@{mouse}!state\_t@{state\_t}}
+\index{state\_t@{state\_t}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{state\_t}{state\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{group__mouse_gaa0aafed44fec19806d8f9ad834be1248}{state\+\_\+t}}}
+
+
+
+Mouse event enumeration for the actual state. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INIT@{INIT}!mouse@{mouse}}\index{mouse@{mouse}!INIT@{INIT}}}\mbox{\Hypertarget{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}\label{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}} 
+I\+N\+IT&initial state of the movement \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DRAWDOWN@{DRAWDOWN}!mouse@{mouse}}\index{mouse@{mouse}!DRAWDOWN@{DRAWDOWN}}}\mbox{\Hypertarget{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a32baa7d1ad095c8e2b1534d3ffd9501f}\label{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a32baa7d1ad095c8e2b1534d3ffd9501f}} 
+D\+R\+A\+W\+D\+O\+WN&drawing line down \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VERTEX@{VERTEX}!mouse@{mouse}}\index{mouse@{mouse}!VERTEX@{VERTEX}}}\mbox{\Hypertarget{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a2e4d5495bd9d476f78962cebe074ebbd}\label{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248a2e4d5495bd9d476f78962cebe074ebbd}} 
+V\+E\+R\+T\+EX&vertex of the shape \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DRAWUP@{DRAWUP}!mouse@{mouse}}\index{mouse@{mouse}!DRAWUP@{DRAWUP}}}\mbox{\Hypertarget{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248ab6a2858648b154fcc397d4f247b8786b}\label{group__mouse_ggaa0aafed44fec19806d8f9ad834be1248ab6a2858648b154fcc397d4f247b8786b}} 
+D\+R\+A\+W\+UP&drawing line up \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__mouse_gadd0e2314743caac1dbf4e0b1cc6404a7}\label{group__mouse_gadd0e2314743caac1dbf4e0b1cc6404a7}} 
+\index{mouse@{mouse}!build\_packet\_struct@{build\_packet\_struct}}
+\index{build\_packet\_struct@{build\_packet\_struct}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{build\_packet\_struct()}{build\_packet\_struct()}}
+{\footnotesize\ttfamily void build\+\_\+packet\+\_\+struct (\begin{DoxyParamCaption}\item[{struct packet $\ast$}]{p,  }\item[{uint8\+\_\+t $\ast$}]{packet }\end{DoxyParamCaption})}
+
+
+
+Construct a packet struct with the bits of a 3 byte packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & address of memory to be initialized with the packet struct \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{group__mouse_ga61a09c55d6ae925765830865c5645422}\label{group__mouse_ga61a09c55d6ae925765830865c5645422}} 
+\index{mouse@{mouse}!mouse\_check\_ack@{mouse\_check\_ack}}
+\index{mouse\_check\_ack@{mouse\_check\_ack}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{mouse\_check\_ack()}{mouse\_check\_ack()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} mouse\+\_\+check\+\_\+ack (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{ackB }\end{DoxyParamCaption})}
+
+
+
+Check the acknowledgment byte sent by the mouse controller. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{group__mouse_ga4b21609cf20aa6689e73976702f26bce}\label{group__mouse_ga4b21609cf20aa6689e73976702f26bce}} 
+\index{mouse@{mouse}!mouse\_disable@{mouse\_disable}}
+\index{mouse\_disable@{mouse\_disable}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{mouse\_disable()}{mouse\_disable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} mouse\+\_\+disable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Disable the mouse. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__mouse_ga8af1c102bf50696674ef14cc377b80cc}\label{group__mouse_ga8af1c102bf50696674ef14cc377b80cc}} 
+\index{mouse@{mouse}!mouse\_disable\_data\_rep@{mouse\_disable\_data\_rep}}
+\index{mouse\_disable\_data\_rep@{mouse\_disable\_data\_rep}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{mouse\_disable\_data\_rep()}{mouse\_disable\_data\_rep()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} mouse\+\_\+disable\+\_\+data\+\_\+rep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Enable Data Reporting. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{group__mouse_gaa9d6e472ee03d2d391174fe3fe5a4d7f}\label{group__mouse_gaa9d6e472ee03d2d391174fe3fe5a4d7f}} 
+\index{mouse@{mouse}!mouse\_enable@{mouse\_enable}}
+\index{mouse\_enable@{mouse\_enable}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{mouse\_enable()}{mouse\_enable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} mouse\+\_\+enable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Enable the mouse. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__mouse_gab70f0bd710edb4b5e9312c3ce2b4777c}\label{group__mouse_gab70f0bd710edb4b5e9312c3ce2b4777c}} 
+\index{mouse@{mouse}!mouse\_enable\_data\_rep@{mouse\_enable\_data\_rep}}
+\index{mouse\_enable\_data\_rep@{mouse\_enable\_data\_rep}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{mouse\_enable\_data\_rep()}{mouse\_enable\_data\_rep()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} mouse\+\_\+enable\+\_\+data\+\_\+rep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Enable Data Reporting. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{group__mouse_ga20285aed4b3ef45812cd967532dd09db}\label{group__mouse_ga20285aed4b3ef45812cd967532dd09db}} 
+\index{mouse@{mouse}!mouse\_subscribe\_int@{mouse\_subscribe\_int}}
+\index{mouse\_subscribe\_int@{mouse\_subscribe\_int}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{mouse\_subscribe\_int()}{mouse\_subscribe\_int()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() mouse\+\_\+subscribe\+\_\+int (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{bit\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+Subscribe and enable Mouse\textquotesingle{}s interrupts. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bit\+\_\+no} & address of memory to be initialized with the bit number to be set in the mask returned upon an interrupt \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{group__mouse_ga3ecf823d80520009ae5e0d76ae40a3c3}\label{group__mouse_ga3ecf823d80520009ae5e0d76ae40a3c3}} 
+\index{mouse@{mouse}!mouse\_unsubscribe\_int@{mouse\_unsubscribe\_int}}
+\index{mouse\_unsubscribe\_int@{mouse\_unsubscribe\_int}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{mouse\_unsubscribe\_int()}{mouse\_unsubscribe\_int()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() mouse\+\_\+unsubscribe\+\_\+int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Unsubscribe Mouses\textquotesingle{}s interrupts. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{group__mouse_gac2d791ac2ef89e466be15a7d07af293c}\label{group__mouse_gac2d791ac2ef89e466be15a7d07af293c}} 
+\index{mouse@{mouse}!mouse\_write\_command@{mouse\_write\_command}}
+\index{mouse\_write\_command@{mouse\_write\_command}!mouse@{mouse}}
+\doxysubsubsection{\texorpdfstring{mouse\_write\_command()}{mouse\_write\_command()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} mouse\+\_\+write\+\_\+command (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{cmd }\end{DoxyParamCaption})}
+
+
+
+Write a Mouse Command(reg 0x\+D4) -\/ written as argument of Kbc Write Mouse byte command. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 upon success and non-\/zero otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 9
+Here is the caller graph for this function\+:
+% FIG 10

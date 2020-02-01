@@ -1,0 +1,39 @@
+#pragma once
+#include <lcom/lcf.h>
+#include <sentences.h>
+
+int vbe_get_info_mode(uint16_t mode, vbe_mode_info_t * vmi_p);
+
+int graphics_mode(uint16_t mode);
+
+int change_pixel_color (uint16_t x, uint16_t y, uint32_t color,void* buff);
+
+unsigned get_bits_per_pixel();
+
+unsigned get_hres();
+
+unsigned get_vres();
+
+vbe_mode_info_t get_vbe_info_t();
+
+mmap_t * get_mem_map();
+
+int draw_xpm_image(uint8_t *sprite, uint16_t x, uint16_t y, xpm_image_t img, void * buff);
+
+int draw_sentence(letter *sentence, uint16_t x, uint16_t y, void * buff,uint8_t errors, int correct);
+
+int draw_name(letter *sentence, uint16_t x, uint16_t y, void * buff, unsigned int n);
+
+int draw_input_sentence(letter *input,letter *sentence, uint16_t x, uint16_t y, void * buff,uint8_t errors, int correct);
+
+int draw_letter(uint8_t *sprite, uint16_t x, uint16_t y, xpm_image_t img, void * buff, void * color);
+
+void draw_pixel (uint16_t x, uint16_t y, const void  *color, void * buff);
+
+char* get_double_buffer();
+
+void* get_first_buffer();
+
+void page_flipping();
+
+void free_double_buffer();

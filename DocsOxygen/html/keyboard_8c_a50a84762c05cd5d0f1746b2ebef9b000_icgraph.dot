@@ -1,0 +1,36 @@
+digraph "int"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="int",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="draw_input_sentence",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8h.html#a8fa2f951c438f58389b8888597a4d523",tooltip="Draws the input from the user on the screen at specified coordinates."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="classicModeDraw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#ab37d0fced05f5dfbf1dc8172029c73ae",tooltip="Draw game components for Classic Mode on screen."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="classic_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a6d636c5d37c022c2b68db53b8a4a6b87",tooltip="Draw classic mode sentence,input and handle classic game mode state."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="gameStateHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a8df558a332b33b1b0be4f15a02438531",tooltip="Load letters,sentences and xpm's, set graphics mode and start game."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="gameStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#aaaff4e132cd3b41673859b2b4ea1159f",tooltip="Load letters,sentences and xpm's, set graphics mode and start game."];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$proj_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node2 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="timedModeDraw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#aa7eb18acc842b698793554bd3d23d3eb",tooltip="Draw game components for Timed Mode on screen."];
+  Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="timed_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a98389bdfd88eb39ac7e97b7746a86887",tooltip="Draw timed mode sentence,input and handle timed game mode state."];
+  Node9 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="sentenceCompleted",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a428244ddf0eb2af89871387d2b7b8abd",tooltip="Calculates statistics to send to resultScreen() to display."];
+  Node10 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="sentenceCompletedTimed",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#af509280765b24e1f64cf2b348fdb4395",tooltip="Calculates statistics to send to resultScreenTimed() to display."];
+  Node11 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="vbe_get_info_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8h.html#afd41fed726d4b51c536ef35d3c40776e",tooltip="Return VBE Mode Information."];
+  Node12 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="graphics_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8h.html#a35c677977685f08e46a8dc940a1c4e45",tooltip="Sets the Graphics Mode."];
+  Node13 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

@@ -1,0 +1,19 @@
+digraph "draw_name"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="draw_name",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Draws the name of a player (username)"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="highScoresScreen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a7a6196f9ae7dc4d6ac8cc52a16719141",tooltip="Show a screen with the highest scores (top 5)"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="gameStateHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a8df558a332b33b1b0be4f15a02438531",tooltip="Load letters,sentences and xpm's, set graphics mode and start game."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="gameStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#aaaff4e132cd3b41673859b2b4ea1159f",tooltip="Load letters,sentences and xpm's, set graphics mode and start game."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$proj_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="save_score_screen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a26b9c84c114e6513e181679f76a97854",tooltip="Shows a screen with a \"buffer\" where the user should enter a username to save the score."];
+  Node6 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

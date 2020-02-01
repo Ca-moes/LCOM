@@ -1,0 +1,42 @@
+\hypertarget{keyboard_8h}{}\doxysection{C\+:/\+Data/\+Andre/\+Work/\+M\+I\+E\+IC -\/ A\+NO 2 -\/ S\+E\+M\+E\+S\+T\+RE 1/\+L\+C\+O\+M/proj/src/keyboard.h File Reference}
+\label{keyboard_8h}\index{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/keyboard.h@{C:/Data/Andre/Work/MIEIC -\/ ANO 2 -\/ SEMESTRE 1/LCOM/proj/src/keyboard.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$i8254.\+h$>$}\newline
+Include dependency graph for keyboard.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}{kbc\+\_\+state\+\_\+field}} \{ \newline
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daaf6914338a7d87f35c09ed6b0c82d4533}{ksf\+\_\+all}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daab2b73306c6e469bd30896028aa455f36}{ksf\+\_\+parity}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa01c8422da1e5cc1a78728d8ccba7e128}{ksf\+\_\+timeout}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa1d10dcda079b4de5b5e9b71646e57c11}{ksf\+\_\+aux}}, 
+\newline
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa16a144650b8ee4a054ccb773174619d6}{ksf\+\_\+inh}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daaa2263d3b65946d0b0e853bf0d1dfa896}{ksf\+\_\+a2}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa29c178ed5d927cca63b4224773d353e3}{ksf\+\_\+sys}}, 
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daa2f8382ab98138bd082ca9b2ac746e583}{ksf\+\_\+ibf}}, 
+\newline
+\mbox{\hyperlink{group__keyboard_ggab354fabe63c2eca6e1b5c3f918b809daac5f37126233b1eff55b4658bf7d9a704}{ksf\+\_\+obf}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumerated type for identifying the K\+BC Status Register state fields. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() \mbox{\hyperlink{group__keyboard_ga02884ada1971dbade466081413210b18}{kbc\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em Subscribes and enables K\+BC\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}}() \mbox{\hyperlink{group__keyboard_ga1102381e6a9e876e05dd78c58ccb5673}{kbc\+\_\+unsubscribe\+\_\+int}} ()
+\begin{DoxyCompactList}\small\item\em Unsubscribes K\+BC\textquotesingle{}s interrupts. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{group__keyboard_ga9453fe291021234b7acdb48b9153e042}{kbc\+\_\+read\+\_\+state\+\_\+field}} (const uint8\+\_\+t \mbox{\hyperlink{mouse_8c_a499e7824037af983d0524a98081e7f0b}{state}}, enum \mbox{\hyperlink{group__keyboard_gab354fabe63c2eca6e1b5c3f918b809da}{kbc\+\_\+state\+\_\+field}} field)
+\begin{DoxyCompactList}\small\item\em reads the specified field of the status register \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__keyboard_ga075c2cba7a8cbeaa3c3b22660ad81460}{kbc\+\_\+read\+\_\+command\+\_\+return}} (uint8\+\_\+t $\ast$cmd)
+\begin{DoxyCompactList}\small\item\em Read Command from the Output Buffer -\/ in Lab3 reads return value from a K\+BC command. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__keyboard_gae9d0239cc864fd704805e47ccda7d55d}{kbc\+\_\+write\+\_\+command\+\_\+args}} (uint8\+\_\+t cmd\+Arg)
+\begin{DoxyCompactList}\small\item\em Write Command Arguments to register 0x60, after checking the I\+BF flag. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mouse_8c_a1d0208a239fb7bd255a9d8a5dab402d1}{int}} \mbox{\hyperlink{group__keyboard_gafef77d0b7c2ee5a579ddb0393ad3597c}{kbc\+\_\+issue\+\_\+command}} (uint8\+\_\+t $\ast$\mbox{\hyperlink{mouse_8c_a499e7824037af983d0524a98081e7f0b}{state}}, uint8\+\_\+t cmd)
+\begin{DoxyCompactList}\small\item\em Issues K\+BC\textquotesingle{}s read and write commands, after checking the I\+BF flag. \end{DoxyCompactList}\end{DoxyCompactItemize}

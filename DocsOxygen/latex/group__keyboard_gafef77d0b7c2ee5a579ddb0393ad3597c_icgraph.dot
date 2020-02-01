@@ -1,0 +1,21 @@
+digraph "kbc_issue_command"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="kbc_issue_command",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Issues KBC's read and write commands, after checking the IBF flag."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="mouse_write_command",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__mouse.html#gac2d791ac2ef89e466be15a7d07af293c",tooltip="Write a Mouse Command(reg 0xD4) - written as argument of Kbc Write Mouse byte command."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="mouse_disable_data_rep",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__mouse.html#ga8af1c102bf50696674ef14cc377b80cc",tooltip="Enable Data Reporting."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="gameStateHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#a8df558a332b33b1b0be4f15a02438531",tooltip="Load letters,sentences and xpm's, set graphics mode and start game."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="gameStart",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8h.html#aaaff4e132cd3b41673859b2b4ea1159f",tooltip="Load letters,sentences and xpm's, set graphics mode and start game."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$proj_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node2 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="mouse_enable_data_rep",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__mouse.html#gab70f0bd710edb4b5e9312c3ce2b4777c",tooltip="Enable Data Reporting."];
+  Node7 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

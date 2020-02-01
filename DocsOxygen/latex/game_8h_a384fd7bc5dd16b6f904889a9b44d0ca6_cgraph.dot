@@ -1,0 +1,44 @@
+digraph "menu_mode"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="menu_mode",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Draw menu components, buttons and mouse and go to game modes if buttons are pressed."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="drawMainMenu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#a06326bc3ce2fdfe90cb6eb3172159fd0",tooltip="Draw Menu's components on screen depending on the position/pressed buttons of the mouse."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="draw_date",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#a92264a80f56133f509aabd1b25fd9b7d",tooltip="Draw the date."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="draw_xpm_image",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a0cf63b55241db8e042bd55d93901566d",tooltip="Draws an XPM on the screen at specified coordinates."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="draw_pixel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a82c7d64d78290967cdb6c47aefe16b78",tooltip="Draw a pixel on the screen."];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="get_double_buffer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a55c5883685bf347fccf094f10aa399e8",tooltip="Get double buffer."];
+  Node3 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="itoa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sentences_8c.html#a7e23ebebd89544f52813761ecd3aba09",tooltip="Implement itoa() from C - convert a value in a specific base to an array of chars."];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="reverse",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sentences_8c.html#ac8a933084935cebe42203f95291c8834",tooltip="Reverse buffer[i..j] - auxiliar function for itoa()"];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="swap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sentences_8c.html#a5caa2956a259c15d67de63fcddff3e57",tooltip="Swap two chars."];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="get_hres",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a10e416c59639a7f6b6f9f8f020fdb8d0",tooltip="Get horizontal resolution."];
+  Node2 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="get_vres",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a1c1b9a9c811575beb06fc355241ef17d",tooltip="Get vertical resolution."];
+  Node2 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="page_flipping",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$vc_8c.html#a243163f132ab9dce6b21d946df703fd4",tooltip="Perform page flipping - copy contents of the double buffer to the first buffer."];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="rtc_read_date",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#ae2d4030307cef7e5e87606f7e09be07b",tooltip="Subscribes interrupts to the RTC."];
+  Node13 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="bcd",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#abbc06d30fa1fc5a86e081a8adff67312",tooltip="Checks if it is in bcd."];
+  Node13 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="bcd_to_binary",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#a372efb1351dcf0468894632441b12e9a",tooltip="Converts num to binary if and only if it is in bcd."];
+  Node13 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="isUpdating",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#a2612ab4da31e866317aedbbc8cdadbc4",tooltip="Checks if rtc is updating."];
+  Node13 -> Node17 [color="midnightblue",fontsize="10",style="solid"];
+  Node17 [label="rtc_read",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#a8e562473fe7c6e414b655b0edee66138",tooltip="Reads from RTC_DATA_REG what is in port."];
+}

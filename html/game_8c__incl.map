@@ -1,0 +1,14 @@
+<map id="src/game.c" name="src/game.c">
+<area shape="rect" id="node3" href="$game_8h.html" title="game.h" alt="" coords="547,155,613,181"/>
+<area shape="rect" id="node50" href="$highscores_8h.html" title="highscores.h" alt="" coords="244,80,340,107"/>
+<area shape="rect" id="node9" href="$keyboard_8h.html" title="keyboard.h" alt="" coords="263,304,350,331"/>
+<area shape="rect" id="node13" href="$rtc_8h.html" title="rtc.h" alt="" coords="407,229,455,256"/>
+<area shape="rect" id="node14" href="$rtc__macros_8h.html" title="rtc_macros.h" alt="" coords="624,304,723,331"/>
+<area shape="rect" id="node15" href="$mouse_8h.html" title="mouse.h" alt="" coords="375,304,447,331"/>
+<area shape="rect" id="node16" href="$vc__macros_8h.html" title="vc_macros.h" alt="" coords="966,304,1063,331"/>
+<area shape="rect" id="node17" href="$i8042_8h.html" title="i8042.h" alt="" coords="1088,304,1152,331"/>
+<area shape="rect" id="node18" href="$vc_8h.html" title="vc.h" alt="" coords="479,229,526,256"/>
+<area shape="rect" id="node12" href="$i8254_8h.html" title="i8254.h" alt="" coords="195,379,259,405"/>
+<area shape="rect" id="node19" href="$sentences_8h.html" title="sentences.h" alt="" coords="747,304,840,331"/>
+<area shape="rect" id="node20" href="$xpm_8h.html" title="xpm.h" alt="" coords="3065,379,3124,405"/>
+</map>

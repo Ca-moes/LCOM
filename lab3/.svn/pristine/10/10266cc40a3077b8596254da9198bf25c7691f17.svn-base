@@ -1,0 +1,29 @@
+#include <lcom/lcf.h>
+#include <keyboard.h>
+#include <i8042.h>
+
+#include <stdint.h>
+
+static int HOOK_ID;
+
+int(timer_subscribe_int)(uint8_t *bit_no) {
+  *bit_no = HOOK_ID;
+
+  //subscribe a notification on every interrupt in the IRQ1 (interrupt request line) of the KBC
+
+  if(sys_irqsetpolicy(KBC_IRQ, IRQ_REENABLE|IRQ_EXCLUSIVE, &HOOK_ID) == OK){
+    return 0;
+  }
+  else
+    return 1;
+}
+
+int(timer_unsubscribe_int)() {
+  //unsubscribe a previous subscription of a specific interrupt notification (the one associated with the HOOK_ID)
+  if(sys_irqrmpolicy(&HOOK_ID) == OK){
+    return 0;
+  }
+  else
+    return 1;
+}
+

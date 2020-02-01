@@ -1,0 +1,204 @@
+#pragma once
+#include <lcom/lcf.h>
+
+#include <time.h> 
+#include <math.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "keyboard.h"
+#include "rtc.h"
+#include "rtc_macros.h"
+#include "mouse.h"
+#include "vc_macros.h"
+#include "i8042.h"
+#include "vc.h"
+
+typedef struct highScore{
+    int speed;
+    realTime date;
+  } highScore ;
+
+typedef struct Game{
+
+  //for graphics - sprites and xpm
+
+  uint8_t * road_sprite;
+  uint8_t * car_sprite;
+  uint8_t * field_sprite;
+  uint8_t * error_sprite;
+  uint8_t * menu_sprite;
+  uint8_t * button1_sprite;
+  uint8_t * button2_sprite;
+  uint8_t * button1Pressed_sprite;
+  uint8_t * button2Pressed_sprite;
+  uint8_t * mouse_sprite;
+  uint8_t * results_sprite;
+  uint8_t * menu_button_sprite;
+  uint8_t * menu_button_pressed_sprite; 
+  uint8_t * redlight_sprite;
+  uint8_t * yellowlight_sprite;
+  uint8_t * greenlight_sprite;
+  uint8_t * highscores_sprite;
+  uint8_t * highscores_button_pressed_sprite;
+  uint8_t * highscores_button_unpressed_sprite;
+
+  xpm_image_t carImg;
+  xpm_image_t roadImg;
+  xpm_image_t fieldImg;
+  xpm_image_t errorImg;
+  xpm_image_t menuImg;
+  xpm_image_t button1Img;
+  xpm_image_t button2Img;
+  xpm_image_t button1PressedImg;
+  xpm_image_t button2PressedImg;
+  xpm_image_t mouseImg;
+  xpm_image_t resultsImg;
+  xpm_image_t menu_buttonImg;
+  xpm_image_t menu_button_pressedImg;
+  xpm_image_t redlightImg;
+  xpm_image_t yellowlightImg;
+  xpm_image_t greenlightImg;
+  xpm_image_t highscoresImg;
+  xpm_image_t highscores_button_pressedImg;
+  xpm_image_t highscores_button_unpressedImg;
+
+
+  unsigned int moveCar; //marca a posição onde desenha o carro
+  float oneMove; //define tamanho de um movimento do carro
+
+  unsigned int nLet;
+  unsigned int numberOfLetters;
+
+  bool drawGame;
+  bool completed;
+
+  bool errorState;
+  uint8_t errors;
+  
+  bool capital;
+  int CapsMakeCount;
+
+  realTime * date;
+
+  /*
+  0 - make code esc
+  1 - make code ponto
+  2 - make/break caps e shift
+  3 - breaks do que nao for caps ou shift
+  4 - make de letras ou backspace
+  5 - errorState
+  */
+  int gameState;
+
+  unsigned int NUMBEROFSCORES;
+
+  highScore* highscores; 
+  
+} Game;
+
+Game * game;
+
+/**
+ *@brief Load letters,sentences and xpm's, set graphics mode and start game
+ * 
+ * @return 0 on success and 1 otherwise
+ */
+int gameStart();
+
+/**
+ *@brief  Load letters,sentences and xpm's, set graphics mode and start game
+ * 
+ * @return Return 0 upon success and non-zero otherwise
+ */
+int gameStateHandler();
+
+/**
+ * @brief Draw Menu's components on screen depending on the position/pressed buttons of the mouse
+ * 
+ * @param mouseX,mouseY coordinates of the mouse cursor
+ */
+void drawMainMenu(int mouseX, int mouseY);
+
+/**
+ * @brief Draw the initial game components for the Classic Mode on the screen.
+ * 
+ * Generate a random sentence and allocate space for input. Define how much the car moves on each correct input based on the size of the generated sentence.
+ * 
+ * @param sentence The sentence that the user must write
+ * @param input The letters typed by the user
+ */
+void classicModeStart(letter ** sentence, letter ** input);
+
+/**
+ * @brief Draw the initial game components for the Timed Mode on the screen.
+ * 
+ * Generate a random sentence and allocate space for input. Define how much the car moves on each correct input based on the size of the generated sentence.
+ * 
+ * @param sentence The sentence that the user must write
+ * @param input The letters typed by the user
+ */
+void timedModeStart(letter ** sentence, letter ** input);
+
+/**
+ * @brief Perform game actions according to the game State
+ * 
+ * @param sentence The sentence that the user must write
+ * @param input The letters typed by the user
+ * @param mode To be changed to 'm' if Esc is pressed to go back to the main menu
+ * @param start To be changed to true if Esc is pressed to go back to the main menu and perform it's initial actions
+ * @param i The index of the last valid letter typed
+ */
+void classicModeKbc(letter ** sentence, letter ** input, char * mode, bool * start, unsigned int * i);
+
+void classicModeDraw(letter * sentence, letter * input, unsigned int i);
+
+void timedModeDraw(letter * sentence, letter * input, unsigned int i);
+
+/**
+ *@brief  Displays a 3 2 1 counter before the start of the game mode
+*/
+void counterStart();
+
+/**
+ * @brief Draws the results layout
+ */
+void resultScreen(int timeSpentSec,int timeSpentCentSec,int speed,int mouseX, int mouseY,char mode);
+/**/
+
+/**
+ * @brief Calculates statistics to send to resultScreen() to display
+*/
+void sentenceCompleted(int * timeSpentSec,int * timeSpentCentSec,int * speed);
+
+/**
+ * @brief Calculates statistics to send to resultScreenTimed() to display
+*/
+void sentenceCompletedTimed(int * timeSpentSec,int * timeSpentCentSec,int * speed);
+
+/**
+ * @brief  Check the scancode read from the keyboard to determine next action to take
+*/
+int checkScanCode(uint8_t * scancode);
+
+/**
+ * @brief  Checks if the input of a letter by the user corresponds to the one at index i in the sentence
+*/
+int validateLetter(letter * let, uint8_t * scancode, letter ** input, unsigned i);
+
+/**
+ * @brief  Generate a random sentence from a array of sentences
+ * 
+ * @param sentence the sentence generated and updated inside the function
+*/
+void generateRandomSentence(letter ** sentence);
+
+/**
+ * @brief  Draw the time elapsed since the start of the timed mode
+*/
+void drawTimeElapsed();
+
+void draw_date();
+
+void highScoresScreen(int mouseX, int mouseY);
