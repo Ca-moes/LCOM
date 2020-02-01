@@ -1,2 +1,19 @@
-# LCOM
- Laboratório de Computadores
+# FEUP - LCOM 
+
+## Laboratório de Computadores
+
+
+[***Course Page***](https://sigarra.up.pt/feup/pt/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=436435)
+
+https://web.fe.up.pt/~pfs/aulas/lcom2019/
+
+Este repositório contém:
+- Projeto
+- labs
+- Slides
+
+## Grades
+
+|lab0| lab1 | lab2 | lab3 |lab4|lab5|proj|Teste|Final
+|---|---|---|---|---|---|---|---|---|
+|    |    |    |    |    |    |    |12    |    |
