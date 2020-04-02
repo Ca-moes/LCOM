@@ -16,4 +16,4 @@ Este repositório contém:
 
 |lab0| lab1 | lab2 | lab3 |lab4|lab5|proj|Teste|Final
 |---|---|---|---|---|---|---|---|---|
-|    |    |    |    |    |    |    |12    |    |
+|    |    | 88 | 75 | 20 | 78 | 17.46 | 12 | 16.26 |
