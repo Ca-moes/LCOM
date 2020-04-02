@@ -8,7 +8,7 @@
 https://web.fe.up.pt/~pfs/aulas/lcom2019/
 
 Este repositório contém:
-- Projeto - made with @dianaamfr
+- Projeto - made with [@dianaamfr](https://github.com/dianaamfr)
 - labs
 - Slides
 
